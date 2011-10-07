@@ -33,16 +33,16 @@ public class TestLinkRunListenerTest {
             if (testCase.getAttribute("external_id") != null) {
                 testCasesWithExternalId++;
             }
-            assertFalse(hasValue(testCase, "tester"));
-            assertFalse(hasValue(testCase, "timestamp"));
-            assertFalse(hasValue(testCase, "result"));
-            assertFalse(hasValue(testCase, "notes"));
+            hasValue(testCase, "tester");
+            hasValue(testCase, "timestamp");
+            hasValue(testCase, "result");
+            hasValue(testCase, "notes");
         }
         assertEquals(4, testCasesWithExternalId);
     }
 
-    boolean hasValue(final Xpp3Dom testCase, final String name) {
-        return testCase.getChild(name).getValue().isEmpty();
+    void hasValue(final Xpp3Dom testCase, final String name) {
+        assertFalse(testCase.getChild(name).getValue().isEmpty());
     }
 
     @Test

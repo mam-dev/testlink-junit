@@ -52,7 +52,7 @@ public class TestLinkRunListener extends RunListener {
      * @param description
      * @return
      */
-    boolean addNewTestCase(Description description) {
+    void addNewTestCase(Description description) {
         final TestLink testLink = description.getAnnotation(TestLink.class);
         if (testLink != null) {
             currentTestCase = new Xpp3Dom("testcase");
@@ -69,9 +69,8 @@ public class TestLinkRunListener extends RunListener {
                 throw new RuntimeException("Must set either internalId or externalId on "
                         + description.getDisplayName());
             }
-            return true;
         } else {
-            return false;
+            currentTestCase = null;
         }
     }
 
@@ -79,11 +78,19 @@ public class TestLinkRunListener extends RunListener {
     @Override
     public void testIgnored(Description description) throws Exception {
         super.testIgnored(description);
-        if (addNewTestCase(description)) {
-            addResult(TestState.b);
+        addNewTestCase(description);
+        if (isInTestLinkMethod()) {
+            currentTestCase.addChild(createResult(TestState.b));
             final String ignoreValue = description.getAnnotation(Ignore.class).value();
-            addNotes(String.format("'%s' BLOCKED because '%s'", description.getDisplayName(), ignoreValue));
+            currentTestCase.addChild(createNotes(String.format("'%s' BLOCKED because '%s'", description.getDisplayName(), ignoreValue)));
         }
+    }
+
+    /**
+     * @return
+     */
+    boolean isInTestLinkMethod() {
+        return currentTestCase != null;
     }
 
     /**
@@ -111,10 +118,9 @@ public class TestLinkRunListener extends RunListener {
      * @param notesValue
      * @return 
      */
-    Xpp3Dom addNotes(final String notesValue) {
+    Xpp3Dom createNotes(final String notesValue) {
         final Xpp3Dom notes = new Xpp3Dom("notes");
         notes.setValue(notesValue);
-        currentTestCase.addChild(notes);
         return notes;
     }
 
@@ -122,10 +128,9 @@ public class TestLinkRunListener extends RunListener {
      * @param resultValue
      * @return 
      */
-    Xpp3Dom addResult(final TestState resultValue) {
+    Xpp3Dom createResult(final TestState resultValue) {
         final Xpp3Dom result = new Xpp3Dom("result");
         result.setValue(resultValue.toString());
-        currentTestCase.addChild(result);
         return result;
     }
 
@@ -133,15 +138,14 @@ public class TestLinkRunListener extends RunListener {
     @Override
     public void testFailure(Failure failure) throws Exception {
         super.testFailure(failure);
-        final TestLink testLink = failure.getDescription().getAnnotation(TestLink.class);
         currentFailure = failure;
-        if (testLink != null) {
-            addResult(TestState.f);
+        if (isInTestLinkMethod()) {
+            currentTestCase.addChild(createResult(TestState.f));
             final String message = failure.getMessage();
             if (message != null) {
-                addNotes(String.format("'%s' failed because '%s'", failure.getTestHeader(), message));
+                currentTestCase.addChild(createNotes(String.format("'%s' failed because '%s'", failure.getTestHeader(), message)));
             } else {
-                addNotes(String.format("'%s' failed because '%s'", failure.getTestHeader(), failure.getTrace()));
+                currentTestCase.addChild(createNotes(String.format("'%s' failed because '%s'", failure.getTestHeader(), failure.getTrace())));
             }
         }
     }
@@ -154,9 +158,8 @@ public class TestLinkRunListener extends RunListener {
         final Ignore ignore = description.getAnnotation(Ignore.class);
         if (testLink != null) {
             if (ignore == null && currentFailure == null) {
-                addResult(TestState.p);
-                addNotes(String.format("'%s' ran successfully", description.getDisplayName()));
-                currentFailure = null;
+                currentTestCase.addChild(createResult(TestState.p));
+                currentTestCase.addChild(createNotes(String.format("'%s' ran successfully", description.getDisplayName())));
             }
         }
     }
