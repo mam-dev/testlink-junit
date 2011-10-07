@@ -1,6 +1,9 @@
 package com.github.oneandone.testlinkjunit.tljunit;
 
 import java.io.PrintStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.junit.Ignore;
@@ -11,13 +14,21 @@ import org.junit.runner.notification.RunListener;
 
 public class TestLinkRunListener extends RunListener {
 
-    private final PrintStream out;
+    static enum TestState {
+        p,
+        b,
+        f;
+    }
 
-    private Failure currentFailure = null;
+    private final PrintStream out;
 
     private final Xpp3Dom results;
 
-    private Xpp3Dom currentTestCase;
+    private final String userName;
+
+    private Xpp3Dom currentTestCase = null;
+
+    private Failure currentFailure = null;
 
     public TestLinkRunListener() {
         this(System.out);
@@ -26,6 +37,7 @@ public class TestLinkRunListener extends RunListener {
     public TestLinkRunListener(final PrintStream out) {
         this.out = out;
         results = new Xpp3Dom("results");
+        userName = System.getProperty("user.name", "UNKNOWN");
     }
 
     /** {@inheritDoc} */
@@ -33,17 +45,19 @@ public class TestLinkRunListener extends RunListener {
     public void testStarted(Description description) throws Exception {
         super.testStarted(description);
         currentFailure = null;
-        startNewTestCase(description);
+        addNewTestCase(description);
     }
 
     /**
      * @param description
-     * @return 
+     * @return
      */
-    boolean startNewTestCase(Description description) {
+    boolean addNewTestCase(Description description) {
         final TestLink testLink = description.getAnnotation(TestLink.class);
         if (testLink != null) {
             currentTestCase = new Xpp3Dom("testcase");
+            currentTestCase.addChild(createTester(userName));
+            currentTestCase.addChild(createTimeStamp(new Date()));
             results.addChild(currentTestCase);
             final String externalId = testLink.externalId();
             final long internalId = testLink.internalId();
@@ -65,29 +79,54 @@ public class TestLinkRunListener extends RunListener {
     @Override
     public void testIgnored(Description description) throws Exception {
         super.testIgnored(description);
-        if (startNewTestCase(description)) {
-            addResult("b");
+        if (addNewTestCase(description)) {
+            addResult(TestState.b);
             final String ignoreValue = description.getAnnotation(Ignore.class).value();
-            addNotes(String.format("'%s' blocked because '%s'", description.getDisplayName(), ignoreValue));
+            addNotes(String.format("'%s' BLOCKED because '%s'", description.getDisplayName(), ignoreValue));
         }
     }
 
     /**
-     * @param notesValue
+     * @param userName
+     * @return 
      */
-    void addNotes(final String notesValue) {
+    Xpp3Dom createTester(final String userName) {
+        final Xpp3Dom tester = new Xpp3Dom("tester");
+        tester.setValue(userName);
+        return tester;
+    }
+
+    /**
+     * @param date
+     * @return
+     */
+    Xpp3Dom createTimeStamp(final Date date) {
+        final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
+        final Xpp3Dom timestamp = new Xpp3Dom("timestamp");
+        timestamp.setValue(dateFormat.format(date));
+        return timestamp;
+    }
+
+    /**
+     * @param notesValue
+     * @return 
+     */
+    Xpp3Dom addNotes(final String notesValue) {
         final Xpp3Dom notes = new Xpp3Dom("notes");
-        currentTestCase.addChild(notes);
         notes.setValue(notesValue);
+        currentTestCase.addChild(notes);
+        return notes;
     }
 
     /**
      * @param resultValue
+     * @return 
      */
-    void addResult(final String resultValue) {
+    Xpp3Dom addResult(final TestState resultValue) {
         final Xpp3Dom result = new Xpp3Dom("result");
+        result.setValue(resultValue.toString());
         currentTestCase.addChild(result);
-        result.setValue(resultValue);
+        return result;
     }
 
     /** {@inheritDoc} */
@@ -97,8 +136,13 @@ public class TestLinkRunListener extends RunListener {
         final TestLink testLink = failure.getDescription().getAnnotation(TestLink.class);
         currentFailure = failure;
         if (testLink != null) {
-            addResult("f");
-            addNotes(String.format("'%s' failed because '%s'", failure.getDescription().getDisplayName(), failure.getMessage()));
+            addResult(TestState.f);
+            final String message = failure.getMessage();
+            if (message != null) {
+                addNotes(String.format("'%s' failed because '%s'", failure.getTestHeader(), message));
+            } else {
+                addNotes(String.format("'%s' failed because '%s'", failure.getTestHeader(), failure.getTrace()));
+            }
         }
     }
 
@@ -110,7 +154,7 @@ public class TestLinkRunListener extends RunListener {
         final Ignore ignore = description.getAnnotation(Ignore.class);
         if (testLink != null) {
             if (ignore == null && currentFailure == null) {
-                addResult("p");
+                addResult(TestState.p);
                 addNotes(String.format("'%s' ran successfully", description.getDisplayName()));
                 currentFailure = null;
             }
@@ -128,5 +172,12 @@ public class TestLinkRunListener extends RunListener {
     public void testRunFinished(Result result) throws Exception {
         super.testRunFinished(result);
         out.print(results.toString());
+    }
+
+    /**
+     * @return the results
+     */
+    Xpp3Dom getResults() {
+        return results;
     }
 }

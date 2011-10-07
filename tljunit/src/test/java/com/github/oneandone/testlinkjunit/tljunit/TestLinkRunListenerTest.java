@@ -4,16 +4,52 @@
 
 package com.github.oneandone.testlinkjunit.tljunit;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+
+import java.util.Calendar;
+import java.util.Locale;
+import java.util.TimeZone;
+
+import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.junit.Test;
 import org.junit.runner.JUnitCore;
 
 public class TestLinkRunListenerTest {
 
+    private static final String XML_HEADER = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + System.getProperty("line.separator");
+
+    private TestLinkRunListener listener = new TestLinkRunListener();
+
     @Test
     public void test() {
         final JUnitCore core = new JUnitCore();
-        core.addListener(new TestLinkRunListener());
+        core.addListener(listener);
         core.run(SUTTestLinkRunListener.class);
+        final Xpp3Dom results = listener.getResults();
+        assertEquals(5, results.getChildCount());
+        int testCasesWithExternalId = 0;
+        for (final Xpp3Dom testCase: results.getChildren()) {
+            if (testCase.getAttribute("external_id") != null) {
+                testCasesWithExternalId++;
+            }
+            assertFalse(hasValue(testCase, "tester"));
+            assertFalse(hasValue(testCase, "timestamp"));
+            assertFalse(hasValue(testCase, "result"));
+            assertFalse(hasValue(testCase, "notes"));
+        }
+        assertEquals(4, testCasesWithExternalId);
     }
 
+    boolean hasValue(final Xpp3Dom testCase, final String name) {
+        return testCase.getChild(name).getValue().isEmpty();
+    }
+
+    @Test
+    public void testCreateTimeStamp() {
+        final Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"), Locale.US);
+        calendar.setTimeInMillis(0);
+        Xpp3Dom timeStamp = listener.createTimeStamp(calendar.getTime());
+        assertEquals(XML_HEADER + "<timestamp>1970-01-01 01:00:00</timestamp>", timeStamp.toString());
+    }
 }
