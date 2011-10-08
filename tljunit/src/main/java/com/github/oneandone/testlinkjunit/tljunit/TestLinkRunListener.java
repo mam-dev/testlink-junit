@@ -38,6 +38,7 @@ public class TestLinkRunListener extends RunListener {
     }
 
     static class InTestLinkStrategy implements Strategy {
+
         private final Xpp3Dom results;
 
         private final String userName;
@@ -70,17 +71,18 @@ public class TestLinkRunListener extends RunListener {
             } else if (internalId != 0) {
                 currentTestCase.setAttribute("internal_id", String.valueOf(internalId));
             } else {
-                throw new RuntimeException("Must set either internalId or externalId on "
-                        + description.getDisplayName());
+                throw new IllegalArgumentException("Must set either internalId or externalId on '"
+                        + description.getDisplayName() + "'");
             }
         }
 
         /** {@inheritDoc} */
         @Override
         public void addIgnore(Description description) {
+            addNewTestCase(description);
             currentTestCase.addChild(createResult(TestState.b));
             final String ignoreValue = description.getAnnotation(Ignore.class).value();
-            currentTestCase.addChild(createNotes(String.format("'%s' BLOCKED because '%s'",
+            currentTestCase.addChild(createNotes(String.format("'%s' BLOCKED because '%s'.",
                     description.getDisplayName(), ignoreValue)));
         }
 
@@ -91,10 +93,10 @@ public class TestLinkRunListener extends RunListener {
             currentTestCase.addChild(createResult(TestState.f));
             final String message = failure.getMessage();
             if (message != null) {
-                currentTestCase.addChild(createNotes(String.format("'%s' failed because '%s'", failure.getTestHeader(),
+                currentTestCase.addChild(createNotes(String.format("'%s' FAILED because '%s'.", failure.getTestHeader(),
                         message)));
             } else {
-                currentTestCase.addChild(createNotes(String.format("'%s' failed because '%s'", failure.getTestHeader(),
+                currentTestCase.addChild(createNotes(String.format("'%s' FAILED because '%s'.", failure.getTestHeader(),
                         failure.getTrace())));
             }
         }
@@ -105,7 +107,7 @@ public class TestLinkRunListener extends RunListener {
             final Ignore ignore = description.getAnnotation(Ignore.class);
             if (ignore == null && currentFailure == null) {
                 currentTestCase.addChild(createResult(TestState.p));
-                currentTestCase.addChild(createNotes(String.format("'%s' ran successfully",
+                currentTestCase.addChild(createNotes(String.format("'%s' PASSED.",
                         description.getDisplayName())));
             }
         }
@@ -189,7 +191,9 @@ public class TestLinkRunListener extends RunListener {
     }
 
     static enum TestState {
-        p, b, f;
+        p, // PASSED
+        b, // BLOCKED
+        f; // FAILED 
     }
 
     private final PrintStream out;
@@ -210,7 +214,11 @@ public class TestLinkRunListener extends RunListener {
         noTestLinkStrategy = new NoTestLinkStrategy();
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     * 
+     * This method is <b>not</b> called for tests annotated with {@link Ignore}.
+     */
     @Override
     public void testStarted(Description description) throws Exception {
         super.testStarted(description);
@@ -218,26 +226,15 @@ public class TestLinkRunListener extends RunListener {
     }
 
     /**
-     * @param description
-     * @return
+     * {@inheritDoc}
+     * 
+     * We have to select the correct strategy again, as {@link RunListener#testStarted(Description)} is not called for
+     * tests annotated with {@link Ignore}.
      */
-    Strategy switchStrategy(Description description) {
-        final TestLink testLink = description.getAnnotation(TestLink.class);
-        if (testLink != null) {
-            currentStrategy = inTestLinkstrategy;
-        } else {
-            currentStrategy = noTestLinkStrategy;
-        }
-        return currentStrategy;
-    }
-
-    /** {@inheritDoc} */
     @Override
     public void testIgnored(Description description) throws Exception {
         super.testIgnored(description);
-        switchStrategy(description);
-        currentStrategy.addNewTestCase(description);
-        currentStrategy.addIgnore(description);
+        switchStrategy(description).addIgnore(description);
     }
 
     /** {@inheritDoc} */
@@ -251,7 +248,7 @@ public class TestLinkRunListener extends RunListener {
     @Override
     public void testFinished(Description description) throws Exception {
         super.testFinished(description);
-        switchStrategy(description).addFinished(description);
+        currentStrategy.addFinished(description);
     }
 
     /** {@inheritDoc} */
@@ -268,6 +265,26 @@ public class TestLinkRunListener extends RunListener {
     }
 
     /**
+     * Switches between the strategies for testcases with or without {@link TestLink} annotation and returns the
+     * currentStrategy.
+     * 
+     * @param description
+     *            of the test case.
+     * @return currentStrategy
+     */
+    Strategy switchStrategy(Description description) {
+        final TestLink testLink = description.getAnnotation(TestLink.class);
+        if (testLink != null) {
+            currentStrategy = inTestLinkstrategy;
+        } else {
+            currentStrategy = noTestLinkStrategy;
+        }
+        return currentStrategy;
+    }
+
+    /**
+     * Returns the results of the {@link InTestLinkStrategy} for unit testing.
+     * 
      * @return the results
      */
     Xpp3Dom getResults() {
