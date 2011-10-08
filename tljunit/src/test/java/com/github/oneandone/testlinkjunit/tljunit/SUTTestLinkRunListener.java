@@ -33,10 +33,33 @@ public class SUTTestLinkRunListener {
     public void testFailedWithOutMessage() {
         assertTrue(false);
     }
+
+    @Test
+    @TestLink(internalId = 5)
+    public void testSuccessInternal2() {
+        assertTrue(true);
+    }
+
     @Test
     @TestLink(externalId = "T3")
     @Ignore("Does not run.")
     public void testIgnore() {
         assertTrue(true);
+    }
+
+    @Test
+    public void testNoTestLinkAnnotationSuccess() {
+        assertTrue(true);
+    }
+
+    @Test
+    public void testNoTestLinkAnnotationFailure() {
+        assertTrue(false);
+    }
+
+    @Test
+    @Ignore
+    public void testNoTestLinkAnnotationIgnore() {
+        assertTrue(false);
     }
 }
