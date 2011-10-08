@@ -12,7 +12,12 @@ import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
 import org.junit.runner.notification.RunListener;
 
+/**
+ * Class which writes an additional TestLink XML file as described in Testlink's <a
+ * href="http://www.teamst.org/_tldoc/1.8/user_manual.pdf">user manual</a>.
+ */
 public class TestLinkRunListener extends RunListener {
+
     interface Strategy {
 
         /**
@@ -55,7 +60,10 @@ public class TestLinkRunListener extends RunListener {
             userName = System.getProperty("testlink.userName", System.getProperty("user.name", "UNKNOWN"));
         }
 
-        /** {@inheritDoc} */
+        /** {@inheritDoc}
+         *
+         * {@link TestLink} annotation must have either {@link TestLink#internalId()} or {@link TestLink#externalId()} set.
+         */
         @Override
         public void addNewTestCase(Description description) {
             currentFailure = null;
@@ -76,7 +84,12 @@ public class TestLinkRunListener extends RunListener {
             }
         }
 
-        /** {@inheritDoc} */
+        /**
+         * {@inheritDoc}
+         *
+         * We have to call {@link InTestLinkStrategy#addNewTestCase(Description)}, as
+         * {@link RunListener#testStarted(Description)} is not called for tests annotated with {@link Ignore}.
+         */
         @Override
         public void addIgnore(Description description) {
             addNewTestCase(description);
@@ -93,22 +106,20 @@ public class TestLinkRunListener extends RunListener {
             currentTestCase.addChild(createResult(TestState.f));
             final String message = failure.getMessage();
             if (message != null) {
-                currentTestCase.addChild(createNotes(String.format("'%s' FAILED because '%s'.", failure.getTestHeader(),
-                        message)));
+                currentTestCase.addChild(createNotes(String.format("'%s' FAILED because '%s'.",
+                        failure.getTestHeader(), message)));
             } else {
-                currentTestCase.addChild(createNotes(String.format("'%s' FAILED because '%s'.", failure.getTestHeader(),
-                        failure.getTrace())));
+                currentTestCase.addChild(createNotes(String.format("'%s' FAILED because '%s'.",
+                        failure.getTestHeader(), failure.getTrace())));
             }
         }
 
         /** {@inheritDoc} */
         @Override
         public void addFinished(Description description) {
-            final Ignore ignore = description.getAnnotation(Ignore.class);
-            if (ignore == null && currentFailure == null) {
+            if (currentFailure == null) {
                 currentTestCase.addChild(createResult(TestState.p));
-                currentTestCase.addChild(createNotes(String.format("'%s' PASSED.",
-                        description.getDisplayName())));
+                currentTestCase.addChild(createNotes(String.format("'%s' PASSED.", description.getDisplayName())));
             }
         }
 
@@ -118,8 +129,10 @@ public class TestLinkRunListener extends RunListener {
         }
 
         /**
-         * @param userName
-         * @return
+         * Creates a new tester element filled with the userName
+         *
+         * @param userName name of the user got from system property {@code testlink.userName} or {@code user.name}
+         * @return &lt;tester&gt; element.
          */
         Xpp3Dom createTester(final String userName) {
             final Xpp3Dom tester = new Xpp3Dom("tester");
@@ -149,12 +162,12 @@ public class TestLinkRunListener extends RunListener {
         }
 
         /**
-         * @param resultValue
+         * @param testState
          * @return
          */
-        Xpp3Dom createResult(final TestState resultValue) {
+        Xpp3Dom createResult(final TestState testState) {
             final Xpp3Dom result = new Xpp3Dom("result");
-            result.setValue(resultValue.toString());
+            result.setValue(testState.toString());
             return result;
         }
 
@@ -193,7 +206,7 @@ public class TestLinkRunListener extends RunListener {
     static enum TestState {
         p, // PASSED
         b, // BLOCKED
-        f; // FAILED 
+        f; // FAILED
     }
 
     private final PrintStream out;
@@ -201,8 +214,6 @@ public class TestLinkRunListener extends RunListener {
     private final InTestLinkStrategy inTestLinkstrategy;
 
     private final NoTestLinkStrategy noTestLinkStrategy;
-
-    private Strategy currentStrategy = null;
 
     public TestLinkRunListener() {
         this(System.out);
@@ -214,41 +225,32 @@ public class TestLinkRunListener extends RunListener {
         noTestLinkStrategy = new NoTestLinkStrategy();
     }
 
-    /**
-     * {@inheritDoc}
-     * 
-     * This method is <b>not</b> called for tests annotated with {@link Ignore}.
-     */
+    /** {@inheritDoc} */
     @Override
     public void testStarted(Description description) throws Exception {
         super.testStarted(description);
-        switchStrategy(description).addNewTestCase(description);
+        selectStrategy(description).addNewTestCase(description);
     }
 
-    /**
-     * {@inheritDoc}
-     * 
-     * We have to select the correct strategy again, as {@link RunListener#testStarted(Description)} is not called for
-     * tests annotated with {@link Ignore}.
-     */
+    /** {@inheritDoc} */
     @Override
     public void testIgnored(Description description) throws Exception {
         super.testIgnored(description);
-        switchStrategy(description).addIgnore(description);
+        selectStrategy(description).addIgnore(description);
     }
 
     /** {@inheritDoc} */
     @Override
     public void testFailure(Failure failure) throws Exception {
         super.testFailure(failure);
-        currentStrategy.addFailure(failure);
+        selectStrategy(failure.getDescription()).addFailure(failure);
     }
 
     /** {@inheritDoc} */
     @Override
     public void testFinished(Description description) throws Exception {
         super.testFinished(description);
-        currentStrategy.addFinished(description);
+        selectStrategy(description).addFinished(description);
     }
 
     /** {@inheritDoc} */
@@ -265,21 +267,19 @@ public class TestLinkRunListener extends RunListener {
     }
 
     /**
-     * Switches between the strategies for testcases with or without {@link TestLink} annotation and returns the
-     * currentStrategy.
+     * Select strategy for test cases with or without {@link TestLink} annotation.
      * 
      * @param description
      *            of the test case.
-     * @return currentStrategy
+     * @return the currently valid strategy
      */
-    Strategy switchStrategy(Description description) {
+    Strategy selectStrategy(Description description) {
         final TestLink testLink = description.getAnnotation(TestLink.class);
         if (testLink != null) {
-            currentStrategy = inTestLinkstrategy;
+            return inTestLinkstrategy;
         } else {
-            currentStrategy = noTestLinkStrategy;
+            return noTestLinkStrategy;
         }
-        return currentStrategy;
     }
 
     /**
