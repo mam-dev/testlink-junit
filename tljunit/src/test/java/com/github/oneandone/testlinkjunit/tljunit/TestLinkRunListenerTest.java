@@ -46,7 +46,9 @@ public class TestLinkRunListenerTest {
     }
 
     void hasValue(final Xpp3Dom testCase, final String name) {
-        assertFalse(testCase.getChild(name).getValue().isEmpty());
+        final Xpp3Dom[] children = testCase.getChildren(name);
+        assertEquals(1, children.length);
+        assertFalse(children[0].getValue().isEmpty());
     }
 
     @Test
