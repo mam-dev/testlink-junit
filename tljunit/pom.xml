@@ -17,6 +17,33 @@
         <url>${parent.scm.url}</url>
     </scm>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <dependencies>
+                    <dependency>
+                        <groupId>${project.groupId}</groupId>
+                        <artifactId>${project.artifactId}</artifactId>
+                        <version>${project.version}</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <properties>
+                        <property>
+                            <name>listener</name>
+                            <value>com.github.oneandone.testlinkjunit.tljunit.TestLinkRunListener</value>
+                        </property>
+                    </properties>
+                    <systemPropertyVariables>
+                        <testlink.results>target/my-testlink.xml</testlink.results>
+                        <testlink.userName>memyselfandi</testlink.userName>
+                    </systemPropertyVariables>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
     <dependencies>
         <dependency>
             <groupId>junit</groupId>

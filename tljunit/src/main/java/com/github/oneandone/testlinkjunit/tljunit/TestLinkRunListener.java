@@ -1,5 +1,8 @@
 package com.github.oneandone.testlinkjunit.tljunit;
 
+import java.io.BufferedOutputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.PrintStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -251,10 +254,14 @@ public class TestLinkRunListener extends RunListener {
     private final NoTestLinkStrategy noTestLinkStrategy;
 
     /**
-     * Used for tests only, reports to {@link System#out}.
+     * Write results to system property "testlink.results" or to "target/testlink.xml" by default.
+     *
+     * @throws FileNotFoundException when the file could not be written.
      */
-    TestLinkRunListener() {
-        this(System.out);
+    public TestLinkRunListener() throws FileNotFoundException {
+        this(new PrintStream(
+                new BufferedOutputStream(
+                        new FileOutputStream(System.getProperty("testlink.results", "target/testlink.xml")))));
     }
 
     /**
@@ -299,6 +306,7 @@ public class TestLinkRunListener extends RunListener {
     public void testRunFinished(Result result) throws Exception {
         super.testRunFinished(result);
         out.print(inTestLinkstrategy.toString());
+        out.close();
     }
 
     /**

@@ -6,6 +6,7 @@ package com.github.oneandone.testlinkjunit.tljunit;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.lang.annotation.Annotation;
@@ -14,6 +15,7 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 import org.codehaus.plexus.util.xml.Xpp3Dom;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.Description;
 import org.junit.runner.JUnitCore;
@@ -27,7 +29,7 @@ public class TestLinkRunListenerTest {
     @Test
     public void test() {
         final JUnitCore core = new JUnitCore();
-        final TestLinkRunListener listener = new TestLinkRunListener();
+        final TestLinkRunListener listener = new TestLinkRunListener(System.out);
         core.addListener(listener);
         core.run(SUTTestLinkRunListener.class);
         final Xpp3Dom results = listener.getResults();
@@ -52,6 +54,7 @@ public class TestLinkRunListenerTest {
     }
 
     @Test
+    @TestLink(externalId="testCreateTimeStamp")
     public void testCreateTimeStamp() {
         final Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"), Locale.US);
         calendar.setTimeInMillis(0);
@@ -61,6 +64,7 @@ public class TestLinkRunListenerTest {
     }
 
     @Test
+    @TestLink(externalId="testTestLinkAnnotationWithoutId")
     public void testTestLinkAnnotationWithoutId() {
         final Description description = Description.createSuiteDescription("foo", new TestLink() {
             @Override
@@ -86,5 +90,12 @@ public class TestLinkRunListenerTest {
             assertEquals("java.lang.IllegalArgumentException: Must set either internalId or externalId on 'foo'", e.toString());
         }
 
+    }
+
+    @Test
+    @TestLink(internalId=1)
+    @Ignore("Just ignore this")
+    public void testIgnored() {
+        assertTrue(true);
     }
 }
