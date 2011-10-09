@@ -1,14 +1,28 @@
 package com.github.oneandone.testlinkjunit.tljunit;
+
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import org.junit.Test;
 
+/**
+ * Annotation for marking {@link Test}s the results of which should be reported in testlink xml file.
+ */
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.METHOD})
+@Target({ ElementType.METHOD })
 public @interface TestLink {
-    final static String NOT_AVAILABLE = "NOT_AVAILABLE";
+    /** Default value for missing externalIds. */
+    static String NOT_AVAILABLE = "NOT_AVAILABLE";
+
+    /**
+     * @return internal_id of a Test to be reported.
+     */
     long internalId() default 0;
+
+    /**
+     * @return external_id of a Test to reported.
+     */
     String externalId() default NOT_AVAILABLE;
 }

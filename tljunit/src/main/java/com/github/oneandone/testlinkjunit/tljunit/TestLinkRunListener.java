@@ -7,6 +7,7 @@ import java.util.Locale;
 
 import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.junit.Ignore;
+import org.junit.Test;
 import org.junit.runner.Description;
 import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
@@ -15,42 +16,58 @@ import org.junit.runner.notification.RunListener;
 /**
  * Class which writes an additional TestLink XML file as described in Testlink's <a
  * href="http://www.teamst.org/_tldoc/1.8/user_manual.pdf">user manual</a>.
+ *
+ * @author mirko
  */
 public class TestLinkRunListener extends RunListener {
 
+    /**
+     * Used by {@link InTestLinkStrategy} and {@link NoTestLinkStrategy}.
+     */
     interface Strategy {
 
         /**
-         * @param description
+         * Adds a new <em>not ignored</em> &lt;testcase&gt; element to results.
+         *
+         * @param description of the testcase.
          */
         void addNewTestCase(Description description);
 
         /**
-         * @param description
+         * Adds a new <em>ignored</em> &lt;testcase&gt; element to results.
+         *
+         * @param description of the testcase.
          */
         void addIgnore(Description description);
 
         /**
-         * @param failure
+         * Adds failure information to the current &lt;testcase&gt;.
+         *
+         * @param failure to report.
          */
         void addFailure(Failure failure);
 
         /**
-         * @param description
+         * Adds success information to the current &lt;testcase&gt;.
+         *
+         * @param description of the testcase.
          */
         void addFinished(Description description);
 
     }
 
+    /**
+     * Strategy to be used when a {@link Test} is annotated with {@link TestLink}.
+     */
     static class InTestLinkStrategy implements Strategy {
 
         private final Xpp3Dom results;
 
         private final String userName;
 
-        private Xpp3Dom currentTestCase = null;
+        private Xpp3Dom currentTestCase;
 
-        private Failure currentFailure = null;
+        private Failure currentFailure;
 
         /**
          * 
@@ -129,9 +146,10 @@ public class TestLinkRunListener extends RunListener {
         }
 
         /**
-         * Creates a new tester element filled with the userName
-         *
-         * @param userName name of the user got from system property {@code testlink.userName} or {@code user.name}
+         * Creates a new tester element filled with the userName.
+         * 
+         * @param userName
+         *            name of the user got from system property {@code testlink.userName} or {@code user.name}.
          * @return &lt;tester&gt; element.
          */
         Xpp3Dom createTester(final String userName) {
@@ -141,8 +159,11 @@ public class TestLinkRunListener extends RunListener {
         }
 
         /**
+         * Creates a new timestamp element.
+         * 
          * @param date
-         * @return
+         *            of the test run.
+         * @return &lt;timestamp&gt; element.
          */
         Xpp3Dom createTimeStamp(final Date date) {
             final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
@@ -152,8 +173,11 @@ public class TestLinkRunListener extends RunListener {
         }
 
         /**
+         * Creates a new notes element.
+         * 
          * @param notesValue
-         * @return
+         *            additional notes.
+         * @return &lt;notes&gt; element.
          */
         Xpp3Dom createNotes(final String notesValue) {
             final Xpp3Dom notes = new Xpp3Dom("notes");
@@ -162,8 +186,11 @@ public class TestLinkRunListener extends RunListener {
         }
 
         /**
+         * Creates a new result element.
+         * 
          * @param testState
-         * @return
+         *            to report
+         * @return &lt;result&gt; element.
          */
         Xpp3Dom createResult(final TestState testState) {
             final Xpp3Dom result = new Xpp3Dom("result");
@@ -180,6 +207,10 @@ public class TestLinkRunListener extends RunListener {
 
     }
 
+    /**
+     * Strategy to be used when a {@link Test} is <em>not</em> annotated with {@link TestLink}. This strategy just does
+     * nothing.
+     */
     static class NoTestLinkStrategy implements Strategy {
 
         /** {@inheritDoc} */
@@ -203,6 +234,10 @@ public class TestLinkRunListener extends RunListener {
         }
     }
 
+    /**
+     * State of the current {@link Test}. Note that {@link Test}s annotated with {@link Ignore} will be marked as
+     * blocked.
+     */
     static enum TestState {
         p, // PASSED
         b, // BLOCKED
@@ -215,10 +250,16 @@ public class TestLinkRunListener extends RunListener {
 
     private final NoTestLinkStrategy noTestLinkStrategy;
 
-    public TestLinkRunListener() {
+    /**
+     * Used for tests only, reports to {@link System#out}.
+     */
+    TestLinkRunListener() {
         this(System.out);
     }
 
+    /**
+     * @param out to be used for writing the testlink xml file.
+     */
     public TestLinkRunListener(final PrintStream out) {
         this.out = out;
         inTestLinkstrategy = new InTestLinkStrategy();
@@ -255,19 +296,13 @@ public class TestLinkRunListener extends RunListener {
 
     /** {@inheritDoc} */
     @Override
-    public void testRunStarted(Description description) throws Exception {
-        super.testRunStarted(description);
-    }
-
-    /** {@inheritDoc} */
-    @Override
     public void testRunFinished(Result result) throws Exception {
         super.testRunFinished(result);
         out.print(inTestLinkstrategy.toString());
     }
 
     /**
-     * Select strategy for test cases with or without {@link TestLink} annotation.
+     * Selects strategy for test cases with or without {@link TestLink} annotation.
      * 
      * @param description
      *            of the test case.
