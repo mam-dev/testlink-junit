@@ -8,7 +8,7 @@
     </poweredBy>
     <body>
         <links>
-            <item name="github" href="https://github.com/1and1/testlink-junit"/>
+            <item name="github" href="http://github.com/1and1/testlink-junit/"/>
             <item name="Maven Surefire Plugin" href="http://maven.apache.org/plugins/maven-surefire-plugin/examples/junit.html"/>
             <item name="Testlink" href="http://www.teamst.org/"/>
         </links>

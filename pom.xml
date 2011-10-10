@@ -8,17 +8,17 @@
     <packaging>pom</packaging>
 
     <name>tljunit parent</name>
-    <url>https://github.com/1and1/testlink-junit/</url>
+    <url>http://github.com/1and1/testlink-junit/</url>
     <description>Modules for writing an additional Testlink XML file.</description>
     <ciManagement>
-        <system>Hudson</system>
+        <system>Jenkins</system>
         <url>http://huschteguzzel.de/hudson/job/testlink-junit/</url>
     </ciManagement>
 
     <scm>
-        <connection>scm:git:git://github.com/1and1/testlink-junit.git</connection>
+        <connection>scm:git:git://github.com:1and1/testlink-junit.git</connection>
         <developerConnection>scm:git:git@github.com:1and1/testlink-junit.git</developerConnection>
-        <url>https://github.com/1and1/testlink-junit/</url>
+        <url>http://github.com/1and1/testlink-junit/</url>
     </scm>
 
     <properties>
@@ -39,6 +39,18 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <developers>
+        <developer>
+            <id>mifr</id>
+            <name>Mirko Friedenhagen</name>
+            <email>mirko.friedenhagen@1und1.de</email>
+            <organization>1 &amp; 1 Internet AG</organization>
+            <organizationUrl>${project.url}</organizationUrl>
+            <url>http://github.com/mfriedenhagen/</url>
+            <timezone>+1</timezone>
+        </developer>
+    </developers>
     <build>
         <pluginManagement>
             <plugins>
@@ -55,15 +67,6 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-jar-plugin</artifactId>
                     <version>2.3.1</version>
-                    <configuration>
-                        <archive>
-                            <manifest>
-                                <mainClass>com.googlecode.sardine.Version</mainClass>
-                                <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-                                <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
-                            </manifest>
-                        </archive>
-                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -102,6 +105,11 @@
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>2.10</version>
                 </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-scm-plugin</artifactId>
+                    <version>1.2</version>
+                </plugin>
             </plugins>
         </pluginManagement>
     </build>
@@ -120,7 +128,7 @@
                         <plugin>
                             <groupId>org.apache.maven.plugins</groupId>
                             <artifactId>maven-site-plugin</artifactId>
-                            <version>3.0-beta-3</version>
+                            <version>3.0</version>
                         </plugin>
                     </plugins>
                 </pluginManagement>
