@@ -16,7 +16,7 @@
     </ciManagement>
 
     <scm>
-        <connection>scm:git:git://github.com:1and1/testlink-junit.git</connection>
+        <connection>scm:git:git://github.com/1and1/testlink-junit.git</connection>
         <developerConnection>scm:git:git@github.com:1and1/testlink-junit.git</developerConnection>
         <url>http://github.com/1and1/testlink-junit/</url>
     </scm>
