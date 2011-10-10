@@ -2,7 +2,7 @@
  * Copyright 2011 Mirko Friedenhagen 
  */
 
-package com.github.oneandone.testlinkjunit.tljunit;
+package net.oneandone.testlinkjunit.tljunit;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -14,13 +14,16 @@ import java.util.Calendar;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import net.oneandone.testlinkjunit.tljunit.TestLink;
+import net.oneandone.testlinkjunit.tljunit.TestLinkRunListener;
+import net.oneandone.testlinkjunit.tljunit.TestLinkRunListener.InTestLinkStrategy;
+
 import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.Description;
 import org.junit.runner.JUnitCore;
 
-import com.github.oneandone.testlinkjunit.tljunit.TestLinkRunListener.InTestLinkStrategy;
 
 public class TestLinkRunListenerTest {
 

@@ -9,7 +9,7 @@
             <subsection name="Aims">
                 <p>
                     By annotating your tests with
-                    <a href="apidocs/com/github/oneandone/testlinkjunit/tljunit/TestLink.html">
+                    <a href="apidocs/net/oneandone/testlinkjunit/tljunit/TestLink.html">
                         <tt>TestLink</tt>
                     </a>
                     test results will be written to a <tt>XML</tt> file which may be imported to a running
@@ -48,7 +48,7 @@ public void testExternalId() {
         will be marked as
         <tt>BLOCKED</tt>
         . Now you have to configure the surefire plugin to use the additional
-        <a href="apidocs/com/github/oneandone/testlinkjunit/tljunit/TestLinkRunListener.html"><tt>TestLinkRunListener</tt></a>.
+        <a href="apidocs/net/oneandone/testlinkjunit/tljunit/TestLinkRunListener.html"><tt>TestLinkRunListener</tt></a>.
         As can be seen below, the username and file-location for the result file may be provided as system properties.</p>
         <pre><![CDATA[
     <build>
@@ -59,7 +59,7 @@ public void testExternalId() {
                 <version>2.10</version>
                 <dependencies>
                     <dependency>
-                        <groupId>com.github.oneandone.testlinkjunit</groupId>
+                        <groupId>net.oneandone.testlinkjunit</groupId>
                         <artifactId>tljunit</artifactId>
                         <version>1.0-SNAPSHOT</version>
                     </dependency>
@@ -68,7 +68,7 @@ public void testExternalId() {
                     <properties>
                         <property>
                             <name>listener</name>
-                            <value>com.github.oneandone.testlinkjunit.tljunit.TestLinkRunListener</value>
+                            <value>net.oneandone.testlinkjunit.tljunit.TestLinkRunListener</value>
                         </property>
                     </properties>
                     <systemPropertyVariables>

@@ -1,4 +1,4 @@
-package com.github.oneandone.testlinkjunit.tljunit;
+package net.oneandone.testlinkjunit.tljunit;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -22,7 +22,7 @@ public @interface TestLink {
     long internalId() default 0;
 
     /**
-     * @return external_id of a Test to reported.
+     * @return external_id of a Test to be reported.
      */
     String externalId() default NOT_AVAILABLE;
 }

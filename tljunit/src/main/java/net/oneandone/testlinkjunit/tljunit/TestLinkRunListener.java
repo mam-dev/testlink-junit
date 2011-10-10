@@ -1,4 +1,4 @@
-package com.github.oneandone.testlinkjunit.tljunit;
+package net.oneandone.testlinkjunit.tljunit;
 
 import java.io.BufferedOutputStream;
 import java.io.FileNotFoundException;
