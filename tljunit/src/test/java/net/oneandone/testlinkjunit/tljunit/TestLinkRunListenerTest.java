@@ -14,10 +14,6 @@ import java.util.Calendar;
 import java.util.Locale;
 import java.util.TimeZone;
 
-import net.oneandone.testlinkjunit.tljunit.TestLink;
-import net.oneandone.testlinkjunit.tljunit.TestLinkRunListener;
-import net.oneandone.testlinkjunit.tljunit.TestLinkRunListener.InTestLinkStrategy;
-
 import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -61,7 +57,7 @@ public class TestLinkRunListenerTest {
     public void testCreateTimeStamp() {
         final Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"), Locale.US);
         calendar.setTimeInMillis(0);
-        final InTestLinkStrategy inTestLinkStrategy = new TestLinkRunListener.InTestLinkStrategy();
+        final InTestLinkStrategy inTestLinkStrategy = new InTestLinkStrategy();
         Xpp3Dom timeStamp = inTestLinkStrategy.createTimeStamp(calendar.getTime());
         assertEquals(XML_HEADER + "<timestamp>1970-01-01 01:00:00</timestamp>", timeStamp.toString());
     }
@@ -85,7 +81,7 @@ public class TestLinkRunListenerTest {
                 return TestLink.NOT_AVAILABLE;
             }
         });
-        final InTestLinkStrategy inTestLinkStrategy = new TestLinkRunListener.InTestLinkStrategy();
+        final InTestLinkStrategy inTestLinkStrategy = new InTestLinkStrategy();
         try {
             inTestLinkStrategy.addNewTestCase(description);
             fail("IllegalArgumentException should be thrown!");

@@ -2,8 +2,6 @@ package net.oneandone.testlinkjunit.tljunit;
 
 import static org.junit.Assert.assertTrue;
 
-import net.oneandone.testlinkjunit.tljunit.TestLink;
-
 import org.junit.Ignore;
 import org.junit.Test;
 
