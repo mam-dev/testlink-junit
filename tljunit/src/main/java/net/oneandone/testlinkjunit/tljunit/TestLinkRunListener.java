@@ -41,7 +41,8 @@ public class TestLinkRunListener extends RunListener {
      */
     public TestLinkRunListener(final PrintStream out) {
         this.out = out;
-        inTestLinkstrategy = new InTestLinkStrategy();
+        final String userName = System.getProperty("testlink.userName", System.getProperty("user.name", "UNKNOWN"));
+        inTestLinkstrategy = new InTestLinkStrategy(userName);
         noTestLinkStrategy = new NoTestLinkStrategy();
     }
 
@@ -77,7 +78,7 @@ public class TestLinkRunListener extends RunListener {
     @Override
     public void testRunFinished(Result result) throws Exception {
         super.testRunFinished(result);
-        out.print(inTestLinkstrategy.toString());
+        out.print(String.valueOf(inTestLinkstrategy.getResults()));
         out.close();
     }
 

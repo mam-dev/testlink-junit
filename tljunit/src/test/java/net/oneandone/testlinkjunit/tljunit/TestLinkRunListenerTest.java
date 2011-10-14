@@ -57,7 +57,7 @@ public class TestLinkRunListenerTest {
     public void testCreateTimeStamp() {
         final Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"), Locale.US);
         calendar.setTimeInMillis(0);
-        final InTestLinkStrategy inTestLinkStrategy = new InTestLinkStrategy();
+        final InTestLinkStrategy inTestLinkStrategy = new InTestLinkStrategy("noone");
         Xpp3Dom timeStamp = inTestLinkStrategy.createTimeStamp(calendar.getTime());
         assertEquals(XML_HEADER + "<timestamp>1970-01-01 01:00:00</timestamp>", timeStamp.toString());
     }
@@ -81,7 +81,7 @@ public class TestLinkRunListenerTest {
                 return TestLink.NOT_AVAILABLE;
             }
         });
-        final InTestLinkStrategy inTestLinkStrategy = new InTestLinkStrategy();
+        final InTestLinkStrategy inTestLinkStrategy = new InTestLinkStrategy("noone");
         try {
             inTestLinkStrategy.addNewTestCase(description);
             fail("IllegalArgumentException should be thrown!");

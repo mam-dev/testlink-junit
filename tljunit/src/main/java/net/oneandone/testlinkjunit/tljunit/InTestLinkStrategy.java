@@ -24,16 +24,16 @@ class InTestLinkStrategy implements TestLinkStrategy {
 
     private final String userName;
 
-    private Xpp3Dom currentTestCase;
+    private ThreadLocal<Xpp3Dom> currentTestCase = new ThreadLocal<Xpp3Dom>();
 
-    private Failure currentFailure;
+    private ThreadLocal<Failure> currentFailure = new ThreadLocal<Failure>();
 
     /**
      * 
      */
-    public InTestLinkStrategy() {
+    public InTestLinkStrategy(final String userName) {
         results = new Xpp3Dom("results");
-        userName = System.getProperty("testlink.userName", System.getProperty("user.name", "UNKNOWN"));
+        this.userName = userName;
     }
 
     /** {@inheritDoc}
@@ -42,18 +42,21 @@ class InTestLinkStrategy implements TestLinkStrategy {
      */
     @Override
     public void addNewTestCase(Description description) {
-        currentFailure = null;
+        setCurrentFailure(null);
         final TestLink testLink = description.getAnnotation(TestLink.class);
-        currentTestCase = new Xpp3Dom("testcase");
-        currentTestCase.addChild(createTester(userName));
-        currentTestCase.addChild(createTimeStamp(new Date()));
-        results.addChild(currentTestCase);
+        final Xpp3Dom testCase = new Xpp3Dom("testcase");
+        setCurrentTestCase(testCase);
+        testCase.addChild(createTester(userName));
+        testCase.addChild(createTimeStamp(new Date()));
+        synchronized (results) {
+            results.addChild(testCase);
+        }
         final String externalId = testLink.externalId();
         final long internalId = testLink.internalId();
         if (!externalId.equals(TestLink.NOT_AVAILABLE)) {
-            currentTestCase.setAttribute("external_id", externalId);
+            testCase.setAttribute("external_id", externalId);
         } else if (internalId != 0) {
-            currentTestCase.setAttribute("internal_id", String.valueOf(internalId));
+            testCase.setAttribute("internal_id", String.valueOf(internalId));
         } else {
             throw new IllegalArgumentException("Must set either internalId or externalId on '"
                     + description.getDisplayName() + "'");
@@ -69,23 +72,25 @@ class InTestLinkStrategy implements TestLinkStrategy {
     @Override
     public void addIgnore(Description description) {
         addNewTestCase(description);
-        currentTestCase.addChild(createResult(TestState.b));
+        final Xpp3Dom testCase = getCurrentTestCase();
+        testCase.addChild(createResult(TestState.b));
         final String ignoreValue = description.getAnnotation(Ignore.class).value();
-        currentTestCase.addChild(createNotes(String.format("'%s' BLOCKED because '%s'.",
+        testCase.addChild(createNotes(String.format("'%s' BLOCKED because '%s'.",
                 description.getDisplayName(), ignoreValue)));
     }
 
     /** {@inheritDoc} */
     @Override
     public void addFailure(Failure failure) {
-        currentFailure = failure;
-        currentTestCase.addChild(createResult(TestState.f));
+        setCurrentFailure(failure);
+        final Xpp3Dom testCase = getCurrentTestCase();
+        testCase.addChild(createResult(TestState.f));
         final String message = failure.getMessage();
         if (message != null) {
-            currentTestCase.addChild(createNotes(String.format("'%s' FAILED because '%s'.",
+            testCase.addChild(createNotes(String.format("'%s' FAILED because '%s'.",
                     failure.getTestHeader(), message)));
         } else {
-            currentTestCase.addChild(createNotes(String.format("'%s' FAILED because '%s'.",
+            testCase.addChild(createNotes(String.format("'%s' FAILED because '%s'.",
                     failure.getTestHeader(), failure.getTrace())));
         }
     }
@@ -93,15 +98,11 @@ class InTestLinkStrategy implements TestLinkStrategy {
     /** {@inheritDoc} */
     @Override
     public void addFinished(Description description) {
-        if (currentFailure == null) {
-            currentTestCase.addChild(createResult(TestState.p));
-            currentTestCase.addChild(createNotes(String.format("'%s' PASSED.", description.getDisplayName())));
+        if (getCurrentFailure() == null) {
+            final Xpp3Dom testCase = getCurrentTestCase();
+            testCase.addChild(createResult(TestState.p));
+            testCase.addChild(createNotes(String.format("'%s' PASSED.", description.getDisplayName())));
         }
-    }
-
-    /** {@inheritDoc} */
-    public String toString() {
-        return String.valueOf(results);
     }
 
     /**
@@ -160,8 +161,36 @@ class InTestLinkStrategy implements TestLinkStrategy {
     /**
      * @return the results
      */
-    public Xpp3Dom getResults() {
+    Xpp3Dom getResults() {
         return results;
+    }
+
+    /**
+     * @return the currentTestCase
+     */
+    private Xpp3Dom getCurrentTestCase() {
+        return currentTestCase.get();
+    }
+
+    /**
+     * @param currentTestCase the currentTestCase to set
+     */
+    private void setCurrentTestCase(Xpp3Dom currentTestCase) {
+        this.currentTestCase.set(currentTestCase);
+    }
+
+    /**
+     * @return the currentFailure
+     */
+    private Failure getCurrentFailure() {
+        return currentFailure.get();
+    }
+
+    /**
+     * @param currentFailure the currentFailure to set
+     */
+    private void setCurrentFailure(Failure currentFailure) {
+        this.currentFailure.set(currentFailure);
     }
 
 }
