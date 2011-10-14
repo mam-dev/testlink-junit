@@ -5,7 +5,6 @@
 package net.oneandone.testlinkjunit.tljunit;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -21,7 +20,7 @@ import org.junit.runner.Description;
 import org.junit.runner.JUnitCore;
 
 
-public class TestLinkRunListenerTest {
+public class TestLinkRunListenerTest extends AbstractTestLinkRunListenerTest {
 
     private static final String XML_HEADER = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + System.getProperty("line.separator");
 
@@ -33,23 +32,9 @@ public class TestLinkRunListenerTest {
         core.run(SUTTestLinkRunListener.class);
         final Xpp3Dom results = listener.getResults();
         assertEquals(6, results.getChildCount());
-        int testCasesWithExternalId = 0;
-        for (final Xpp3Dom testCase : results.getChildren()) {
-            if (testCase.getAttribute("external_id") != null) {
-                testCasesWithExternalId++;
-            }
-            hasValue(testCase, "tester");
-            hasValue(testCase, "timestamp");
-            hasValue(testCase, "result");
-            hasValue(testCase, "notes");
-        }
+        int testCasesWithExternalId = checkResultsAndCountTestCasesWithExternalId(results);
         assertEquals(4, testCasesWithExternalId);
-    }
-
-    void hasValue(final Xpp3Dom testCase, final String name) {
-        final Xpp3Dom[] children = testCase.getChildren(name);
-        assertEquals(1, children.length);
-        assertFalse(children[0].getValue().isEmpty());
+        assertEquals(1, getIgnoredTestCases(results));
     }
 
     @Test
