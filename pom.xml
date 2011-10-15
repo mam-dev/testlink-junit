@@ -48,6 +48,11 @@
         </dependencies>
     </dependencyManagement>
 
+    <issueManagement>
+        <system>GitHub</system>
+        <url>https://github.com/1and1/testlink-junit/issues?sort=created&amp;direction=desc&amp;state=open</url>
+    </issueManagement>
+
     <developers>
         <developer>
             <id>mifr</id>
@@ -59,6 +64,7 @@
             <timezone>+1</timezone>
         </developer>
     </developers>
+
     <build>
         <pluginManagement>
             <plugins>
@@ -87,23 +93,6 @@
                             <goals>
                                 <goal>jar-no-fork</goal>
                             </goals>
-                        </execution>
-                    </executions>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-help-plugin</artifactId>
-                    <version>2.1.1</version>
-                    <executions>
-                        <execution>
-                            <id>attach-effective-pom</id>
-                            <phase>compile</phase>
-                            <goals>
-                                <goal>effective-pom</goal>
-                            </goals>
-                            <configuration>
-                                <output>${project.build.outputDirectory}/META-INF/maven/${project.groupId}/${project.artifactId}/effective-pom.xml</output>
-                            </configuration>
                         </execution>
                     </executions>
                 </plugin>
@@ -172,6 +161,11 @@
                     <artifactId>maven-deploy-plugin</artifactId>
                     <version>2.7</version>
                 </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-changes-plugin</artifactId>
+                    <version>2.6</version>
+                </plugin>
             </plugins>
         </pluginManagement>
         <plugins>
@@ -182,10 +176,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-help-plugin</artifactId>
             </plugin>
         </plugins>
     </build>
@@ -230,6 +220,11 @@
                                     <groupId>org.apache.maven.plugins</groupId>
                                     <artifactId>maven-jxr-plugin</artifactId>
                                     <version>2.3</version>
+                                </plugin>
+                                <plugin>
+                                    <groupId>org.apache.maven.plugins</groupId>
+                                    <artifactId>maven-changes-plugin</artifactId>
+                                    <version>2.6</version>
                                 </plugin>
                                 <plugin>
                                     <groupId>org.apache.maven.plugins</groupId>
