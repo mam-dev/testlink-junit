@@ -27,8 +27,9 @@ public class TestLinkRunListener extends RunListener {
 
     /**
      * Write results to system property "testlink.results" or to "target/testlink.xml" by default.
-     *
-     * @throws FileNotFoundException when the file could not be written.
+     * 
+     * @throws FileNotFoundException
+     *             when the file could not be written.
      */
     public TestLinkRunListener() throws FileNotFoundException {
         this(new PrintStream(
@@ -38,9 +39,10 @@ public class TestLinkRunListener extends RunListener {
     }
 
     /**
-     * @param out to be used for writing the testlink xml file.
-     * @param inTestLinkStrategy
-     * @param noTestLinkStrategy
+     * @param out
+     *            to be used for writing the testlink xml file.
+     * @param userName
+     *            to be used as tester.
      */
     public TestLinkRunListener(final PrintStream out, final String userName) {
         this.out = out;
