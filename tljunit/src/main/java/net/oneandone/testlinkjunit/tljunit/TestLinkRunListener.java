@@ -33,17 +33,19 @@ public class TestLinkRunListener extends RunListener {
     public TestLinkRunListener() throws FileNotFoundException {
         this(new PrintStream(
                 new BufferedOutputStream(
-                        new FileOutputStream(System.getProperty("testlink.results", "target/testlink.xml")))));
+                        new FileOutputStream(System.getProperty("testlink.results", "target/testlink.xml")))),
+             System.getProperty("testlink.userName", System.getProperty("user.name", "UNKNOWN")));
     }
 
     /**
      * @param out to be used for writing the testlink xml file.
+     * @param inTestLinkStrategy
+     * @param noTestLinkStrategy
      */
-    public TestLinkRunListener(final PrintStream out) {
+    public TestLinkRunListener(final PrintStream out, final String userName) {
         this.out = out;
-        final String userName = System.getProperty("testlink.userName", System.getProperty("user.name", "UNKNOWN"));
-        inTestLinkstrategy = new InTestLinkStrategy(userName);
-        noTestLinkStrategy = new NoTestLinkStrategy();
+        this.inTestLinkstrategy = new InTestLinkStrategy(userName);
+        this.noTestLinkStrategy = new NoTestLinkStrategy();
     }
 
     /** {@inheritDoc} */

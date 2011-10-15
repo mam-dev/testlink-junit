@@ -40,7 +40,7 @@ public class ThreadingTest extends AbstractTestLinkRunListenerTest {
                 // just do nothing
             }
         });
-        listener = new TestLinkRunListener(out);
+        listener = new TestLinkRunListener(out, "donald");
     }
 
     /**

@@ -27,7 +27,7 @@ public class TestLinkRunListenerTest extends AbstractTestLinkRunListenerTest {
     @Test
     public void test() {
         final JUnitCore core = new JUnitCore();
-        final TestLinkRunListener listener = new TestLinkRunListener(System.out);
+        final TestLinkRunListener listener = new TestLinkRunListener(System.out, "goofy");
         core.addListener(listener);
         core.run(SUTTestLinkRunListener.class);
         final Xpp3Dom results = listener.getResults();
