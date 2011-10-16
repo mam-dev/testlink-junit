@@ -37,6 +37,14 @@ public void testIgnored() {
                     </pre>
                     <pre>
 @Test
+@TestLink(externalId="ASSUMPTION_FAILED")
+public void testWithFailingAssumption() {
+    assumeTrue(false);
+}
+
+                    </pre>
+                    <pre>
+@Test
 @TestLink(externalId="PROJECT-1")
 public void testExternalId() {
     assertTrue(true);
@@ -46,7 +54,7 @@ public void testExternalId() {
         Tests annotated with
         <tt>Ignore</tt>
         will be marked as
-        <tt>BLOCKED</tt>
+        <tt>BLOCKED</tt> as well as tests with failing assumptions.
         . Now you have to configure the surefire plugin to use the additional
         <a href="apidocs/net/oneandone/testlinkjunit/tljunit/TestLinkRunListener.html"><tt>TestLinkRunListener</tt></a>.
         As can be seen below, the username and file-location for the result file may be provided as system properties.</p>

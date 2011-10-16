@@ -12,7 +12,20 @@ import org.junit.Test;
  * blocked.
  */
 enum TestState {
-    p, // PASSED
-    b, // BLOCKED
-    f; // FAILED
+    p("PASSED"),
+    b("BLOCKED"),
+    f("FAILED");
+
+    private final String description;
+
+    TestState(final String message) {
+        this.description = message;
+    }
+
+    /**
+     * @return the description
+     */
+    String getDescription() {
+        return description;
+    }
 }

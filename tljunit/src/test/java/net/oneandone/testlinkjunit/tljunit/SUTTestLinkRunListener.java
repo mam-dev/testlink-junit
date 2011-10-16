@@ -1,6 +1,8 @@
 package net.oneandone.testlinkjunit.tljunit;
 
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assume.assumeThat;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -45,6 +47,12 @@ public class SUTTestLinkRunListener {
     @Ignore("Does not run.")
     public void testIgnore() {
         assertTrue(true);
+    }
+
+    @Test
+    @TestLink(externalId = "ASSUMPTION_FAILED")
+    public void testFailingAssumption() {
+        assumeThat(0, is(1));
     }
 
     @Test

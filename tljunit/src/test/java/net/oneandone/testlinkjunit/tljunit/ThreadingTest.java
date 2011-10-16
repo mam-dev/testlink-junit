@@ -52,9 +52,9 @@ public class ThreadingTest extends AbstractTestLinkRunListenerTest {
         pool.awaitTermination(100, TimeUnit.SECONDS);
         final Xpp3Dom results = listener.getResults();
         assertAllTestCasesHaveRequiredElements(results);
-        assertEquals(600, results.getChildCount());
-        assertEquals(400, countTestsWithExternalIdfinal(results));
-        assertEquals(100, countIgnoredTests(results));
+        assertEquals(700, results.getChildCount());
+        assertEquals(500, countTestsWithExternalIdfinal(results));
+        assertEquals(200, countIgnoredTests(results));
         final PrintStream stream = new PrintStream(new File("target/parallel-testlink.xml"));
         try {
             stream.print(results.toString());
@@ -73,7 +73,7 @@ public class ThreadingTest extends AbstractTestLinkRunListenerTest {
                 @Override
                 public void run() {
                     final Result result = core.run(SUTTestLinkRunListener.class);
-                    assertEquals(7, result.getRunCount());
+                    assertEquals(8, result.getRunCount());
                     assertEquals(2, result.getIgnoreCount());
                 }
             });

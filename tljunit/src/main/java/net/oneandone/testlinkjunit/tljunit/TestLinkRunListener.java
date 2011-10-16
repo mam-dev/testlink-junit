@@ -68,7 +68,14 @@ public class TestLinkRunListener extends RunListener {
     @Override
     public void testFailure(Failure failure) throws Exception {
         super.testFailure(failure);
-        selectStrategy(failure.getDescription()).addFailure(failure);
+        selectStrategy(failure.getDescription()).addFailureOrAssumptionFailure(failure, TestState.f);
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public void testAssumptionFailure(final Failure failure) {
+        super.testAssumptionFailure(failure);
+        selectStrategy(failure.getDescription()).addFailureOrAssumptionFailure(failure, TestState.b);
     }
 
     /** {@inheritDoc} */

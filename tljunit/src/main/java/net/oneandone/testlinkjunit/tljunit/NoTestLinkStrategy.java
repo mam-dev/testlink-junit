@@ -26,7 +26,7 @@ class NoTestLinkStrategy implements TestLinkStrategy {
 
     /** {@inheritDoc} */
     @Override
-    public void addFailure(Failure failure) {
+    public void addFailureOrAssumptionFailure(Failure failure, TestState testState) {
     }
 
     /** {@inheritDoc} */

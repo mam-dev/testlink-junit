@@ -7,6 +7,7 @@ package net.oneandone.testlinkjunit.tljunit;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+import static org.junit.Assume.assumeNoException;
 
 import java.lang.annotation.Annotation;
 import java.util.Calendar;
@@ -31,10 +32,10 @@ public class TestLinkRunListenerTest extends AbstractTestLinkRunListenerTest {
         core.addListener(listener);
         core.run(SUTTestLinkRunListener.class);
         final Xpp3Dom results = listener.getResults();
-        assertEquals(6, results.getChildCount());
+        assertEquals(7, results.getChildCount());
         assertAllTestCasesHaveRequiredElements(results);
-        assertEquals(4, countTestsWithExternalIdfinal(results));
-        assertEquals(1, countIgnoredTests(results));
+        assertEquals(5, countTestsWithExternalIdfinal(results));
+        assertEquals(2, countIgnoredTests(results));
     }
 
     @Test
@@ -82,4 +83,11 @@ public class TestLinkRunListenerTest extends AbstractTestLinkRunListenerTest {
     public void testIgnored() {
         assertTrue(true);
     }
+
+    @Test
+    @TestLink(externalId="ASSUMPTION_FAILED")
+    public void testBlockedBecauseOfFailingAssumption() {
+        assumeNoException(new IllegalStateException("can not proceed because server not available"));
+    }
+
 }

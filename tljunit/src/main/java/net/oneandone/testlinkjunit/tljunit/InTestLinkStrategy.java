@@ -81,18 +81,20 @@ class InTestLinkStrategy implements TestLinkStrategy {
 
     /** {@inheritDoc} */
     @Override
-    public void addFailure(Failure failure) {
+    public void addFailureOrAssumptionFailure(Failure failure, TestState testState) {
         setCurrentFailure(failure);
         final Xpp3Dom testCase = getCurrentTestCase();
-        testCase.addChild(createResult(TestState.f));
+        testCase.addChild(createResult(testState));
         final String message = failure.getMessage();
+        final Xpp3Dom notes;
         if (message != null) {
-            testCase.addChild(createNotes(String.format("'%s' FAILED because '%s'.",
-                    failure.getTestHeader(), message)));
+            notes = createNotes(String.format("'%s' " + testState.getDescription() + " because '%s'.",
+                    failure.getTestHeader(), message));
         } else {
-            testCase.addChild(createNotes(String.format("'%s' FAILED because '%s'.",
-                    failure.getTestHeader(), failure.getTrace())));
+            notes = createNotes(String.format("'%s' " + testState.getDescription() + " because '%s'.",
+                    failure.getTestHeader(), failure.getTrace()));
         }
+        testCase.addChild(notes);
     }
 
     /** {@inheritDoc} */
@@ -108,7 +110,7 @@ class InTestLinkStrategy implements TestLinkStrategy {
     /**
      * Creates a new tester element filled with the tester.
      * 
-     * @param tester
+     * @param userName
      *            name of the user got from system property {@code testlink.userName} or {@code user.name}.
      * @return &lt;tester&gt; element.
      */
