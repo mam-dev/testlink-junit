@@ -51,9 +51,10 @@ public class ThreadingTest extends AbstractTestLinkRunListenerTest {
         pool.shutdown();
         pool.awaitTermination(100, TimeUnit.SECONDS);
         final Xpp3Dom results = listener.getResults();
+        assertAllTestCasesHaveRequiredElements(results);
         assertEquals(600, results.getChildCount());
-        assertEquals(400, checkResultsAndCountTestCasesWithExternalId(results));
-        assertEquals(100, getIgnoredTestCases(results));
+        assertEquals(400, countTestsWithExternalIdfinal(results));
+        assertEquals(100, countIgnoredTests(results));
         final PrintStream stream = new PrintStream(new File("target/parallel-testlink.xml"));
         try {
             stream.print(results.toString());

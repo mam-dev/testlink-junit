@@ -7,6 +7,8 @@ package net.oneandone.testlinkjunit.tljunit;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 import org.codehaus.plexus.util.xml.Xpp3Dom;
 
 /**
@@ -15,36 +17,65 @@ import org.codehaus.plexus.util.xml.Xpp3Dom;
  */
 abstract public class AbstractTestLinkRunListenerTest {
 
-    final void hasValue(final Xpp3Dom testCase, final String name) {
+    final static String[] REQUIRED_ELEMENTS = new String[] { "tester", "timestamp", "result", "notes" };
+
+    final void assertHasExactlyOneNamedNonEmptyElement(final Xpp3Dom testCase, final String name) {
         final Xpp3Dom[] children = testCase.getChildren(name);
-        assertEquals(1, children.length);
-        assertFalse(children[0].getValue().isEmpty());
+        assertEquals("Expected exactly one " + name, 1, children.length);
+        assertFalse("Expected " + name + " not to be empty.", children[0].getValue().isEmpty());
     }
 
-    /**
-     * @param results
-     * @return
-     */
-    final int checkResultsAndCountTestCasesWithExternalId(final Xpp3Dom results) {
-        int testCasesWithExternalId = 0;
-        for (final Xpp3Dom testCase : results.getChildren()) {
-            if (testCase.getAttribute("external_id") != null) {
-                testCasesWithExternalId++;
+    final int countTestsWithExternalIdfinal(Xpp3Dom results) {
+        final AtomicInteger externalIds = new AtomicInteger();
+        new ForAllTestCases(results) {
+            @Override
+            void apply(Xpp3Dom each) {
+                if (each.getAttribute("external_id") != null) {
+                    externalIds.incrementAndGet();
+                }
             }
-            hasValue(testCase, "tester");
-            hasValue(testCase, "timestamp");
-            hasValue(testCase, "result");
-            hasValue(testCase, "notes");
-        }
-        return testCasesWithExternalId;
+        }.run();
+        return externalIds.intValue();
     }
 
-    final int getIgnoredTestCases(final Xpp3Dom results) {
-        int ignoreds = 0;
-        for (final Xpp3Dom testCase : results.getChildren()) {
-            final String result = testCase.getChild("result").getValue();
-            ignoreds += result.equals("b") ? 1 : 0;
+    final void assertAllTestCasesHaveRequiredElements(final Xpp3Dom results) {
+        new ForAllTestCases(results) {
+            @Override
+            void apply(Xpp3Dom each) {
+                for (final String requiredElement : REQUIRED_ELEMENTS) {
+                    assertHasExactlyOneNamedNonEmptyElement(each, requiredElement);
+                }
+            }
+        }.run();
+    }
+
+    final int countIgnoredTests(final Xpp3Dom results) {
+        final AtomicInteger ignored = new AtomicInteger();
+        new ForAllTestCases(results) {
+            @Override
+            void apply(Xpp3Dom each) {
+                final String result = each.getChild("result").getValue();
+                ignored.addAndGet(result.equals("b") ? 1 : 0);
+            }
+        }.run();
+        return ignored.intValue();
+    }
+
+    abstract static class ForAllTestCases implements Runnable {
+
+        private final Xpp3Dom results;
+
+        public ForAllTestCases(final Xpp3Dom results) {
+            this.results = results;
         }
-        return ignoreds;
+        /** {@inheritDoc} */
+        @Override
+        public void run() {
+            for (final Xpp3Dom testCase : results.getChildren()) {
+                apply(testCase);
+            }
+        }
+
+        abstract void apply(Xpp3Dom each);
     }
 }

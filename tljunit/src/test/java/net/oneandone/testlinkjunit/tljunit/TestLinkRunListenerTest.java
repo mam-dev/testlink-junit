@@ -32,9 +32,9 @@ public class TestLinkRunListenerTest extends AbstractTestLinkRunListenerTest {
         core.run(SUTTestLinkRunListener.class);
         final Xpp3Dom results = listener.getResults();
         assertEquals(6, results.getChildCount());
-        int testCasesWithExternalId = checkResultsAndCountTestCasesWithExternalId(results);
-        assertEquals(4, testCasesWithExternalId);
-        assertEquals(1, getIgnoredTestCases(results));
+        assertAllTestCasesHaveRequiredElements(results);
+        assertEquals(4, countTestsWithExternalIdfinal(results));
+        assertEquals(1, countIgnoredTests(results));
     }
 
     @Test
