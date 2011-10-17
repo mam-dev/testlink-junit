@@ -6,27 +6,37 @@
     </properties>
     <body>
         <section name="Introduction">
-            <subsection name="Aims">
+            <p>
+                By annotating your tests with
+                <a href="apidocs/net/oneandone/testlinkjunit/tljunit/TestLink.html">
+                    <tt>TestLink</tt>
+                </a>
+                test results will be written to a
+                <tt>XML</tt>
+                file which may be imported to a running
+                <a href="http://www.teamst.org/">Testlink</a>
+                instance as described in the
+                <a href="http://www.teamst.org/_tldoc/1.8/user_manual.pdf">user manual</a>
+                .
+            </p>
+        </section>
+        <section name="Usage">
+            <subsection name="Annotating your tests">
                 <p>
-                    By annotating your tests with
-                    <a href="apidocs/net/oneandone/testlinkjunit/tljunit/TestLink.html">
-                        <tt>TestLink</tt>
-                    </a>
-                    test results will be written to a <tt>XML</tt> file which may be imported to a running
-                    <a href="http://www.teamst.org/">Testlink</a> instance as described in the <a href="http://www.teamst.org/_tldoc/1.8/user_manual.pdf">user manual</a>.
+                    You have to annotate your tests and provide either an
+                    <tt>externalId</tt>
+                    or
+                    <tt>internalId</tt>
                 </p>
-            </subsection>
-            <subsection name="Usage">
-                <p>You have to annotate your tests and provide either an <tt>externalId</tt> or <tt>internalId</tt></p>
-                    <pre>
+                <pre><![CDATA[
 @Test
 @TestLink(internalId=1)
 public void testPassed() {
     assertTrue(true);
 }
 
-                    </pre>
-                    <pre>
+                    ]]></pre>
+                <pre><![CDATA[
 @Test
 @TestLink(internalId=2)
 @Ignore("Just ignore this")
@@ -34,31 +44,40 @@ public void testIgnored() {
     assertTrue(true);
 }
 
-                    </pre>
-                    <pre>
+                    ]]></pre>
+                <pre><![CDATA[
 @Test
 @TestLink(externalId="ASSUMPTION_FAILED")
 public void testWithFailingAssumption() {
     assumeTrue(false);
 }
 
-                    </pre>
-                    <pre>
+                    ]]></pre>
+                <pre><![CDATA[
 @Test
 @TestLink(externalId="PROJECT-1")
 public void testExternalId() {
     assertTrue(true);
 }
-                    </pre>
-    <p>
-        Tests annotated with
-        <tt>Ignore</tt>
-        will be marked as
-        <tt>BLOCKED</tt> as well as tests with failing assumptions.
-        . Now you have to configure the surefire plugin to use the additional
-        <a href="apidocs/net/oneandone/testlinkjunit/tljunit/TestLinkXmlRunListener.html"><tt>TestLinkXmlRunListener</tt></a>.
-        As can be seen below, the username and file-location for the result file may be provided as system properties.</p>
-        <pre><![CDATA[
+                    ]]></pre>
+                <p>
+                    Tests annotated with
+                    <tt>Ignore</tt>
+                    will be marked as
+                    <tt>BLOCKED</tt>
+                    as well as tests with failing assumptions.
+                </p>
+            </subsection>
+            <subsection name="Configuring the maven-surefire-plugin.">
+                <p>
+                    You have to configure the surefire plugin to use the additional
+                    <a href="apidocs/net/oneandone/testlinkjunit/tljunit/TestLinkXmlRunListener.html">
+                        <tt>TestLinkXmlRunListener</tt>
+                    </a>
+                    .
+                    As can be seen below, the username and file-location for the result file may be provided as system properties.
+                </p>
+                <pre><![CDATA[
     <build>
         <plugins>
             <plugin>
@@ -69,7 +88,7 @@ public void testExternalId() {
                     <dependency>
                         <groupId>net.oneandone.testlinkjunit</groupId>
                         <artifactId>tljunit</artifactId>
-                        <version>1.0-SNAPSHOT</version>
+                        <version>1.X</version>
                     </dependency>
                 </dependencies>
                 <configuration>
@@ -88,6 +107,15 @@ public void testExternalId() {
         </plugins>
     </build>
         ]]></pre>
+            <p>
+                Now running
+                <kbd>mvn test</kbd>
+                will run your tests and put the resulting TestLink XML file into
+                <tt>target/my-testlink.xml</tt>
+                using
+                <tt>memyselfandi</tt>
+                as name of the user who executed the test run.
+            </p>
             </subsection>
         </section>
     </body>
