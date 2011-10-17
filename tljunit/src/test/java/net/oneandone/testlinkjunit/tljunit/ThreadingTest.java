@@ -29,7 +29,7 @@ public class ThreadingTest extends AbstractTestLinkRunListenerTest {
 
     private final ExecutorService pool = Executors.newFixedThreadPool(50);
 
-    private final TestLinkRunListener listener;
+    private final TestLinkXmlRunListener listener;
 
     private final PrintStream out;
 
@@ -40,7 +40,7 @@ public class ThreadingTest extends AbstractTestLinkRunListenerTest {
                 // just do nothing
             }
         });
-        listener = new TestLinkRunListener(out, "donald");
+        listener = new TestLinkXmlRunListener(out, "donald");
     }
 
     /**

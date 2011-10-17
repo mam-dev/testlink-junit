@@ -17,7 +17,7 @@ import org.junit.runner.notification.RunListener;
  *
  * @author mirko
  */
-public class TestLinkRunListener extends RunListener {
+public class TestLinkXmlRunListener extends RunListener {
 
     private final PrintStream out;
 
@@ -31,7 +31,7 @@ public class TestLinkRunListener extends RunListener {
      * @throws FileNotFoundException
      *             when the file could not be written.
      */
-    public TestLinkRunListener() throws FileNotFoundException {
+    public TestLinkXmlRunListener() throws FileNotFoundException {
         this(new PrintStream(
                 new BufferedOutputStream(
                         new FileOutputStream(System.getProperty("testlink.results", "target/testlink.xml")))),
@@ -44,7 +44,7 @@ public class TestLinkRunListener extends RunListener {
      * @param userName
      *            to be used as tester.
      */
-    public TestLinkRunListener(final PrintStream out, final String userName) {
+    public TestLinkXmlRunListener(final PrintStream out, final String userName) {
         this.out = out;
         this.inTestLinkstrategy = new InTestLinkStrategy(userName);
         this.noTestLinkStrategy = new NoTestLinkStrategy();

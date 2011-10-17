@@ -21,14 +21,14 @@ import org.junit.runner.Description;
 import org.junit.runner.JUnitCore;
 
 
-public class TestLinkRunListenerTest extends AbstractTestLinkRunListenerTest {
+public class TestLinkXmlRunListenerTest extends AbstractTestLinkRunListenerTest {
 
     private static final String XML_HEADER = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + System.getProperty("line.separator");
 
     @Test
     public void test() {
         final JUnitCore core = new JUnitCore();
-        final TestLinkRunListener listener = new TestLinkRunListener(System.out, "goofy");
+        final TestLinkXmlRunListener listener = new TestLinkXmlRunListener(System.out, "goofy");
         core.addListener(listener);
         core.run(SUTTestLinkRunListener.class);
         final Xpp3Dom results = listener.getResults();

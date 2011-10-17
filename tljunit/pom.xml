@@ -32,7 +32,7 @@
                     <properties>
                         <property>
                             <name>listener</name>
-                            <value>net.oneandone.testlinkjunit.tljunit.TestLinkRunListener</value>
+                            <value>net.oneandone.testlinkjunit.tljunit.TestLinkXmlRunListener</value>
                         </property>
                     </properties>
                     <systemPropertyVariables>

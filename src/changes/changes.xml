@@ -5,6 +5,11 @@
         <author email="mirko.friedenhagen@1und1.de">Mirko Friedenhagen</author>
     </properties>
     <body>
+        <release version="1.4" date="2011-10-XX" description="Renamed RunListener.">
+            <action dev="mifr" type="update">
+                Renamed TestLinkRunListener to TestLinkXmlRunListener.
+            </action>
+        </release>
         <release version="1.3" date="2011-10-17" description="Assumptions as blocked">
             <action dev="mifr" type="add">
                 Tests with failing assumptions will be reported as BLOCKED as well.

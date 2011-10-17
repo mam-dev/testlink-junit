@@ -56,7 +56,7 @@ public void testExternalId() {
         will be marked as
         <tt>BLOCKED</tt> as well as tests with failing assumptions.
         . Now you have to configure the surefire plugin to use the additional
-        <a href="apidocs/net/oneandone/testlinkjunit/tljunit/TestLinkRunListener.html"><tt>TestLinkRunListener</tt></a>.
+        <a href="apidocs/net/oneandone/testlinkjunit/tljunit/TestLinkXmlRunListener.html"><tt>TestLinkXmlRunListener</tt></a>.
         As can be seen below, the username and file-location for the result file may be provided as system properties.</p>
         <pre><![CDATA[
     <build>
@@ -76,7 +76,7 @@ public void testExternalId() {
                     <properties>
                         <property>
                             <name>listener</name>
-                            <value>net.oneandone.testlinkjunit.tljunit.TestLinkRunListener</value>
+                            <value>net.oneandone.testlinkjunit.tljunit.TestLinkXmlRunListener</value>
                         </property>
                     </properties>
                     <systemPropertyVariables>
