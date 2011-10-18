@@ -44,6 +44,11 @@
                 <artifactId>plexus-utils</artifactId>
                 <version>2.1</version>
             </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>tljunit</artifactId>
+                <version>${project.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -299,5 +304,6 @@
     </profiles>
     <modules>
         <module>tljunit</module>
+        <module>tljunit-eclipse</module>
     </modules>
 </project>

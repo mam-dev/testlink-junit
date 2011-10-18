@@ -8,7 +8,7 @@
     <artifactId>tljunit</artifactId>
     <packaging>jar</packaging>
 
-    <name>tljunit</name>
+    <name>tljunit TestLinkXmlRunner</name>
 
     <scm>
         <connection>${project.parent.scm.connection}</connection>

@@ -118,5 +118,37 @@ public void testExternalId() {
             </p>
             </subsection>
         </section>
+        <section name="Usage with Eclipse">
+            <p>To run a testsuite from Eclipse, add a main method which will collect the tests:</p>
+            <pre><![CDATA[
+package net.oneandone.testlinkjunit.eclipse;
+
+import static org.junit.Assert.assertTrue;
+
+import java.io.FileNotFoundException;
+
+import net.oneandone.testlinkjunit.tljunit.TestLink;
+import net.oneandone.testlinkjunit.tljunit.TestLinkXmlRunListener;
+
+import org.junit.Test;
+import org.junit.runner.JUnitCore;
+
+public class EclipseTest {
+
+    @Test
+    @TestLink(externalId="ECLIPSE_TEST")
+    public void test() {
+        assertTrue(true);
+    }
+
+    public static void main(String[] args) throws FileNotFoundException {
+        final JUnitCore core = new JUnitCore();
+        core.addListener(new TestLinkXmlRunListener());
+        core.run(EclipseTest.class);
+    }
+}
+
+            ]]></pre>
+        </section>
     </body>
 </document>
