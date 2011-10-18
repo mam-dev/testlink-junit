@@ -68,59 +68,59 @@ public void testExternalId() {
                     as well as tests with failing assumptions.
                 </p>
             </subsection>
-            <subsection name="Configuring the maven-surefire-plugin.">
+            <subsection name="Running tests with the maven-surefire-plugin">
                 <p>
                     You have to configure the surefire plugin to use the additional
                     <a href="apidocs/net/oneandone/testlinkjunit/tljunit/TestLinkXmlRunListener.html">
                         <tt>TestLinkXmlRunListener</tt>
                     </a>
                     .
-                    As can be seen below, the username and file-location for the result file may be provided as system properties.
+                    As can be seen below, the username and file-location for the result file may be provided as system
+                    properties.
                 </p>
                 <pre><![CDATA[
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.10</version>
-                <dependencies>
-                    <dependency>
-                        <groupId>net.oneandone.testlinkjunit</groupId>
-                        <artifactId>tljunit</artifactId>
-                        <version>1.X</version>
-                    </dependency>
-                </dependencies>
-                <configuration>
-                    <properties>
-                        <property>
-                            <name>listener</name>
-                            <value>net.oneandone.testlinkjunit.tljunit.TestLinkXmlRunListener</value>
-                        </property>
-                    </properties>
-                    <systemPropertyVariables>
-                        <testlink.results>target/my-testlink.xml</testlink.results>
-                        <testlink.userName>memyselfandi</testlink.userName>
-                    </systemPropertyVariables>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>2.10</version>
+            <dependencies>
+                <dependency>
+                    <groupId>net.oneandone.testlinkjunit</groupId>
+                    <artifactId>tljunit</artifactId>
+                    <version>1.X</version>
+                </dependency>
+            </dependencies>
+            <configuration>
+                <properties>
+                    <property>
+                        <name>listener</name>
+                        <value>net.oneandone.testlinkjunit.tljunit.TestLinkXmlRunListener</value>
+                    </property>
+                </properties>
+                <systemPropertyVariables>
+                    <testlink.results>target/my-testlink.xml</testlink.results>
+                    <testlink.userName>memyselfandi</testlink.userName>
+                </systemPropertyVariables>
+            </configuration>
+        </plugin>
+    </plugins>
+</build>
         ]]></pre>
-            <p>
-                Now running
-                <kbd>mvn test</kbd>
-                will run your tests and put the resulting TestLink XML file into
-                <tt>target/my-testlink.xml</tt>
-                using
-                <tt>memyselfandi</tt>
-                as name of the user who executed the test run.
-            </p>
+                <p>
+                    Now running
+                    <kbd>mvn test</kbd>
+                    will run your tests and put the resulting TestLink XML file into
+                    <tt>target/my-testlink.xml</tt>
+                    using
+                    <tt>memyselfandi</tt>
+                    as name of the user who executed the test run.
+                </p>
             </subsection>
-        </section>
-        <section name="Usage with Eclipse">
-            <p>To run a testsuite from Eclipse, add a main method which will collect the tests:</p>
-            <pre><![CDATA[
+            <subsection name="Running tests in Eclipse">
+                <p>To run a test from Eclipse, add a main method which will collect the tests:</p>
+                <pre><![CDATA[
 package net.oneandone.testlinkjunit.eclipse;
 
 import static org.junit.Assert.assertTrue;
@@ -149,6 +149,7 @@ public class EclipseTest {
 }
 
             ]]></pre>
+            </subsection>
         </section>
     </body>
 </document>
