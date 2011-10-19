@@ -14,8 +14,8 @@
  * <h3>Running tests with the maven-surefire-plugin</h3>
  * <p>
  * You have to configure the surefire plugin to use the additional
- * {@link net.oneandone.testlinkjunit.tljunit.TestLinkXmlRunListener}. 
- * As can be seen below, the username and file-location for the result file may be provided as system properties.
+ * {@link net.oneandone.testlinkjunit.tljunit.TestLinkXmlRunListener}.
+ * As can be seen below, the tester name and file-location for the result file may be provided as system properties.
  * </p>
  * <pre>{@code
  * <build>
@@ -40,7 +40,7 @@
  *                </properties>
  *                <systemPropertyVariables>
  *                    <testlink.results>target/my-testlink.xml</testlink.results>
- *                    <testlink.userName>memyselfandi</testlink.userName>
+ *                    <testlink.tester>memyselfandi</testlink.userName>
  *                </systemPropertyVariables>
  *            </configuration>
  *        </plugin>

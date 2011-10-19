@@ -21,16 +21,21 @@ class NoTestLinkStrategy implements TestLinkStrategy {
 
     /** {@inheritDoc} */
     @Override
-    public void addIgnore(Description description) {
+    public void setBlockedWhenIgnored(Description description) {
     }
 
     /** {@inheritDoc} */
     @Override
-    public void addFailureOrAssumptionFailure(Failure failure, TestState testState) {
+    public void setFailed(Failure failure) {
     }
 
     /** {@inheritDoc} */
     @Override
-    public void addFinished(Description description) {
+    public void setBlockedWhenAssumptionFailed(Failure failure) {        
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public void setPassedWhenNoFailure(Description description) {
     }
 }

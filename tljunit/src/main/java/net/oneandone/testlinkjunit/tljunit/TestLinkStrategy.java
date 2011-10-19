@@ -26,18 +26,23 @@ interface TestLinkStrategy {
      * @param description
      *            of the testcase.
      */
-    void addIgnore(Description description);
+    void setBlockedWhenIgnored(Description description);
 
     /**
-     * Adds failure information to the current &lt;testcase&gt;. Use {@link TestState#b}, when an assumption failed,
-     * otherwise {@link TestState#f}.
+     * Adds failure information to the current &lt;testcase&gt; which is marked as BLOCKED as an assumption failed.
      * 
      * @param failure
      *            to report.
-     * @param testState
-     *            one of {@link TestState#b} or {@link TestState#f}.
      */
-    void addFailureOrAssumptionFailure(Failure failure, TestState testState);
+    void setBlockedWhenAssumptionFailed(Failure failure);
+
+    /**
+     * Adds failure information to the current &lt;testcase&gt;.
+     * 
+     * @param failure
+     *            to report.
+     */
+    void setFailed(Failure failure);
 
     /**
      * Adds success information to the current &lt;testcase&gt;.
@@ -45,6 +50,6 @@ interface TestLinkStrategy {
      * @param description
      *            of the testcase.
      */
-    void addFinished(Description description);
+    void setPassedWhenNoFailure(Description description);
 
 }

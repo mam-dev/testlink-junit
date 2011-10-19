@@ -20,6 +20,8 @@ import org.junit.runner.notification.RunListener;
  */
 class InTestLinkStrategy implements TestLinkStrategy {
 
+    private static final Failure NO_FAILURE = new Failure(Description.EMPTY, null);
+
     private final Xpp3Dom results;
 
     private final String testerName;
@@ -36,13 +38,14 @@ class InTestLinkStrategy implements TestLinkStrategy {
         this.testerName = testerName;
     }
 
-    /** {@inheritDoc}
-     *
+    /**
+     * {@inheritDoc}
+     * 
      * {@link TestLink} annotation must have either {@link TestLink#internalId()} or {@link TestLink#externalId()} set.
      */
     @Override
     public void addNewTestCase(Description description) {
-        setCurrentFailure(null);
+        setCurrentFailure(NO_FAILURE);
         final TestLink testLink = description.getAnnotation(TestLink.class);
         final Xpp3Dom testCase = new Xpp3Dom("testcase");
         setCurrentTestCase(testCase);
@@ -65,23 +68,32 @@ class InTestLinkStrategy implements TestLinkStrategy {
 
     /**
      * {@inheritDoc}
-     *
+     * 
      * We have to call {@link InTestLinkStrategy#addNewTestCase(Description)}, as
      * {@link RunListener#testStarted(Description)} is not called for tests annotated with {@link Ignore}.
      */
     @Override
-    public void addIgnore(Description description) {
-        addNewTestCase(description);
+    public void setBlockedWhenIgnored(Description description) {
         final Xpp3Dom testCase = getCurrentTestCase();
         testCase.addChild(createResult(TestState.b));
-        final String ignoreValue = description.getAnnotation(Ignore.class).value();
-        testCase.addChild(createNotes(String.format("'%s' BLOCKED because '%s'.",
-                description.getDisplayName(), ignoreValue)));
+        final String message = description.getAnnotation(Ignore.class).value();
+        testCase.addChild(createNotes(String.format("'%s' BLOCKED because '%s'.", description.getDisplayName(), message)));
     }
 
     /** {@inheritDoc} */
     @Override
-    public void addFailureOrAssumptionFailure(Failure failure, TestState testState) {
+    public void setBlockedWhenAssumptionFailed(Failure failure) {
+        setFailedOrIgnoredForFailureOrAssumptionFailure(failure, TestState.b);
+
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public void setFailed(Failure failure) {
+        setFailedOrIgnoredForFailureOrAssumptionFailure(failure, TestState.f);
+    }
+
+    private void setFailedOrIgnoredForFailureOrAssumptionFailure(Failure failure, TestState testState) {
         setCurrentFailure(failure);
         final Xpp3Dom testCase = getCurrentTestCase();
         testCase.addChild(createResult(testState));
@@ -97,10 +109,14 @@ class InTestLinkStrategy implements TestLinkStrategy {
         testCase.addChild(notes);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     * 
+     * This will set the test to PASSED only when we have no {@link InTestLinkStrategy#currentFailure}.
+     */
     @Override
-    public void addFinished(Description description) {
-        if (getCurrentFailure() == null) {
+    public void setPassedWhenNoFailure(Description description) {
+        if (getCurrentFailure() == NO_FAILURE) {
             final Xpp3Dom testCase = getCurrentTestCase();
             testCase.addChild(createResult(TestState.p));
             testCase.addChild(createNotes(String.format("'%s' PASSED.", description.getDisplayName())));
@@ -175,7 +191,8 @@ class InTestLinkStrategy implements TestLinkStrategy {
     }
 
     /**
-     * @param currentTestCase the currentTestCase to set
+     * @param currentTestCase
+     *            the currentTestCase to set
      */
     private void setCurrentTestCase(Xpp3Dom currentTestCase) {
         this.currentTestCase.set(currentTestCase);
@@ -189,10 +206,10 @@ class InTestLinkStrategy implements TestLinkStrategy {
     }
 
     /**
-     * @param currentFailure the currentFailure to set
+     * @param currentFailure
+     *            the currentFailure to set
      */
     private void setCurrentFailure(Failure currentFailure) {
         this.currentFailure.set(currentFailure);
     }
-
 }
