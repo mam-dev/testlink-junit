@@ -5,44 +5,13 @@
  * <a href="http://www.teamst.org/">Testlink</a> instance as described in the 
  * <a href="http://www.teamst.org/_tldoc/1.8/user_manual.pdf">user manual</a>. 
  * </p> 
- * <h1>Usage</h1> 
- * <h2>Annotating your tests</h2> 
- * <p> 
- * You have to annotate your tests and provide either an <tt>externalId</tt> or <tt>internalId</tt> 
- * </p>
- * <pre>
- * &#064;Test
- * &#064;TestLink(internalId=1)
- * public void testPassed() {
- *    assertTrue(true); 
- * }
- * </pre>
- * <pre>
- * &#064;Test
- * &#064;TestLink(internalId=2)
- * &#064;Ignore("Just ignore this")
- * public void testIgnored() {
- *    assertTrue(true);
- * }
- * </pre>
- * <pre>
- * &#064;Test
- * &#064;TestLink(externalId="ASSUMPTION_FAILED")
- * public void testWithFailingAssumption() {
- *    assumeTrue(false);
- * }
- * </pre>
- * <pre>
- * &#64;Test
- * &#64;TestLink(externalId="PROJECT-1")
- * public void testExternalId() {
- *     assertTrue(true);
- * }
- * </pre>
+ * <h2>Usage</h2> 
+ * <h3>Annotating your tests</h3>
  * <p>
+ * You have to annotate your tests with {@link net.oneandone.testlinkjunit.tljunit.TestLink} and provide either an <tt>externalId</tt> or <tt>internalId</tt>.
  * Tests annotated with {@link org.junit.Ignore} will be marked as <tt>BLOCKED</tt> as well as tests with failing assumptions.
  * </p>
- * <h2>Running tests with the maven-surefire-plugin</h2>
+ * <h3>Running tests with the maven-surefire-plugin</h3>
  * <p>
  * You have to configure the surefire plugin to use the additional
  * {@link net.oneandone.testlinkjunit.tljunit.TestLinkXmlRunListener}. 
@@ -87,32 +56,11 @@
  * To run a test from Eclipse, add a main method which will collect the tests:
  * </p>
  * <pre>
- * package net.oneandone.testlinkjunit.eclipse;
- * 
- * import static org.junit.Assert.assertTrue;
- * 
- * import java.io.FileNotFoundException;
- * 
- * import net.oneandone.testlinkjunit.tljunit.TestLink;
- * import net.oneandone.testlinkjunit.tljunit.TestLinkXmlRunListener;
- * 
- * import org.junit.Test;
- * import org.junit.runner.JUnitCore;
- * 
- * public class EclipseTest {
- * 
- *    &#64;Test
- *    &#64;TestLink(externalId="ECLIPSE_TEST")
- *    public void test() {
- *        assertTrue(true);
- *    }
- * 
  *    public static void main(String[] args) throws FileNotFoundException {
  *        final JUnitCore core = new JUnitCore();
  *        core.addListener(new TestLinkXmlRunListener());
  *        core.run(EclipseTest.class);
  *    }
- * }
  * </pre>
  */
 package net.oneandone.testlinkjunit.tljunit;

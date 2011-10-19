@@ -12,10 +12,11 @@ import org.junit.runner.notification.Failure;
 import org.junit.runner.notification.RunListener;
 
 /**
- * Class which writes an additional TestLink XML file as described in Testlink's <a
+ * Writes an additional TestLink XML file as described in Testlink's <a
  * href="http://www.teamst.org/_tldoc/1.8/user_manual.pdf">user manual</a>.
  *
- * @author mirko
+ * For usage with the <a href="http://maven.apache.org/plugins/maven-surefire-plugin/"><tt>maven-surefire-plugin</tt></a>
+ * as well as Eclipse take a look into the <a href="package-summary.html">package summary</a>. 
  */
 public class TestLinkXmlRunListener extends RunListener {
 
@@ -26,7 +27,14 @@ public class TestLinkXmlRunListener extends RunListener {
     private final NoTestLinkStrategy noTestLinkStrategy;
 
     /**
-     * Write results to system property "testlink.results" or to "target/testlink.xml" by default.
+     * Parameters are taken via System properties:
+     * <dl>
+     * <dt><code>testlink.results</code></dt>
+     * <dd>Writes results to this filename (<tt>target/testlink.xml</tt> by default).</dd>
+     * <dt><code>testlink.userName</code></dt>
+     * <dd>To be used as tester. (falls back to system property <tt>user.name</tt> by default).</dd>
+     * </dl>
+     * Writes results to a file given by system property <tt>testlink.results<tt> (<tt>target/testlink.xml</tt> by default).
      * 
      * @throws FileNotFoundException
      *             when the file could not be written.
@@ -35,10 +43,12 @@ public class TestLinkXmlRunListener extends RunListener {
         this(new PrintStream(
                 new BufferedOutputStream(
                         new FileOutputStream(System.getProperty("testlink.results", "target/testlink.xml")))),
-             System.getProperty("testlink.userName", System.getProperty("user.name", "UNKNOWN")));
+             System.getProperty("testlink.userName", System.getProperty("user.name")));
     }
 
     /**
+     * Writes results to <tt>out</tt> using <tt>userName</tt> as tester.
+     *
      * @param out
      *            to be used for writing the testlink xml file.
      * @param userName
