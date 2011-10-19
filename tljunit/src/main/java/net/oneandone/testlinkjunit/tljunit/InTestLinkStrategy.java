@@ -22,7 +22,7 @@ class InTestLinkStrategy implements TestLinkStrategy {
 
     private final Xpp3Dom results;
 
-    private final String userName;
+    private final String testerName;
 
     private ThreadLocal<Xpp3Dom> currentTestCase = new ThreadLocal<Xpp3Dom>();
 
@@ -31,9 +31,9 @@ class InTestLinkStrategy implements TestLinkStrategy {
     /**
      * 
      */
-    public InTestLinkStrategy(final String userName) {
+    public InTestLinkStrategy(final String testerName) {
         results = new Xpp3Dom("results");
-        this.userName = userName;
+        this.testerName = testerName;
     }
 
     /** {@inheritDoc}
@@ -46,7 +46,7 @@ class InTestLinkStrategy implements TestLinkStrategy {
         final TestLink testLink = description.getAnnotation(TestLink.class);
         final Xpp3Dom testCase = new Xpp3Dom("testcase");
         setCurrentTestCase(testCase);
-        testCase.addChild(createTester(userName));
+        testCase.addChild(createTester(testerName));
         testCase.addChild(createTimeStamp(new Date()));
         synchronized (results) {
             results.addChild(testCase);
