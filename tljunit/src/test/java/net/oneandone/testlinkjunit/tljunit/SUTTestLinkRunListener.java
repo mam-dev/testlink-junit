@@ -2,6 +2,7 @@ package net.oneandone.testlinkjunit.tljunit;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assume.assumeNoException;
 import static org.junit.Assume.assumeThat;
 
 import org.junit.Ignore;
@@ -53,6 +54,11 @@ public class SUTTestLinkRunListener {
     @TestLink(externalId = "ASSUMPTION_FAILED")
     public void testFailingAssumption() {
         assumeThat(0, is(1));
+    }
+
+    @Test
+    public void testFailingAssumptionWithoutTestLinkAnnotation() {
+        assumeNoException(new IllegalStateException("Could not connect to server"));
     }
 
     @Test

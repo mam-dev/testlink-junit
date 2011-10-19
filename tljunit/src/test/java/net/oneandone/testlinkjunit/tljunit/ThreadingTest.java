@@ -73,7 +73,7 @@ public class ThreadingTest extends AbstractTestLinkRunListenerTest {
                 @Override
                 public void run() {
                     final Result result = core.run(SUTTestLinkRunListener.class);
-                    assertEquals(8, result.getRunCount());
+                    assertEquals(9, result.getRunCount());
                     assertEquals(2, result.getIgnoreCount());
                 }
             });
