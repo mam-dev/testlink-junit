@@ -5,6 +5,15 @@
         <author email="mirko.friedenhagen@1und1.de">Mirko Friedenhagen</author>
     </properties>
     <body>
+        <release version="2.1.0" date="2011-10-21" description="New TestLinkLoggingRunListener">
+            <action dev="mifr" type="add">
+                Create a RunListener which logs events to a slf4j Logger.
+                <fixes issue="3"/>
+            </action>
+            <action dev="mifr" type="update" issue="3">
+                Refactored to make things more extensible.
+            </action>
+        </release>
         <release version="2.0.3" date="2011-10-20" description="Documentation.">
             <action dev="mifr" type="fix">
                 Wrong documentation in TestLinkXmlRunListener for usage with Maven.

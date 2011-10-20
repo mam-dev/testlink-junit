@@ -8,7 +8,7 @@ import org.junit.runner.Description;
 import org.junit.runner.notification.Failure;
 
 /**
- * Used by {@link InTestLinkStrategy} and {@link NoTestLinkStrategy}.
+ * Used by {@link InTestLinkXmlStrategy} and {@link NoTestLinkStrategy}.
  */
 interface TestLinkStrategy {
 

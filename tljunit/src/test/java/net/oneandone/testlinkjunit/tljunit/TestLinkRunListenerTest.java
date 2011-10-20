@@ -9,6 +9,8 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static org.junit.Assume.assumeNoException;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.lang.annotation.Annotation;
 import java.util.Calendar;
 import java.util.Locale;
@@ -21,17 +23,18 @@ import org.junit.runner.Description;
 import org.junit.runner.JUnitCore;
 
 
-public class TestLinkXmlRunListenerTest extends AbstractTestLinkRunListenerTest {
+public class TestLinkRunListenerTest extends AbstractTestLinkRunListenerTest {
 
     private static final String XML_HEADER = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + System.getProperty("line.separator");
 
     @Test
     public void test() {
         final JUnitCore core = new JUnitCore();
-        final TestLinkXmlRunListener listener = new TestLinkXmlRunListener(System.out, "goofy");
-        core.addListener(listener);
+        final TestLinkXmlRunListener xmlListener = new TestLinkXmlRunListener(new PrintStream(new ByteArrayOutputStream()), "goofy");
+        core.addListener(xmlListener);
+        core.addListener(new TestLinkLoggingRunListener());
         core.run(SUTTestLinkRunListener.class);
-        final Xpp3Dom results = listener.getResults();
+        final Xpp3Dom results = xmlListener.getResults();
         assertEquals(7, results.getChildCount());
         assertAllTestCasesHaveRequiredElements(results);
         assertEquals(5, countTestsWithExternalIdfinal(results));
@@ -43,7 +46,7 @@ public class TestLinkXmlRunListenerTest extends AbstractTestLinkRunListenerTest 
     public void testCreateTimeStamp() {
         final Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"), Locale.US);
         calendar.setTimeInMillis(0);
-        final InTestLinkStrategy inTestLinkStrategy = new InTestLinkStrategy("noone");
+        final InTestLinkXmlStrategy inTestLinkStrategy = new InTestLinkXmlStrategy("noone");
         Xpp3Dom timeStamp = inTestLinkStrategy.createTimeStamp(calendar.getTime());
         assertEquals(XML_HEADER + "<timestamp>1970-01-01 01:00:00</timestamp>", timeStamp.toString());
     }
@@ -67,7 +70,7 @@ public class TestLinkXmlRunListenerTest extends AbstractTestLinkRunListenerTest 
                 return TestLink.NOT_AVAILABLE;
             }
         });
-        final InTestLinkStrategy inTestLinkStrategy = new InTestLinkStrategy("noone");
+        final InTestLinkXmlStrategy inTestLinkStrategy = new InTestLinkXmlStrategy("noone");
         try {
             inTestLinkStrategy.addNewTestCase(description);
             fail("IllegalArgumentException should be thrown!");

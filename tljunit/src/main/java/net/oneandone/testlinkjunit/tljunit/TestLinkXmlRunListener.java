@@ -6,10 +6,7 @@ import java.io.FileOutputStream;
 import java.io.PrintStream;
 
 import org.codehaus.plexus.util.xml.Xpp3Dom;
-import org.junit.runner.Description;
 import org.junit.runner.Result;
-import org.junit.runner.notification.Failure;
-import org.junit.runner.notification.RunListener;
 
 /**
  * Writes an additional TestLink XML file as described in Testlink's <a
@@ -69,13 +66,9 @@ import org.junit.runner.notification.RunListener;
  * }
  * </pre>
  */
-public class TestLinkXmlRunListener extends RunListener {
+public class TestLinkXmlRunListener extends AbstractTestLinkRunListener<InTestLinkXmlStrategy> {
 
-    private final PrintStream out;
-
-    private final InTestLinkStrategy inTestLinkstrategy;
-
-    private final NoTestLinkStrategy noTestLinkStrategy;
+    final PrintStream out;
 
     /**
      * Instantiates {@link TestLinkXmlRunListener#TestLinkXmlRunListener(PrintStream, String)} with parameters taken
@@ -105,78 +98,24 @@ public class TestLinkXmlRunListener extends RunListener {
      *            name of the tester.
      */
     public TestLinkXmlRunListener(final PrintStream out, final String tester) {
+        super(new InTestLinkXmlStrategy(tester));
         this.out = out;
-        this.inTestLinkstrategy = new InTestLinkStrategy(tester);
-        this.noTestLinkStrategy = new NoTestLinkStrategy();
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public void testStarted(Description description) throws Exception {
-        super.testStarted(description);
-        selectStrategy(description).addNewTestCase(description);
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public void testIgnored(Description description) throws Exception {
-        super.testIgnored(description);
-        final TestLinkStrategy strategy = selectStrategy(description);
-        strategy.addNewTestCase(description);
-        strategy.setBlockedWhenIgnored(description);
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public void testFailure(Failure failure) throws Exception {
-        super.testFailure(failure);
-        selectStrategy(failure.getDescription()).setFailed(failure);
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public void testAssumptionFailure(final Failure failure) {
-        super.testAssumptionFailure(failure);
-        selectStrategy(failure.getDescription()).setBlockedWhenAssumptionFailed(failure);
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public void testFinished(Description description) throws Exception {
-        super.testFinished(description);
-        selectStrategy(description).setPassedWhenNoFailure(description);
     }
 
     /** {@inheritDoc} */
     @Override
     public void testRunFinished(Result result) throws Exception {
         super.testRunFinished(result);
-        out.print(String.valueOf(inTestLinkstrategy.getResults()));
+        out.print(String.valueOf(getInTestLinkStrategy().getResults()));
         out.close();
     }
 
     /**
-     * Selects strategy for test cases with or without {@link TestLink} annotation.
-     * 
-     * @param description
-     *            of the test case.
-     * @return the currently valid strategy
-     */
-    TestLinkStrategy selectStrategy(Description description) {
-        final TestLink testLink = description.getAnnotation(TestLink.class);
-        if (testLink != null) {
-            return inTestLinkstrategy;
-        } else {
-            return noTestLinkStrategy;
-        }
-    }
-
-    /**
-     * Returns the results of the {@link InTestLinkStrategy} for unit testing.
+     * Returns the results of the {@link InTestLinkXmlStrategy} for unit testing.
      * 
      * @return the results
      */
     Xpp3Dom getResults() {
-        return inTestLinkstrategy.getResults();
+        return getInTestLinkStrategy().getResults();
     }
 }

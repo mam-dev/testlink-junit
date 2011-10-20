@@ -13,14 +13,11 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.Description;
 import org.junit.runner.notification.Failure;
-import org.junit.runner.notification.RunListener;
 
 /**
  * TestLinkStrategy to be used when a {@link Test} is annotated with {@link TestLink}.
  */
-class InTestLinkStrategy implements TestLinkStrategy {
-
-    private static final Failure NO_FAILURE = new Failure(Description.EMPTY, null);
+class InTestLinkXmlStrategy extends AbstractInTestLinkStrategy {
 
     private final Xpp3Dom results;
 
@@ -28,12 +25,10 @@ class InTestLinkStrategy implements TestLinkStrategy {
 
     private ThreadLocal<Xpp3Dom> currentTestCase = new ThreadLocal<Xpp3Dom>();
 
-    private ThreadLocal<Failure> currentFailure = new ThreadLocal<Failure>();
-
     /**
      * 
      */
-    public InTestLinkStrategy(final String testerName) {
+    public InTestLinkXmlStrategy(final String testerName) {
         results = new Xpp3Dom("results");
         this.testerName = testerName;
     }
@@ -46,7 +41,6 @@ class InTestLinkStrategy implements TestLinkStrategy {
     @Override
     public void addNewTestCase(Description description) {
         setCurrentFailure(NO_FAILURE);
-        final TestLink testLink = description.getAnnotation(TestLink.class);
         final Xpp3Dom testCase = new Xpp3Dom("testcase");
         setCurrentTestCase(testCase);
         testCase.addChild(createTester(testerName));
@@ -54,24 +48,11 @@ class InTestLinkStrategy implements TestLinkStrategy {
         synchronized (results) {
             results.addChild(testCase);
         }
-        final String externalId = testLink.externalId();
-        final long internalId = testLink.internalId();
-        if (!externalId.equals(TestLink.NOT_AVAILABLE)) {
-            testCase.setAttribute("external_id", externalId);
-        } else if (internalId != 0) {
-            testCase.setAttribute("internal_id", String.valueOf(internalId));
-        } else {
-            throw new IllegalArgumentException("Must set either internalId or externalId on '"
-                    + description.getDisplayName() + "'");
-        }
+        final TestLinkId<?> id = TestLinkId.fromDescription(description);
+        testCase.setAttribute(id.getType(), String.valueOf(id.getId()));
     }
 
-    /**
-     * {@inheritDoc}
-     * 
-     * We have to call {@link InTestLinkStrategy#addNewTestCase(Description)}, as
-     * {@link RunListener#testStarted(Description)} is not called for tests annotated with {@link Ignore}.
-     */
+    /** {@inheritDoc} */
     @Override
     public void setBlockedWhenIgnored(Description description) {
         final Xpp3Dom testCase = getCurrentTestCase();
@@ -112,11 +93,11 @@ class InTestLinkStrategy implements TestLinkStrategy {
     /**
      * {@inheritDoc}
      * 
-     * This will set the test to PASSED only when we have no {@link InTestLinkStrategy#currentFailure}.
+     * This will set the test to PASSED only when we have no {@link InTestLinkXmlStrategy#currentFailure}.
      */
     @Override
     public void setPassedWhenNoFailure(Description description) {
-        if (getCurrentFailure() == NO_FAILURE) {
+        if (hasPassed()) {
             final Xpp3Dom testCase = getCurrentTestCase();
             testCase.addChild(createResult(TestState.p));
             testCase.addChild(createNotes(String.format("'%s' PASSED.", description.getDisplayName())));
@@ -196,20 +177,5 @@ class InTestLinkStrategy implements TestLinkStrategy {
      */
     private void setCurrentTestCase(Xpp3Dom currentTestCase) {
         this.currentTestCase.set(currentTestCase);
-    }
-
-    /**
-     * @return the currentFailure
-     */
-    private Failure getCurrentFailure() {
-        return currentFailure.get();
-    }
-
-    /**
-     * @param currentFailure
-     *            the currentFailure to set
-     */
-    private void setCurrentFailure(Failure currentFailure) {
-        this.currentFailure.set(currentFailure);
     }
 }
