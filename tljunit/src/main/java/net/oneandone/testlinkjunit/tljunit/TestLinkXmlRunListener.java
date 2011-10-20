@@ -43,7 +43,7 @@ import org.junit.runner.notification.RunListener;
  *       </properties>
  *         <systemPropertyVariables>
  *           <testlink.results>target/my-testlink.xml</testlink.results>
- *           <testlink.tester>memyselfandi</testlink.userName>
+ *           <testlink.tester>memyselfandi</testlink.tester>
  *         </systemPropertyVariables>
  *     </configuration>
  *   </plugin>
