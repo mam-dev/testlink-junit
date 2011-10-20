@@ -54,7 +54,7 @@
 
     <issueManagement>
         <system>GitHub</system>
-        <url>https://github.com/1and1/testlink-junit/issues?sort=created&amp;direction=desc&amp;state=open</url>
+        <url>https://github.com/1and1/testlink-junit/issues/?sort=created&amp;direction=desc&amp;state=open</url>
     </issueManagement>
 
     <developers>

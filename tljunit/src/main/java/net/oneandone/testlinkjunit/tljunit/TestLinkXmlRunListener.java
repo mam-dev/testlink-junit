@@ -19,23 +19,42 @@ import org.junit.runner.notification.RunListener;
  * 
  * <pre>
  * {@code
+ * <properties>
+ *   <tljunit.version>X.X<tljunit.version>
+ * </properties>
  * [...]
  *   <plugin>
  *     <groupId>org.apache.maven.plugins</groupId>
  *     <artifactId>maven-surefire-plugin</artifactId>
  *     <version>2.10</version>
+ *     <dependencies>
+ *       <dependency>
+ *         <groupId>net.oneandone.testlinkjunit</groupId>
+ *         <artifactId>tljunit</artifactId>
+ *         <version>}${tljunit.version}{@code</version>
+ *       </dependency>
+ *     </dependencies>
  *     <configuration>
  *       <properties>
  *         <property>
  *           <name>listener</name>
  *           <value>net.oneandone.testlinkjunit.tljunit.TestLinkXmlRunListener</value>
  *         </property>
+ *       </properties>
  *         <systemPropertyVariables>
  *           <testlink.results>target/my-testlink.xml</testlink.results>
  *           <testlink.tester>memyselfandi</testlink.userName>
  *         </systemPropertyVariables>
  *     </configuration>
  *   </plugin>
+ * [...]
+ *   <dependencies>
+ *       <dependency>
+ *         <groupId>net.oneandone.testlinkjunit</groupId>
+ *         <artifactId>tljunit</artifactId>
+ *         <version>}${tljunit.version}{@code</version>
+ *       </dependency>
+ *   </dependencies>
  * [...]
  * }
  * </pre>
