@@ -5,7 +5,7 @@
         <author email="mirko.friedenhagen@1und1.de">Mirko Friedenhagen</author>
     </properties>
     <body>
-        <release version="2.0.2" date="2011-10-20" description="Documentation.">
+        <release version="2.0.3" date="2011-10-20" description="Documentation.">
             <action dev="mifr" type="fix">
                 Wrong documentation in TestLinkXmlRunListener for usage with Maven.
                 <fixes issue="2"/>
