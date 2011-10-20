@@ -5,6 +5,17 @@
         <author email="mirko.friedenhagen@1und1.de">Mirko Friedenhagen</author>
     </properties>
     <body>
+        <release version="2.0.1" date="2011-10-20" description="Documentation and Refactoring.">
+            <action dev="mifr" type="add">
+                Sample Eclipse project with a main method.
+            </action>
+            <action dev="mifr" type="update">
+                Updated documentation to be mostly in Javadoc.
+            </action>
+            <action dev="mifr" type="update">
+                Renamed methods to make their intentions clearer.
+            </action>
+        </release>
         <release version="2.0" date="2011-10-18" description="Renamed RunListener.">
             <action dev="mifr" type="update">
                 Renamed TestLinkRunListener to TestLinkXmlRunListener.
