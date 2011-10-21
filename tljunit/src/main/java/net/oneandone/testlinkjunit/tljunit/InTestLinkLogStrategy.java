@@ -36,8 +36,14 @@ final class InTestLinkLogStrategy extends AbstractInTestLinkStrategy {
     @Override
     public void setFailed(Failure failure) {
         setCurrentFailure(failure);
-        logger.error("END Testcase '{}' '{}' FAILED because '{}'.", new Object[] { getId(failure.getDescription()),
-                failure.getTestHeader(), failure.getMessage() });
+        final String message = failure.getMessage();
+        if (message != null) {
+            logger.error("END Testcase '{}' '{}' FAILED because '{}'.", new Object[] { getId(failure.getDescription()),
+                    failure.getTestHeader(), message });
+        } else {
+            logger.error("END Testcase '{}' '{}' FAILED because '{}'.", new Object[] { getId(failure.getDescription()),
+                    failure.getTestHeader(), failure.getException() });
+        }
     }
 
     /** {@inheritDoc} */
