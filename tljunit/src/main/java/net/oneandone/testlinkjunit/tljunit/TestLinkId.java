@@ -94,7 +94,7 @@ public abstract class TestLinkId<E> {
          * @param id
          *            of the testcase
          */
-        public InternalTestLinkId(final Long id) {
+        InternalTestLinkId(final Long id) {
             super(id);
         }
 
