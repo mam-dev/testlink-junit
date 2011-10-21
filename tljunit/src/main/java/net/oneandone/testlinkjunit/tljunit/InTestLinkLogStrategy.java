@@ -4,6 +4,8 @@
 
 package net.oneandone.testlinkjunit.tljunit;
 
+import java.net.URI;
+
 import org.junit.Ignore;
 import org.junit.runner.Description;
 import org.junit.runner.notification.Failure;
@@ -14,14 +16,32 @@ import org.slf4j.Logger;
  */
 final class InTestLinkLogStrategy extends AbstractInTestLinkStrategy {
 
+    /** default when no URI is given during instantiation. */
+    private static final URI NULL_URI = URI.create("");
+
+    /** URI of the TestLink instance. */
+    private final URI uri;
+
     /** logger to logger to. */
     private final Logger logger;
 
     /**
-     * @param logger to logger to.
+     * @param logger
+     *            to logger to.
      */
-    InTestLinkLogStrategy(final Logger log) {
-        this.logger = log;
+    InTestLinkLogStrategy(final Logger logger) {
+        this(logger, NULL_URI);
+    }
+
+    /**
+     * @param logger
+     *            to logger to.
+     * @param testlinkUri
+     *            for linking to the testcases in the testlink instance.
+     */
+    InTestLinkLogStrategy(final Logger logger, final URI testlinkUri) {
+        this.logger = logger;
+        this.uri = testlinkUri;
     }
 
     /** {@inheritDoc} */
@@ -67,7 +87,11 @@ final class InTestLinkLogStrategy extends AbstractInTestLinkStrategy {
     @Override
     public void addNewTestCase(Description description) {
         setCurrentFailure(NO_FAILURE);
-        logger.info("START Testcase '{}' '{}'.", getId(description), description.getDisplayName());
+        final String id = getId(description);
+        logger.info("START Testcase '{}' '{}'.", id, description.getDisplayName());
+        if (uri != NULL_URI) {
+            logger.info("START Testcase '{}' '{}'.", id, uri.resolve(id));
+        }
     }
 
     /**
@@ -80,5 +104,5 @@ final class InTestLinkLogStrategy extends AbstractInTestLinkStrategy {
     String getId(Description description) {
         return String.valueOf(TestLinkId.fromDescription(description));
     }
-
+    // http://testlink.sourceforge.net/demo/lib/testcases/tcPrint.php?testcase_id=2750
 }
