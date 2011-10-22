@@ -45,6 +45,7 @@ class InTestLinkXmlStrategy extends AbstractInTestLinkStrategy {
         setCurrentTestCase(testCase);
         testCase.addChild(createTester(testerName));
         testCase.addChild(createTimeStamp(new Date()));
+        // This is the only place where we access results, so we should be fine to just synchronize here.
         synchronized (results) {
             results.addChild(testCase);
         }
