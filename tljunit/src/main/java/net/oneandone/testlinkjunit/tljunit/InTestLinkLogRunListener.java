@@ -14,7 +14,7 @@ import org.slf4j.Logger;
 /**
  * {@link TestLinkStrategy} which logs events to the injected logger.
  */
-final class InTestLinkLogStrategy extends AbstractInTestLinkStrategy {
+final class InTestLinkLogRunListener extends AbstractInTestLinkRunListener {
 
     /** default when no URI is given during instantiation. */
     static final URI NULL_URI = URI.create("");
@@ -33,7 +33,7 @@ final class InTestLinkLogStrategy extends AbstractInTestLinkStrategy {
      * @param testlinkUri
      *            for linking to the testcases in the testlink instance.
      */
-    InTestLinkLogStrategy(final Logger logger, final URI testlinkUri) {
+    InTestLinkLogRunListener(final Logger logger, final URI testlinkUri) {
         this.logger = logger;
         this.uri = testlinkUri;
         this.testLinkUriResolver = new TestLinkUriResolver(testlinkUri);
@@ -41,7 +41,7 @@ final class InTestLinkLogStrategy extends AbstractInTestLinkStrategy {
 
     /** {@inheritDoc} */
     @Override
-    public void setPassedWhenNoFailure(Description description) {
+    public void testFinished(Description description) {
         if (hasPassed()) {
             logger.info("END Testcase '{}' {} PASSED", getId(description), description.getDisplayName());
         }
@@ -49,7 +49,7 @@ final class InTestLinkLogStrategy extends AbstractInTestLinkStrategy {
 
     /** {@inheritDoc} */
     @Override
-    public void setFailed(Failure failure) {
+    public void testFailure(Failure failure) {
         setCurrentFailure(failure);
         final String message = failure.getMessage();
         if (message != null) {
@@ -63,7 +63,7 @@ final class InTestLinkLogStrategy extends AbstractInTestLinkStrategy {
 
     /** {@inheritDoc} */
     @Override
-    public void setBlockedWhenIgnored(Description description) {
+    public void testIgnored(Description description) {
         final String message = description.getAnnotation(Ignore.class).value();
         logger.warn("END Testcase '{}' '{}' BLOCKED because '{}'.",
                 new Object[] { getId(description), description.getDisplayName(), message });
@@ -71,7 +71,7 @@ final class InTestLinkLogStrategy extends AbstractInTestLinkStrategy {
 
     /** {@inheritDoc} */
     @Override
-    public void setBlockedWhenAssumptionFailed(Failure failure) {
+    public void testAssumptionFailure(Failure failure) {
         setCurrentFailure(failure);
         logger.warn("END Testcase '{}' '{}' BLOCKED because '{}'.", new Object[] { getId(failure.getDescription()),
                 failure.getTestHeader(), failure.getMessage() });
@@ -80,7 +80,7 @@ final class InTestLinkLogStrategy extends AbstractInTestLinkStrategy {
 
     /** {@inheritDoc} */
     @Override
-    public void addNewTestCase(Description description) {
+    public void testStarted(Description description) {
         resetCurrentFailure();
         final String id = getId(description);
         logger.info("START Testcase '{}' '{}'.", id, description.getDisplayName());

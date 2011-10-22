@@ -6,14 +6,15 @@ package net.oneandone.testlinkjunit.tljunit;
 
 import org.junit.runner.Description;
 import org.junit.runner.notification.Failure;
+import org.junit.runner.notification.RunListener;
 
 /**
  * Provides some basic methods mainly to set and get the current failure in a thread safe fashion.
- * {@link AbstractInTestLinkStrategy#getCurrentFailure()} may be used in
- * {@link TestLinkStrategy#setPassedWhenNoFailure(Description)} as there is no other way to determine whether a test
+ * {@link AbstractInTestLinkRunListener#getCurrentFailure()} may be used in
+ * {@link TestLinkStrategy#testFinished(Description)} as there is no other way to determine whether a test
  * failed at this point.
  */
-public abstract class AbstractInTestLinkStrategy implements TestLinkStrategy {
+public abstract class AbstractInTestLinkRunListener extends RunListener {
 
     /** Null-Object to check against. */
     private static final Failure NO_FAILURE = new Failure(Description.EMPTY, null);

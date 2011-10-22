@@ -12,69 +12,68 @@ import org.junit.runner.notification.RunListener;
  * Abstract class which capsulates mostly the switching between Tests with and without {@link TestLink} annotations.
  * 
  * @param <T>
- *            type of the strategy to be called when a {@link TestLink} annotation exists.
+ *            type of the listener to be called when a {@link TestLink} annotation exists.
  */
-public abstract class AbstractTestLinkRunListener<T extends AbstractInTestLinkStrategy> extends RunListener {
+public abstract class AbstractTestLinkRunListener<T extends AbstractInTestLinkRunListener> extends RunListener {
 
-    /** Strategy to be called when a {@link TestLink} annotation exists. */
-    private final T inTestLinkstrategy;
+    /** Listener to be called when a {@link TestLink} annotation exists. */
+    private final T inTestLinkListener;
 
-    /** Strategy to be called when <em>no</em> {@link TestLink} annotation exists. */
-    private final TestLinkStrategy noTestLinkStrategy;
+    /** Listener to be called when <em>no</em> {@link TestLink} annotation exists. */
+    private final RunListener noTestLinkListener = new RunListener();
 
     /**
-     * Injects the strategy for the actual report.
+     * Injects the listener for the actual report.
      * 
-     * @param testLinkStrategy
+     * @param testLinkRunListener
      *            to be called when a {@link TestLink} annotation exists.
      */
-    public AbstractTestLinkRunListener(final T testLinkStrategy) {
-        this.inTestLinkstrategy = testLinkStrategy;
-        this.noTestLinkStrategy = new NoTestLinkStrategy();
+    public AbstractTestLinkRunListener(final T testLinkRunListener) {
+        this.inTestLinkListener = testLinkRunListener;
     }
 
     /** {@inheritDoc} */
     @Override
     public void testStarted(Description description) throws Exception {
         super.testStarted(description);
-        selectStrategy(description).addNewTestCase(description);
+        selectListener(description).testStarted(description);
     }
 
     /** {@inheritDoc} */
     @Override
     public void testIgnored(Description description) throws Exception {
         super.testIgnored(description);
-        final TestLinkStrategy strategy = selectStrategy(description);
-        strategy.addNewTestCase(description);
-        strategy.setBlockedWhenIgnored(description);
+        final RunListener listener = selectListener(description);
+        listener.testStarted(description);
+        listener.testIgnored(description);
     }
 
     /** {@inheritDoc} */
     @Override
     public void testFailure(Failure failure) throws Exception {
         super.testFailure(failure);
-        selectStrategy(failure.getDescription()).setFailed(failure);
+        selectListener(failure.getDescription()).testFailure(failure);
     }
 
     /** {@inheritDoc} */
     @Override
     public void testAssumptionFailure(final Failure failure) {
         super.testAssumptionFailure(failure);
-        selectStrategy(failure.getDescription()).setBlockedWhenAssumptionFailed(failure);
+        selectListener(failure.getDescription()).testAssumptionFailure(failure);
     }
 
     /** {@inheritDoc} */
     @Override
     public void testFinished(Description description) throws Exception {
         super.testFinished(description);
-        selectStrategy(description).setPassedWhenNoFailure(description);
+        selectListener(description).testFinished(description);
     }
 
     /**
-     * @return the injected {@link AbstractInTestLinkStrategy}.
+     * @return the injected {@link AbstractInTestLinkRunListener}.
      */
-    public T getInTestLinkStrategy() {
-        return inTestLinkstrategy;
+    public T getInTestLinkListener() {
+        return inTestLinkListener;
     }
 
     /**
@@ -84,12 +83,12 @@ public abstract class AbstractTestLinkRunListener<T extends AbstractInTestLinkSt
      *            of the test case.
      * @return the currently valid strategy
      */
-    TestLinkStrategy selectStrategy(Description description) {
+    private RunListener selectListener(Description description) {
         final TestLink testLink = description.getAnnotation(TestLink.class);
         if (testLink != null) {
-            return inTestLinkstrategy;
+            return inTestLinkListener;
         } else {
-            return noTestLinkStrategy;
+            return noTestLinkListener;
         }
     }
 

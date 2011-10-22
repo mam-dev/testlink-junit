@@ -66,7 +66,7 @@ import org.junit.runner.Result;
  * }
  * </pre>
  */
-public class TestLinkXmlRunListener extends AbstractTestLinkRunListener<InTestLinkXmlStrategy> {
+public class TestLinkXmlRunListener extends AbstractTestLinkRunListener<InTestLinkXmlRunListener> {
 
     /** Stream to which the results will be printed. */
     final PrintStream out;
@@ -99,7 +99,7 @@ public class TestLinkXmlRunListener extends AbstractTestLinkRunListener<InTestLi
      *            name of the tester.
      */
     public TestLinkXmlRunListener(final PrintStream out, final String tester) {
-        super(new InTestLinkXmlStrategy(tester));
+        super(new InTestLinkXmlRunListener(tester));
         this.out = out;
     }
 
@@ -107,16 +107,16 @@ public class TestLinkXmlRunListener extends AbstractTestLinkRunListener<InTestLi
     @Override
     public void testRunFinished(Result result) throws Exception {
         super.testRunFinished(result);
-        out.print(String.valueOf(getInTestLinkStrategy().getResults()));
+        out.print(String.valueOf(getInTestLinkListener().getResults()));
         out.close();
     }
 
     /**
-     * Returns the results of the {@link InTestLinkXmlStrategy} for unit testing.
+     * Returns the results of the {@link InTestLinkXmlRunListener} for unit testing.
      * 
      * @return the results
      */
     Xpp3Dom getResults() {
-        return getInTestLinkStrategy().getResults();
+        return getInTestLinkListener().getResults();
     }
 }

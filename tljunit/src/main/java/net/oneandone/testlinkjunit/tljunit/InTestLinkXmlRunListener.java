@@ -17,7 +17,7 @@ import org.junit.runner.notification.Failure;
 /**
  * TestLinkStrategy to be used when a {@link Test} is annotated with {@link TestLink}.
  */
-class InTestLinkXmlStrategy extends AbstractInTestLinkStrategy {
+class InTestLinkXmlRunListener extends AbstractInTestLinkRunListener {
 
     private final Xpp3Dom results;
 
@@ -28,7 +28,7 @@ class InTestLinkXmlStrategy extends AbstractInTestLinkStrategy {
     /**
      * 
      */
-    public InTestLinkXmlStrategy(final String testerName) {
+    public InTestLinkXmlRunListener(final String testerName) {
         results = new Xpp3Dom("results");
         this.testerName = testerName;
     }
@@ -39,7 +39,7 @@ class InTestLinkXmlStrategy extends AbstractInTestLinkStrategy {
      * {@link TestLink} annotation must have either {@link TestLink#internalId()} or {@link TestLink#externalId()} set.
      */
     @Override
-    public void addNewTestCase(Description description) {
+    public void testStarted(Description description) {
         resetCurrentFailure();
         final Xpp3Dom testCase = new Xpp3Dom("testcase");
         setCurrentTestCase(testCase);
@@ -55,7 +55,7 @@ class InTestLinkXmlStrategy extends AbstractInTestLinkStrategy {
 
     /** {@inheritDoc} */
     @Override
-    public void setBlockedWhenIgnored(Description description) {
+    public void testIgnored(Description description) {
         final Xpp3Dom testCase = getCurrentTestCase();
         testCase.addChild(createResult(TestState.b));
         final String message = description.getAnnotation(Ignore.class).value();
@@ -64,14 +64,14 @@ class InTestLinkXmlStrategy extends AbstractInTestLinkStrategy {
 
     /** {@inheritDoc} */
     @Override
-    public void setBlockedWhenAssumptionFailed(Failure failure) {
+    public void testAssumptionFailure(Failure failure) {
         setFailedOrIgnoredForFailureOrAssumptionFailure(failure, TestState.b);
 
     }
 
     /** {@inheritDoc} */
     @Override
-    public void setFailed(Failure failure) {
+    public void testFailure(Failure failure) {
         setFailedOrIgnoredForFailureOrAssumptionFailure(failure, TestState.f);
     }
 
@@ -94,10 +94,10 @@ class InTestLinkXmlStrategy extends AbstractInTestLinkStrategy {
     /**
      * {@inheritDoc}
      * 
-     * This will set the test to PASSED only when we have no {@link InTestLinkXmlStrategy#currentFailure}.
+     * This will set the test to PASSED only when we have no {@link InTestLinkXmlRunListener#currentFailure}.
      */
     @Override
-    public void setPassedWhenNoFailure(Description description) {
+    public void testFinished(Description description) {
         if (hasPassed()) {
             final Xpp3Dom testCase = getCurrentTestCase();
             testCase.addChild(createResult(TestState.p));

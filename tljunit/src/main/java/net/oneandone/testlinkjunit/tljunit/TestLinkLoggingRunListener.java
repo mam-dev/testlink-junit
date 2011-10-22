@@ -20,7 +20,7 @@ import org.slf4j.LoggerFactory;
  * </ul>
  * For more usage information, see {@link TestLinkXmlRunListener}.
  */
-public class TestLinkLoggingRunListener extends AbstractTestLinkRunListener<InTestLinkLogStrategy> {
+public class TestLinkLoggingRunListener extends AbstractTestLinkRunListener<InTestLinkLogRunListener> {
 
     /**
      * By default log to "TESTLINK"
@@ -40,7 +40,7 @@ public class TestLinkLoggingRunListener extends AbstractTestLinkRunListener<InTe
      *            from an empty string will suppress the link.
      */
     public TestLinkLoggingRunListener(final Logger logger, final URI testLinkUri) {
-        super(new InTestLinkLogStrategy(logger, testLinkUri));
+        super(new InTestLinkLogRunListener(logger, testLinkUri));
     }
 
 }

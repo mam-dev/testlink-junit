@@ -49,7 +49,7 @@ public class TestLinkRunListenerTest extends AbstractTestLinkRunListenerTest {
     public void testCreateTimeStamp() {
         final Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"), Locale.US);
         calendar.setTimeInMillis(0);
-        final InTestLinkXmlStrategy inTestLinkStrategy = new InTestLinkXmlStrategy("noone");
+        final InTestLinkXmlRunListener inTestLinkStrategy = new InTestLinkXmlRunListener("noone");
         Xpp3Dom timeStamp = inTestLinkStrategy.createTimeStamp(calendar.getTime());
         assertEquals(XML_HEADER + "<timestamp>1970-01-01 01:00:00</timestamp>", timeStamp.toString());
     }
@@ -73,9 +73,9 @@ public class TestLinkRunListenerTest extends AbstractTestLinkRunListenerTest {
                 return TestLink.NOT_AVAILABLE;
             }
         });
-        final InTestLinkXmlStrategy inTestLinkStrategy = new InTestLinkXmlStrategy("noone");
+        final InTestLinkXmlRunListener inTestLinkStrategy = new InTestLinkXmlRunListener("noone");
         try {
-            inTestLinkStrategy.addNewTestCase(description);
+            inTestLinkStrategy.testStarted(description);
             fail("IllegalArgumentException should be thrown!");
         } catch (IllegalArgumentException e) {
             assertEquals("java.lang.IllegalArgumentException: Must set either internalId or externalId on 'foo'", e.toString());
