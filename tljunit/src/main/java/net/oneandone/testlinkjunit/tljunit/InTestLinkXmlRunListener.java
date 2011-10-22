@@ -56,6 +56,7 @@ class InTestLinkXmlRunListener extends AbstractInTestLinkRunListener {
     /** {@inheritDoc} */
     @Override
     public void testIgnored(Description description) {
+        testStarted(description);
         final Xpp3Dom testCase = getCurrentTestCase();
         testCase.addChild(createResult(TestState.b));
         final String message = description.getAnnotation(Ignore.class).value();

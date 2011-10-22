@@ -43,9 +43,7 @@ public abstract class AbstractTestLinkRunListener<T extends AbstractInTestLinkRu
     @Override
     public void testIgnored(Description description) throws Exception {
         super.testIgnored(description);
-        final RunListener listener = selectListener(description);
-        listener.testStarted(description);
-        listener.testIgnored(description);
+        selectListener(description).testIgnored(description);
     }
 
     /** {@inheritDoc} */

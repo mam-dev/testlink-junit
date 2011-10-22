@@ -64,6 +64,7 @@ final class InTestLinkLogRunListener extends AbstractInTestLinkRunListener {
     /** {@inheritDoc} */
     @Override
     public void testIgnored(Description description) {
+        testStarted(description);
         final String message = description.getAnnotation(Ignore.class).value();
         logger.warn("END Testcase '{}' '{}' BLOCKED because '{}'.",
                 new Object[] { getId(description), description.getDisplayName(), message });
