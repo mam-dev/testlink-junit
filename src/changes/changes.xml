@@ -5,6 +5,11 @@
         <author email="mirko.friedenhagen@1und1.de">Mirko Friedenhagen</author>
     </properties>
     <body>
+        <release version="2.1.1" date="2011-10-24" description="Log URL to testlink instance as well.">
+            <action dev="mifr" type="update" issue="3">
+                 Log a link to the testcase in the testlink instance in TestLinkLoggingRunListener.
+            </action>
+        </release>
         <release version="2.1.0" date="2011-10-21" description="New TestLinkLoggingRunListener">
             <action dev="mifr" type="add">
                 Create a RunListener which logs events to a slf4j Logger.

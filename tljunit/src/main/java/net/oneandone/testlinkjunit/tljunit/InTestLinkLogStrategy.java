@@ -17,7 +17,7 @@ import org.slf4j.Logger;
 final class InTestLinkLogStrategy extends AbstractInTestLinkStrategy {
 
     /** default when no URI is given during instantiation. */
-    private static final URI NULL_URI = URI.create("");
+    static final URI NULL_URI = URI.create("");
 
     /** URI of the TestLink instance. */
     private final URI uri;
@@ -25,13 +25,7 @@ final class InTestLinkLogStrategy extends AbstractInTestLinkStrategy {
     /** logger to logger to. */
     private final Logger logger;
 
-    /**
-     * @param logger
-     *            to logger to.
-     */
-    InTestLinkLogStrategy(final Logger logger) {
-        this(logger, NULL_URI);
-    }
+    private TestLinkUriResolver testLinkUriResolver;
 
     /**
      * @param logger
@@ -42,6 +36,7 @@ final class InTestLinkLogStrategy extends AbstractInTestLinkStrategy {
     InTestLinkLogStrategy(final Logger logger, final URI testlinkUri) {
         this.logger = logger;
         this.uri = testlinkUri;
+        this.testLinkUriResolver = new TestLinkUriResolver(testlinkUri);
     }
 
     /** {@inheritDoc} */
@@ -86,11 +81,11 @@ final class InTestLinkLogStrategy extends AbstractInTestLinkStrategy {
     /** {@inheritDoc} */
     @Override
     public void addNewTestCase(Description description) {
-        setCurrentFailure(NO_FAILURE);
+        resetCurrentFailure();
         final String id = getId(description);
         logger.info("START Testcase '{}' '{}'.", id, description.getDisplayName());
-        if (uri != NULL_URI) {
-            logger.info("START Testcase '{}' '{}'.", id, uri.resolve(id));
+        if (!uri.equals(NULL_URI)) {
+            logger.info("START Testcase '{}' '{}'.", id, testLinkUriResolver.fromTestLinkId(TestLinkId.fromDescription(description)));
         }
     }
 

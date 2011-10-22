@@ -10,8 +10,6 @@ import java.net.URI;
 import java.util.Arrays;
 import java.util.Collection;
 
-import net.oneandone.testlinkjunit.tljunit.TestLinkId.InternalTestLinkId;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -30,7 +28,7 @@ public class TestLinkUriResolverTest {
     public static Collection<Object[]> getData() {
         return Arrays.asList(
                 new Object[]{"http://testlink.sourceforge.net/demo/lib/testcases/tcPrint.php?testcase_id=2750", new TestLinkId.InternalTestLinkId(2750L)},
-                new Object[]{"http://testlink.sourceforge.net/demo/lib/testcases/tcPrint.php?testcase_id=2750", new TestLinkId.InternalTestLinkId(2750L)});
+                new Object[]{"http://testlink.sourceforge.net/demo/lib/testcases/archiveData.php?targetTestCase=SM-1&edit=testcase&allowedit=0", new TestLinkId.ExternalTestLinkId("SM-1")});
     }
 
     public TestLinkUriResolverTest(String uri, final TestLinkId<?> testLinkId) {
@@ -47,7 +45,7 @@ public class TestLinkUriResolverTest {
     public void testFromInternalTestLinkId() {
         final TestLinkUriResolver resolver = new TestLinkUriResolver(
                 URI.create("http://testlink.sourceforge.net/demo/"));
-        final URI actual = resolver.fromTestLinkId((InternalTestLinkId) testLinkId);
+        final URI actual = resolver.fromTestLinkId(testLinkId);
         assertEquals(expected, actual);
     }
 
@@ -59,8 +57,7 @@ public class TestLinkUriResolverTest {
     @Test
     public void testFromInternalTestLinkIdWithoutTrailingSlash() {
         final TestLinkUriResolver resolver = new TestLinkUriResolver(URI.create("http://testlink.sourceforge.net/demo"));
-        final URI actual = resolver.fromTestLinkId((InternalTestLinkId) testLinkId);
+        final URI actual = resolver.fromTestLinkId(testLinkId);
         assertEquals(expected, actual);
     }
-
 }

@@ -7,6 +7,7 @@ package net.oneandone.testlinkjunit.eclipse;
 import static org.junit.Assert.assertTrue;
 
 import java.io.FileNotFoundException;
+import java.net.URI;
 
 import net.oneandone.testlinkjunit.tljunit.TestLink;
 import net.oneandone.testlinkjunit.tljunit.TestLinkLoggingRunListener;
@@ -27,7 +28,7 @@ public class EclipseTest {
     public static void main(String[] args) throws FileNotFoundException {
         final JUnitCore core = new JUnitCore();
         core.addListener(new TestLinkXmlRunListener());
-        core.addListener(new TestLinkLoggingRunListener(LoggerFactory.getLogger("MYTESTLINK")));
+        core.addListener(new TestLinkLoggingRunListener(LoggerFactory.getLogger("MYTESTLINK"), URI.create("http://testlink.sourceforge.net/demo/")));
         core.run(EclipseTest.class);
     }
 }

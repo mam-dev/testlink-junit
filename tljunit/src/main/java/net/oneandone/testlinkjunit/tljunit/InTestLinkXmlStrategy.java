@@ -40,7 +40,7 @@ class InTestLinkXmlStrategy extends AbstractInTestLinkStrategy {
      */
     @Override
     public void addNewTestCase(Description description) {
-        setCurrentFailure(NO_FAILURE);
+        resetCurrentFailure();
         final Xpp3Dom testCase = new Xpp3Dom("testcase");
         setCurrentTestCase(testCase);
         testCase.addChild(createTester(testerName));

@@ -68,6 +68,7 @@ import org.junit.runner.Result;
  */
 public class TestLinkXmlRunListener extends AbstractTestLinkRunListener<InTestLinkXmlStrategy> {
 
+    /** Stream to which the results will be printed. */
     final PrintStream out;
 
     /**

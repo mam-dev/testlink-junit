@@ -7,31 +7,37 @@ package net.oneandone.testlinkjunit.tljunit;
 import org.junit.runner.Description;
 
 /**
- * Holder object for the id in the {@link TestLink} annotation.
+ * Holder object for the id in the {@link TestLink} annotation. By defining only a private constructor in this abstract
+ * class and having both extending classes as inner classes, we assure nobody is able to create other extending classes.
+ * 
+ * @param <T>
+ *            of the id, either {@link Long} for internal or {@link String} for external IDs.
  */
-public abstract class TestLinkId<E> {
+public abstract class TestLinkId<T> {
 
     /** id of the test. */
-    private final E id;
+    private final T id;
 
     /**
+     * Private to make sure we only have {@link ExternalTestLinkId} and {@link InternalTestLinkId} as subclasses.
+     *
      * @param id
      *            of the test.
      */
-    TestLinkId(final E id) {
+    private TestLinkId(final T id) {
         this.id = id;
     }
 
     /**
      * @return the id.
      */
-    public E getId() {
+    public T getId() {
         return id;
     }
 
     /**
-     * Returns a String representation of the current TestLink ID.
-     * 
+     * Returns a String representation of the type of the current TestLink ID.
+     *
      * @return type of the ID.
      */
     public abstract String getType();
@@ -43,13 +49,13 @@ public abstract class TestLinkId<E> {
     }
 
     /**
-     * Returns the ID of the current Testcase as String.
+     * Returns the ID of the current Testcase.
      * 
      * @param description
      *            to extract the ID from.
-     * @return the ID of the current Testcase as String.
+     * @return the ID of the current Testcase
      * @throws IllegalArgumentException
-     *             when neither the {@link TestLink#externalId()} nor the {@link TestLink#internalId()} is set
+     *             when neither the {@link TestLink#externalId()} nor the {@link TestLink#internalId()} is set.
      */
     public static TestLinkId<?> fromDescription(Description description) {
         final TestLink testLink = description.getAnnotation(TestLink.class);

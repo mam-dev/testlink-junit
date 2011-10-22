@@ -11,12 +11,13 @@ import org.junit.runner.notification.RunListener;
 /**
  * Abstract class which capsulates mostly the switching between Tests with and without {@link TestLink} annotations.
  * 
- * @param <E>
+ * @param <T>
+ *            type of the strategy to be called when a {@link TestLink} annotation exists.
  */
-public abstract class AbstractTestLinkRunListener<E extends AbstractInTestLinkStrategy> extends RunListener {
+public abstract class AbstractTestLinkRunListener<T extends AbstractInTestLinkStrategy> extends RunListener {
 
     /** Strategy to be called when a {@link TestLink} annotation exists. */
-    private final E inTestLinkstrategy;
+    private final T inTestLinkstrategy;
 
     /** Strategy to be called when <em>no</em> {@link TestLink} annotation exists. */
     private final TestLinkStrategy noTestLinkStrategy;
@@ -27,7 +28,7 @@ public abstract class AbstractTestLinkRunListener<E extends AbstractInTestLinkSt
      * @param testLinkStrategy
      *            to be called when a {@link TestLink} annotation exists.
      */
-    public AbstractTestLinkRunListener(final E testLinkStrategy) {
+    public AbstractTestLinkRunListener(final T testLinkStrategy) {
         this.inTestLinkstrategy = testLinkStrategy;
         this.noTestLinkStrategy = new NoTestLinkStrategy();
     }
@@ -72,7 +73,7 @@ public abstract class AbstractTestLinkRunListener<E extends AbstractInTestLinkSt
     /**
      * @return the injected {@link AbstractInTestLinkStrategy}.
      */
-    public E getInTestLinkStrategy() {
+    public T getInTestLinkStrategy() {
         return inTestLinkstrategy;
     }
 

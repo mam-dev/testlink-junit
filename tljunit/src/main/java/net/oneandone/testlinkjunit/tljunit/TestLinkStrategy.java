@@ -8,9 +8,10 @@ import org.junit.runner.Description;
 import org.junit.runner.notification.Failure;
 
 /**
+ * The {@link AbstractTestLinkRunListener} delegates everything to two strategies
  * Used by {@link InTestLinkXmlStrategy} and {@link NoTestLinkStrategy}.
  */
-interface TestLinkStrategy {
+public interface TestLinkStrategy {
 
     /**
      * Adds a new <em>not ignored</em> &lt;testcase&gt; element to results.

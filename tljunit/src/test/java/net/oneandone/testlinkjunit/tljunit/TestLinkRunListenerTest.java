@@ -12,6 +12,7 @@ import static org.junit.Assume.assumeNoException;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.lang.annotation.Annotation;
+import java.net.URI;
 import java.util.Calendar;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -21,6 +22,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.Description;
 import org.junit.runner.JUnitCore;
+import org.slf4j.LoggerFactory;
 
 
 public class TestLinkRunListenerTest extends AbstractTestLinkRunListenerTest {
@@ -33,6 +35,7 @@ public class TestLinkRunListenerTest extends AbstractTestLinkRunListenerTest {
         final TestLinkXmlRunListener xmlListener = new TestLinkXmlRunListener(new PrintStream(new ByteArrayOutputStream()), "goofy");
         core.addListener(xmlListener);
         core.addListener(new TestLinkLoggingRunListener());
+        core.addListener(new TestLinkLoggingRunListener(LoggerFactory.getLogger("MINE"), URI.create("http://testlink.sourceforge.net/demo/")));
         core.run(SUTTestLinkRunListener.class);
         final Xpp3Dom results = xmlListener.getResults();
         assertEquals(7, results.getChildCount());
