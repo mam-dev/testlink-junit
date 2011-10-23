@@ -14,43 +14,10 @@
  * <h3>Running tests with the maven-surefire-plugin</h3>
  * <p>
  * You have to configure the surefire plugin to use the additional
- * {@link net.oneandone.testlinkjunit.tljunit.TestLinkXmlRunListener}.
- * As can be seen below, the tester name and file-location for the result file may be provided as system properties.
- * </p>
- * <pre>{@code
- * <build>
- *    <plugins>
- *        <plugin>
- *            <groupId>org.apache.maven.plugins</groupId>
- *            <artifactId>maven-surefire-plugin</artifactId>
- *            <version>2.10</version>
- *            <dependencies>
- *                <dependency>
- *                    <groupId>net.oneandone.testlinkjunit</groupId>
- *                    <artifactId>tljunit</artifactId>
- *                    <version>1.X</version>
- *                </dependency>
- *            </dependencies>
- *            <configuration>
- *                <properties>
- *                    <property>
- *                        <name>listener</name>
- *                        <value>net.oneandone.testlinkjunit.tljunit.TestLinkXmlRunListener</value>
- *                    </property>
- *                </properties>
- *                <systemPropertyVariables>
- *                    <testlink.results>target/my-testlink.xml</testlink.results>
- *                    <testlink.tester>memyselfandi</testlink.userName>
- *                </systemPropertyVariables>
- *            </configuration>
- *        </plugin>
- *    </plugins>
- * </build>
- * }</pre>
- * <p>
- * Now running <kbd>mvn test</kbd> will run your tests and put the resulting TestLink XML file into
- * <tt>target/my-testlink.xml</tt> using <tt>memyselfandi</tt> as name of the user who executed the test run.
- * </p>
+ * {@link net.oneandone.testlinkjunit.tljunit.TestLinkXmlRunListener} or 
+ * {@link net.oneandone.testlinkjunit.tljunit.TestLinkLoggingRunListener}.
+ * See documentation in these classes.</p>
+ *
  * <h2>Running tests in Eclipse</h2>
  * <p>
  * To run a test from Eclipse, add a main method which will collect the tests:

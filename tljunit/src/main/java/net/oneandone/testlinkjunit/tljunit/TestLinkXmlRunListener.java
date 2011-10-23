@@ -13,7 +13,10 @@ import org.junit.runner.Result;
  * href="http://www.teamst.org/_tldoc/1.8/user_manual.pdf">user manual</a>.
  * 
  * <h3>Usage with maven-surefire-plugin</h3>
- * 
+ * <p>
+ * You have to configure the surefire plugin to use the additional {@link TestLinkXmlRunListener}.
+ * As can be seen below, the tester name and file-location for the result file may be provided as system properties.
+ * </p>
  * <pre>
  * {@code
  * <properties>
@@ -28,7 +31,7 @@ import org.junit.runner.Result;
  *       <dependency>
  *         <groupId>net.oneandone.testlinkjunit</groupId>
  *         <artifactId>tljunit</artifactId>
- *         <version>}${tljunit.version}{@code</version>
+ *         <version>}${tljunit.version}{@code </version>
  *       </dependency>
  *     </dependencies>
  *     <configuration>
@@ -49,13 +52,17 @@ import org.junit.runner.Result;
  *       <dependency>
  *         <groupId>net.oneandone.testlinkjunit</groupId>
  *         <artifactId>tljunit</artifactId>
- *         <version>}${tljunit.version}{@code</version>
+ *         <version>}${tljunit.version}{@code </version>
  *       </dependency>
  *   </dependencies>
  * [...]
  * }
  * </pre>
- * 
+ * <p>
+ * Now running <kbd>mvn test</kbd> will run your tests and put the resulting TestLink XML file into
+ * <tt>target/my-testlink.xml</tt> using <tt>memyselfandi</tt> as name of the user who executed the test run.
+ * </p>
+ *
  * <h3>Using from <tt>main</tt></h3>
  * 
  * <pre>

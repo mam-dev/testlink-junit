@@ -11,7 +11,7 @@ import org.junit.runner.notification.RunListener;
 /**
  * Provides some basic methods mainly to set and get the current failure in a thread safe fashion.
  * {@link AbstractInTestLinkRunListener#getCurrentFailure()} may be used in
- * {@link TestLinkStrategy#testFinished(Description)} as there is no other way to determine whether a test
+ * {@link RunListener#testFinished(Description)} as there is no other way to determine whether a test
  * failed at this point.
  */
 public abstract class AbstractInTestLinkRunListener extends RunListener {

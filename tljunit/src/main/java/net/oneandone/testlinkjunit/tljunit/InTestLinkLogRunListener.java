@@ -12,7 +12,7 @@ import org.junit.runner.notification.Failure;
 import org.slf4j.Logger;
 
 /**
- * {@link TestLinkStrategy} which logs events to the injected logger.
+ * {@link org.junit.runner.notification.RunListener} which logs events to the injected logger.
  */
 final class InTestLinkLogRunListener extends AbstractInTestLinkRunListener {
 

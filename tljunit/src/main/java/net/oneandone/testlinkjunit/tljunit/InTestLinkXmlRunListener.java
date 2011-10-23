@@ -10,12 +10,11 @@ import java.util.Locale;
 
 import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.junit.Ignore;
-import org.junit.Test;
 import org.junit.runner.Description;
 import org.junit.runner.notification.Failure;
 
 /**
- * TestLinkStrategy to be used when a {@link Test} is annotated with {@link TestLink}.
+ * {@link org.junit.runner.notification.RunListener} which logs everything to Testlink compatible XML file.
  */
 class InTestLinkXmlRunListener extends AbstractInTestLinkRunListener {
 

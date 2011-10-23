@@ -5,10 +5,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.junit.Test;
-
 /**
- * Annotation for marking {@link Test}s the results of which should be reported in testlink xml file.
+ * Annotation for marking {@link org.junit.Test}s the results of which should be reported in testlink xml file.
  * 
  * <ul>
  * <li>
@@ -16,7 +14,7 @@ import org.junit.Test;
  * {@link TestLink#internalId()}, one of which is required.</li>
  * <li>
  * Tests annotated with {@link org.junit.Ignore} as well as tests with failing assumptions will be reported as
- * <tt>BLOCKED</tt>.</li>
+ * <tt>BLOCKED</tt>, see {@link org.junit.Assume} as well.</li>
  * </ul>
  * 
  * <pre>
