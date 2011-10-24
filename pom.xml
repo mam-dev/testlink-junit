@@ -9,6 +9,7 @@
     <name>tljunit parent</name>
     <url>http://github.com/1and1/testlink-junit/</url>
     <description>Modules for writing an additional Testlink XML file.</description>
+
     <ciManagement>
         <system>Jenkins</system>
         <url>http://huschteguzzel.de/hudson/job/testlink-junit/</url>
@@ -64,7 +65,7 @@
 
     <issueManagement>
         <system>GitHub</system>
-        <url>https://github.com/1and1/testlink-junit/issues/?sort=created&amp;direction=desc&amp;state=open</url>
+        <url>https://github.com/1and1/testlink-junit/issues?labels=${project.artifactId}&amp;sort=created&amp;state=open</url>
     </issueManagement>
 
     <developers>
