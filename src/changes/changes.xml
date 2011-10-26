@@ -5,6 +5,11 @@
         <author email="mirko.friedenhagen@1und1.de">Mirko Friedenhagen</author>
     </properties>
     <body>
+        <release version="2.1.2" date="2011-10-26" description="Bundle software">
+            <action dev="mifr" type="add">
+                Create bundle jars as well during deploy.
+            </action>
+        </release>
         <release version="2.1.1" date="2011-10-24" description="Log URL to testlink instance as well.">
             <action dev="mifr" type="update" issue="3">
                  Log a link to the testcase in the testlink instance in TestLinkLoggingRunListener.
