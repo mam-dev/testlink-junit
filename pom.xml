@@ -8,7 +8,7 @@
 
     <name>tljunit parent</name>
     <url>http://github.com/1and1/testlink-junit/</url>
-    <description>Modules for writing an additional Testlink XML file.</description>
+    <description>Parent-POM for modules improving collaboration between JUnit and Testlink.</description>
 
     <ciManagement>
         <system>Jenkins</system>

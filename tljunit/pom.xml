@@ -8,7 +8,7 @@
     <artifactId>tljunit</artifactId>
     <packaging>jar</packaging>
 
-    <name>tljunit TestLinkXmlRunner</name>
+    <name>tljunit RunListeners</name>
 
     <scm>
         <connection>${project.parent.scm.connection}</connection>
@@ -66,4 +66,5 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+    <description>Currently two RunListeners, one of which writes an Testlink compatible XML file, the other one logs to an injected slf4j Logger.</description>
 </project>
