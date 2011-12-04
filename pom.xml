@@ -7,8 +7,13 @@
     <packaging>pom</packaging>
 
     <name>tljunit parent</name>
-    <url>http://github.com/1and1/testlink-junit/</url>
+    <url>https://1and1.github.com/testlink-junit/</url>
     <description>Parent-POM for modules improving collaboration between JUnit and Testlink.</description>
+
+    <organization>
+        <name>1&amp;1</name>
+        <url>https://1and1.github.com/</url>
+    </organization>
 
     <ciManagement>
         <system>Jenkins</system>
@@ -355,6 +360,13 @@
             </build>
         </profile>
     </profiles>
+    <distributionManagement>
+        <site>
+            <id>github</id>
+            <name>maven-reports at github</name>
+            <url>https://github.com/1and1/testlink-junit</url>
+        </site>
+    </distributionManagement>
     <modules>
         <module>tljunit</module>
         <module>tljunit-eclipse</module>
