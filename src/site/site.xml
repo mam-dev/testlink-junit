@@ -34,8 +34,11 @@
     <breadcrumbs>
       <item name="1&amp;1" href="http://blog.1und1.de/" />
       <item name="1&amp;1 FOSS" href="https://github.com/1and1/" />
+      <item name="tljunit" href="${project.url}" />
     </breadcrumbs>
-    <menu inherit="bottom" ref="reports" />
+    <menu ref="parent" />
+    <menu ref="modules" />
+    <menu ref="reports" inherit="bottom" />
   </body>
 </project>
 
