@@ -23,7 +23,7 @@
     <scm>
         <connection>scm:git:git://github.com/1and1/testlink-junit.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/1and1/testlink-junit.git</developerConnection>
-        <url>http://github.com/1and1/testlink-junit/</url>
+        <url>https://github.com/1and1/testlink-junit/</url>
     </scm>
 
     <properties>
@@ -187,43 +187,6 @@
                     <artifactId>maven-changes-plugin</artifactId>
                     <version>2.6</version>
                 </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-repository-plugin</artifactId>
-                    <version>2.3.1</version>
-                    <executions>
-                        <execution>
-                            <id>attach-bundle</id>
-                            <phase>package</phase>
-                            <goals>
-                                <goal>bundle-create</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                </plugin>
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>build-helper-maven-plugin</artifactId>
-                    <version>1.7</version>
-                    <executions>
-                        <execution>
-                            <id>attach-artifacts-bundle</id>
-                            <phase>package</phase>
-                            <goals>
-                                <goal>attach-artifact</goal>
-                            </goals>
-                            <configuration>
-                                <artifacts>
-                                    <artifact>
-                                        <file>${project.build.directory}/${project.artifactId}-${project.version}-bundle.jar</file>
-                                        <type>jar</type>
-                                        <classifier>bundle</classifier>
-                                    </artifact>
-                                </artifacts>
-                            </configuration>
-                        </execution>
-                    </executions>
-                </plugin>
             </plugins>
         </pluginManagement>
         <plugins>
@@ -234,10 +197,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-repository-plugin</artifactId>
             </plugin>
         </plugins>
     </build>
