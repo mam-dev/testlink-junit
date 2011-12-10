@@ -181,6 +181,52 @@
                     <artifactId>maven-changes-plugin</artifactId>
                     <version>2.6</version>
                 </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-enforcer-plugin</artifactId>
+                    <version>1.0.1</version>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.codehaus.mojo</groupId>
+                            <artifactId>extra-enforcer-rules</artifactId>
+                            <version>1.0-alpha-2</version>
+                        </dependency>
+                    </dependencies>
+                    <configuration>
+                        <rules>
+                            <banDuplicateClasses>
+                                <findAllDuplicates>true</findAllDuplicates>
+                                <ignoreClasses>
+                                    <ignoreClass>org.hamcrest.*</ignoreClass>
+                                </ignoreClasses>
+                            </banDuplicateClasses>
+                            <requireMavenVersion>
+                                <version>[3.0.3,)</version>
+                            </requireMavenVersion>
+                            <requireReleaseDeps>
+                                <onlyWhenRelease>true</onlyWhenRelease>
+                                <message>No Snapshots Allowed!</message>
+                            </requireReleaseDeps>
+                            <requireProperty>
+                                <property>project.version</property>
+                                <message>"Project version must be specified."</message>
+                                <regex>(\d|-SNAPSHOT)$</regex>
+                                <regexMessage>"Project version must end in a number or -SNAPSHOT."</regexMessage>
+                            </requireProperty>
+                            <requirePluginVersions>
+                                <message>Best Practice is to always define plugin versions!</message>
+                                <banLatest>true</banLatest>
+                                <banRelease>true</banRelease>
+                                <banSnapshots>true</banSnapshots>
+                                <phases>clean,deploy,site</phases>
+                                <additionalPlugins>
+                                    <additionalPlugin>org.apache.maven.plugins:maven-reactor-plugin</additionalPlugin>
+                                </additionalPlugins>
+                            </requirePluginVersions>
+                            <DependencyConvergence/>
+                        </rules>
+                    </configuration>
+                </plugin>
             </plugins>
         </pluginManagement>
         <plugins>
