@@ -365,6 +365,14 @@
             <name>maven-reports at github</name>
             <url>https://github.com/1and1/testlink-junit</url>
         </site>
+        <snapshotRepository>
+            <id>testlink-snapshots</id>
+            <url>file:target/deployrepo-snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>testlink-releases</id>
+            <url>file:target/deployrepo-releases</url>
+        </repository>
     </distributionManagement>
     <modules>
         <module>tljunit</module>
