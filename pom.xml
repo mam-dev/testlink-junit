@@ -6,9 +6,9 @@
     <version>2.1.3-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <name>tljunit parent</name>
+    <name>TestLink JUnit</name>
     <url>https://1and1.github.com/testlink-junit/</url>
-    <description>Parent-POM for modules improving collaboration between JUnit and Testlink.</description>
+    <description>Modules improving collaboration between JUnit and Testlink.</description>
 
     <organization>
         <name>1&amp;1</name>

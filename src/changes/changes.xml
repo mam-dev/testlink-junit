@@ -5,6 +5,11 @@
         <author email="mirko.friedenhagen@1und1.de">Mirko Friedenhagen</author>
     </properties>
     <body>
+        <release version="2.1.3-SNAPSHOT" date="2011-12-16" description="Unknown">
+            <action dev="mifr" type="update">
+				Using Maven3 is mandatory.
+            </action>
+        </release>
         <release version="2.1.2" date="2011-10-26" description="Bundle software">
             <action dev="mifr" type="add">
                 Create bundle jars as well during deploy.
