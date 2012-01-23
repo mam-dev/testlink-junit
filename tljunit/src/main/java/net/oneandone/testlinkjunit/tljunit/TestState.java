@@ -16,12 +16,9 @@
 
 package net.oneandone.testlinkjunit.tljunit;
 
-import org.junit.Ignore;
-import org.junit.Test;
-
 /**
- * State of the current {@link Test}. Note that {@link Test}s annotated with {@link Ignore} will be marked as
- * blocked.
+ * State of the current {@link org.junit.Test}. Note that {@link org.junit.Test}s annotated with
+ * {@link org.junit.Ignore} will be marked as blocked.
  *
  * @author Mirko Friedenhagen
  */
@@ -35,6 +32,7 @@ enum TestState {
     /** Test failed. */
     f("FAILED");
 
+    /** description shown in XML output. */
     private final String description;
 
     /**
