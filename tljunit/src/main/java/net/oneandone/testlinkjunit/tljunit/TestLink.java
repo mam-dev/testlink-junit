@@ -76,12 +76,12 @@ public @interface TestLink {
     String NOT_AVAILABLE = "NOT_AVAILABLE";
 
     /**
-     * @return internal_id of a Test to be reported.
+     * internal_id of a Test to be reported.
      */
     long internalId() default 0;
 
     /**
-     * @return external_id of a Test to be reported.
+     * external_id of a Test to be reported.
      */
     String externalId() default NOT_AVAILABLE;
 }

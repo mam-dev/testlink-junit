@@ -94,7 +94,7 @@ import org.junit.runner.Result;
 public class TestLinkXmlRunListener extends AbstractTestLinkRunListener<InTestLinkXmlRunListener> {
 
     /** Stream to which the results will be printed. */
-    final PrintStream out;
+    private final PrintStream out;
 
     /**
      * Instantiates {@link TestLinkXmlRunListener#TestLinkXmlRunListener(PrintStream, String)} with parameters taken

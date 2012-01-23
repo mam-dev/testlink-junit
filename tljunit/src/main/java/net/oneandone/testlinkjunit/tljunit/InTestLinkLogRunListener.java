@@ -72,7 +72,7 @@ final class InTestLinkLogRunListener extends AbstractInTestLinkRunListener {
                     failure.getTestHeader(), message,});
         } else {
             logger.error("END Testcase '{}' '{}' FAILED because '{}'.", new Object[] {getId(failure.getDescription()),
-                    failure.getTestHeader(), failure.getException(),});
+                    failure.getTestHeader(), failure.getException(), });
         }
     }
 
@@ -82,7 +82,7 @@ final class InTestLinkLogRunListener extends AbstractInTestLinkRunListener {
         testStarted(description);
         final String message = description.getAnnotation(Ignore.class).value();
         logger.warn("END Testcase '{}' '{}' BLOCKED because '{}'.",
-                new Object[] {getId(description), description.getDisplayName(), message,});
+                new Object[] {getId(description), description.getDisplayName(), message, });
     }
 
     /** {@inheritDoc} */
@@ -90,7 +90,7 @@ final class InTestLinkLogRunListener extends AbstractInTestLinkRunListener {
     public void testAssumptionFailure(Failure failure) {
         setCurrentFailure(failure);
         logger.warn("END Testcase '{}' '{}' BLOCKED because '{}'.", new Object[] {getId(failure.getDescription()),
-                failure.getTestHeader(), failure.getMessage(),});
+                failure.getTestHeader(), failure.getMessage(), });
 
     }
 
