@@ -69,7 +69,7 @@ import java.lang.annotation.Target;
  * @author Mirko Friedenhagen
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.METHOD})
+@Target(ElementType.METHOD)
 public @interface TestLink {
 
     /** Default value for missing externalIds. */

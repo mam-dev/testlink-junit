@@ -276,6 +276,7 @@
                     <configuration>
                         <enableRulesSummary>false</enableRulesSummary>
                         <configLocation>${user.dir}/src/conf/checkstyle-ruleset.xml</configLocation>
+                        <suppressionsLocation>${user.dir}/src/conf/checkstyle-suppressions.xml</suppressionsLocation>
                     </configuration>
                 </plugin>
                 <plugin>
@@ -340,6 +341,7 @@
                 <configuration>
                     <enableRulesSummary>false</enableRulesSummary>
                     <configLocation>${user.dir}/src/conf/checkstyle-ruleset.xml</configLocation>
+                    <suppressionsLocation>${user.dir}/src/conf/checkstyle-suppressions.xml</suppressionsLocation>
                 </configuration>
             </plugin>
             <plugin>
