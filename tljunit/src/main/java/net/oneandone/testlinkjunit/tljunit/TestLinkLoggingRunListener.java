@@ -37,7 +37,7 @@ import org.slf4j.LoggerFactory;
 public class TestLinkLoggingRunListener extends AbstractTestLinkRunListener<InTestLinkLogRunListener> {
 
     /**
-     * By default log to "TESTLINK".
+     * By default log to {@link Logger} "TESTLINK" or one given by the system property <tt>testlink.loggername</tt>.
      */
     public TestLinkLoggingRunListener() {
         this(LoggerFactory.getLogger(System.getProperty("testlink.loggername", "TESTLINK")), 

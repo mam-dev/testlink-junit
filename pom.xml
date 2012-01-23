@@ -180,9 +180,11 @@
                     <configuration>
                         <quiet>true</quiet>
                         <links>
-                            <link>http://download.oracle.com/javase/1.5.0/docs/api/</link>
+                            <link>http://docs.oracle.com/javase/6/docs/api/</link>
                             <link>http://kentbeck.github.com/junit/javadoc/latest/</link>
+                            <link>http://www.slf4j.org/apidocs/</link>
                         </links>
+                        <stylesheet>maven</stylesheet>
                     </configuration>
                     <executions>
                         <execution>
