@@ -30,15 +30,16 @@ import org.slf4j.Logger;
  */
 final class InTestLinkLogRunListener extends AbstractInTestLinkRunListener {
 
-    /** default when no URI is given during instantiation. */
+    /** Default when no URI is given during instantiation. */
     static final URI NULL_URI = URI.create("");
 
     /** URI of the TestLink instance. */
     private final URI uri;
 
-    /** logger to logger to. */
+    /** Logger to logger to. */
     private final Logger logger;
 
+    /** Additional resolver which creates links to the testcase in Testlink. */
     private TestLinkUriResolver testLinkUriResolver;
 
     /**
@@ -67,11 +68,11 @@ final class InTestLinkLogRunListener extends AbstractInTestLinkRunListener {
         setCurrentFailure(failure);
         final String message = failure.getMessage();
         if (message != null) {
-            logger.error("END Testcase '{}' '{}' FAILED because '{}'.", new Object[] { getId(failure.getDescription()),
-                    failure.getTestHeader(), message });
+            logger.error("END Testcase '{}' '{}' FAILED because '{}'.", new Object[] {getId(failure.getDescription()),
+                    failure.getTestHeader(), message});
         } else {
-            logger.error("END Testcase '{}' '{}' FAILED because '{}'.", new Object[] { getId(failure.getDescription()),
-                    failure.getTestHeader(), failure.getException() });
+            logger.error("END Testcase '{}' '{}' FAILED because '{}'.", new Object[] {getId(failure.getDescription()),
+                    failure.getTestHeader(), failure.getException()});
         }
     }
 
@@ -81,15 +82,15 @@ final class InTestLinkLogRunListener extends AbstractInTestLinkRunListener {
         testStarted(description);
         final String message = description.getAnnotation(Ignore.class).value();
         logger.warn("END Testcase '{}' '{}' BLOCKED because '{}'.",
-                new Object[] { getId(description), description.getDisplayName(), message });
+                new Object[] {getId(description), description.getDisplayName(), message});
     }
 
     /** {@inheritDoc} */
     @Override
     public void testAssumptionFailure(Failure failure) {
         setCurrentFailure(failure);
-        logger.warn("END Testcase '{}' '{}' BLOCKED because '{}'.", new Object[] { getId(failure.getDescription()),
-                failure.getTestHeader(), failure.getMessage() });
+        logger.warn("END Testcase '{}' '{}' BLOCKED because '{}'.", new Object[] {getId(failure.getDescription()),
+                failure.getTestHeader(), failure.getMessage()});
 
     }
 
@@ -100,7 +101,8 @@ final class InTestLinkLogRunListener extends AbstractInTestLinkRunListener {
         final String id = getId(description);
         logger.info("START Testcase '{}' '{}'.", id, description.getDisplayName());
         if (!uri.equals(NULL_URI)) {
-            logger.info("START Testcase '{}' '{}'.", id, testLinkUriResolver.fromTestLinkId(TestLinkId.fromDescription(description)));
+            logger.info("START Testcase '{}' '{}'.", id,
+                    testLinkUriResolver.fromTestLinkId(TestLinkId.fromDescription(description)));
         }
     }
 

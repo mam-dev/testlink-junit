@@ -28,6 +28,7 @@ import net.oneandone.testlinkjunit.tljunit.TestLinkId.InternalTestLinkId;
  */
 class TestLinkUriResolver {
 
+    /** baseUri of the Testlink instance. */
     private final URI baseUri;
 
     /**

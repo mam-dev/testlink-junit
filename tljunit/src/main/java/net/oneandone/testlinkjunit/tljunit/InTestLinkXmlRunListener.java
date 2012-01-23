@@ -32,14 +32,17 @@ import org.junit.runner.notification.Failure;
  */
 class InTestLinkXmlRunListener extends AbstractInTestLinkRunListener {
 
+    /** Dom-creator for the total results. */
     private final Xpp3Dom results;
 
+    /** Name of the tester, default to the System property user.name. */
     private final String testerName;
 
+    /** Dom-creator for the results of the current testcase. */
     private ThreadLocal<Xpp3Dom> currentTestCase = new ThreadLocal<Xpp3Dom>();
 
     /**
-     * 
+     * @param testerName Name of the tester, default to the System property user.name.
      */
     public InTestLinkXmlRunListener(final String testerName) {
         results = new Xpp3Dom("results");
@@ -89,6 +92,15 @@ class InTestLinkXmlRunListener extends AbstractInTestLinkRunListener {
         setFailedOrIgnoredForFailureOrAssumptionFailure(failure, TestState.f);
     }
 
+    /**
+     * Attaches the notes of the Failure to the result set depending on the TestState.
+     *
+     * Ignored Testcases (or those where an Assumption failed) are marked as BLOCKED,
+     * otherwise report as FAILED.
+     *
+     * @param failure   either a real Failure or a blocked testcase.
+     * @param testState FAILED or BLOCKED.
+     */
     private void setFailedOrIgnoredForFailureOrAssumptionFailure(Failure failure, TestState testState) {
         setCurrentFailure(failure);
         final Xpp3Dom testCase = getCurrentTestCase();

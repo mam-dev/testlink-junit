@@ -69,10 +69,11 @@ import java.lang.annotation.Target;
  * @author Mirko Friedenhagen
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ ElementType.METHOD })
+@Target({ElementType.METHOD})
 public @interface TestLink {
+
     /** Default value for missing externalIds. */
-    static String NOT_AVAILABLE = "NOT_AVAILABLE";
+    String NOT_AVAILABLE = "NOT_AVAILABLE";
 
     /**
      * @return internal_id of a Test to be reported.
