@@ -8,7 +8,7 @@
     <artifactId>tljunit-surefire</artifactId>
     <packaging>jar</packaging>
 
-    <name>tljunit RunListeners</name>
+    <name>tljunit surefire RunListeners</name>
 
     <scm>
         <connection>${project.parent.scm.connection}</connection>
