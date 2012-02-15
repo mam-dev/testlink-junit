@@ -21,7 +21,12 @@ import org.junit.runner.notification.Failure;
 import org.junit.runner.notification.RunListener;
 
 /**
- * Abstract class which capsulates mostly the switching between Tests with and without {@link TestLink} annotations.
+ * Abstract class which encapsulates the switching between Tests with and without {@link TestLink} annotations.
+ *
+ * Overriding of behaviour must be accomplished by injecting a specific {@link AbstractInTestLinkRunListener} as
+ * all methods defined here are final. Note that {@link RunListener#testRunStarted(org.junit.runner.Description)}
+ * and {@link RunListener#testRunFinished(org.junit.runner.Result)} are not <tt>final</tt> as these probably
+ * must be extended for flushing and closing a stream etc.
  * 
  * @param <T>
  *            type of the listener to be called when a {@link TestLink} annotation exists.
@@ -53,35 +58,35 @@ public abstract class AbstractTestLinkRunListener<T extends AbstractInTestLinkRu
 
     /** {@inheritDoc} */
     @Override
-    public void testStarted(Description description) throws Exception {
+    public final void testStarted(Description description) throws Exception {
         super.testStarted(description);
         selectListener(description).testStarted(description);
     }
 
     /** {@inheritDoc} */
     @Override
-    public void testIgnored(Description description) throws Exception {
+    public final void testIgnored(Description description) throws Exception {
         super.testIgnored(description);
         selectListener(description).testIgnored(description);
     }
 
     /** {@inheritDoc} */
     @Override
-    public void testFailure(Failure failure) throws Exception {
+    public final void testFailure(Failure failure) throws Exception {
         super.testFailure(failure);
         selectListener(failure.getDescription()).testFailure(failure);
     }
 
     /** {@inheritDoc} */
     @Override
-    public void testAssumptionFailure(final Failure failure) {
+    public final void testAssumptionFailure(final Failure failure) {
         super.testAssumptionFailure(failure);
         selectListener(failure.getDescription()).testAssumptionFailure(failure);
     }
 
     /** {@inheritDoc} */
     @Override
-    public void testFinished(Description description) throws Exception {
+    public final void testFinished(Description description) throws Exception {
         super.testFinished(description);
         selectListener(description).testFinished(description);
     }
@@ -89,7 +94,7 @@ public abstract class AbstractTestLinkRunListener<T extends AbstractInTestLinkRu
     /**
      * @return the injected {@link AbstractInTestLinkRunListener}.
      */
-    public T getInTestLinkListener() {
+    public final T getInTestLinkListener() {
         return inTestLinkListener;
     }
 
