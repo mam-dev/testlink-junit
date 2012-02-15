@@ -33,19 +33,26 @@ import org.junit.runners.Parameterized.Parameters;
 @RunWith(Parameterized.class)
 public class TestLinkUriResolverTest {
 
-    private final URI expected;
+    private final URI expectedUri;
     private final TestLinkId<?> testLinkId;
 
     @Parameters
     public static Collection<Object[]> getData() {
         return Arrays.asList(
-                new Object[]{"http://testlink.sourceforge.net/demo/lib/testcases/tcPrint.php?testcase_id=2750", new TestLinkId.InternalTestLinkId(2750L)},
-                new Object[]{"http://testlink.sourceforge.net/demo/lib/testcases/archiveData.php?targetTestCase=SM-1&edit=testcase&allowedit=0", new TestLinkId.ExternalTestLinkId("SM-1")});
+            new Object[]{
+                URI.create("http://testlink.sourceforge.net/demo/lib/testcases/tcPrint.php?testcase_id=2750"),
+                new TestLinkId.InternalTestLinkId(2750L)
+            },
+            new Object[]{
+                URI.create("http://testlink.sourceforge.net/demo/lib/testcases/archiveData.php?targetTestCase=SM-1&edit=testcase&allowedit=0"),
+                new TestLinkId.ExternalTestLinkId("SM-1")
+            }
+        );
     }
 
-    public TestLinkUriResolverTest(String uri, final TestLinkId<?> testLinkId) {
+    public TestLinkUriResolverTest(URI expectedUri, final TestLinkId<?> testLinkId) {
         this.testLinkId = testLinkId;
-        expected = URI.create(uri);
+        this.expectedUri = expectedUri;
     }
 
     /**
@@ -58,7 +65,7 @@ public class TestLinkUriResolverTest {
         final TestLinkUriResolver resolver = new TestLinkUriResolver(
                 URI.create("http://testlink.sourceforge.net/demo/"));
         final URI actual = resolver.fromTestLinkId(testLinkId);
-        assertEquals(expected, actual);
+        assertEquals(expectedUri, actual);
     }
 
     /**
@@ -70,6 +77,6 @@ public class TestLinkUriResolverTest {
     public void testFromInternalTestLinkIdWithoutTrailingSlash() {
         final TestLinkUriResolver resolver = new TestLinkUriResolver(URI.create("http://testlink.sourceforge.net/demo"));
         final URI actual = resolver.fromTestLinkId(testLinkId);
-        assertEquals(expected, actual);
+        assertEquals(expectedUri, actual);
     }
 }
