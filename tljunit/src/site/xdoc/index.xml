@@ -28,15 +28,15 @@
                     or
                     <tt>internalId</tt>
                 </p>
-                <pre><![CDATA[
+                <source><![CDATA[
 @Test
 @TestLink(internalId=1)
 public void testPassed() {
     assertTrue(true);
 }
 
-                    ]]></pre>
-                <pre><![CDATA[
+                    ]]></source>
+                <source><![CDATA[
 @Test
 @TestLink(internalId=2)
 @Ignore("Just ignore this")
@@ -44,22 +44,22 @@ public void testIgnored() {
     assertTrue(true);
 }
 
-                    ]]></pre>
-                <pre><![CDATA[
+                    ]]></source>
+                <source><![CDATA[
 @Test
 @TestLink(externalId="ASSUMPTION_FAILED")
 public void testWithFailingAssumption() {
     assumeTrue(false);
 }
 
-                    ]]></pre>
-                <pre><![CDATA[
+                    ]]></source>
+                <source><![CDATA[
 @Test
 @TestLink(externalId="PROJECT-1")
 public void testExternalId() {
     assertTrue(true);
 }
-                    ]]></pre>
+                    ]]></source>
                 <p>
                     Tests annotated with
                     <tt>Ignore</tt>
@@ -78,7 +78,7 @@ public void testExternalId() {
                     As can be seen below, the username and file-location for the result file may be provided as system
                     properties.
                 </p>
-                <pre><![CDATA[
+                <source><![CDATA[
 <build>
     <plugins>
         <plugin>
@@ -107,7 +107,7 @@ public void testExternalId() {
         </plugin>
     </plugins>
 </build>
-        ]]></pre>
+        ]]></source>
                 <p>
                     Now running
                     <kbd>mvn test</kbd>
@@ -120,7 +120,7 @@ public void testExternalId() {
             </subsection>
             <subsection name="Running tests in Eclipse">
                 <p>To run a test from Eclipse, add a main method which will collect the tests:</p>
-                <pre><![CDATA[
+                <source><![CDATA[
 package net.oneandone.testlinkjunit.eclipse;
 
 import static org.junit.Assert.assertTrue;
@@ -148,7 +148,7 @@ public class EclipseTest {
     }
 }
 
-            ]]></pre>
+            ]]></source>
             </subsection>
         </section>
     </body>
