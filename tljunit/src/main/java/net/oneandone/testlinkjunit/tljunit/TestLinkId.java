@@ -27,7 +27,7 @@ import org.junit.runner.Description;
  *
  * @author Mirko Friedenhagen
  */
-public abstract class TestLinkId<T> {
+abstract class TestLinkId<T> {
 
     /** id of the test. */
     private final T id;
