@@ -37,17 +37,14 @@
 @Test
 @TestLink(internalId=1)
 public void testPassed() {
-    assertTrue(true);
-}
-
-                    ]]></source>
+    assertTrue(true); // PASSED
+}]]></source>
                 <source><![CDATA[
 @Test
 @TestLink(externalId="PROJECT-1")
 public void testExternalId() {
-    assertTrue(true);
-}
-                    ]]></source>
+    assertTrue(true); // PASSED
+}]]></source>
                 <p>
                     Tests annotated with
                     <a href="http://kentbeck.github.com/junit/javadoc/latest/org/junit/Ignore.html">
@@ -62,18 +59,14 @@ public void testExternalId() {
 @TestLink(internalId=2)
 @Ignore("Just ignore this")
 public void testIgnored() {
-    assertTrue(true);
-}
-
-                    ]]></source>
+    assertTrue(true); // BLOCKED as test is ignored.
+}]]></source>
                 <source><![CDATA[
 @Test
 @TestLink(externalId="ASSUMPTION_FAILED")
 public void testWithFailingAssumption() {
-    assumeTrue(false);
-}
-
-                    ]]></source>
+    assumeTrue(false); // BLOCKED as assumption failed.
+}]]></source>
                 <p>
                     Failing tests or tests in error are marked as <tt>FAILED</tt>.
                 </p>
@@ -81,10 +74,8 @@ public void testWithFailingAssumption() {
 @Test
 @TestLink(internalId=5)
 public void testFailed() {
-    assertTrue(false);
-}
-
-                    ]]></source>
+    assertTrue(false); // FAILED
+}]]></source>
             </subsection>
             <subsection name="Running tests with the maven-surefire-plugin">
                 <p>
@@ -130,8 +121,7 @@ public void testFailed() {
             </configuration>
         </plugin>
     </plugins>
-</build>
-        ]]></source>
+</build>]]></source>
                 <p>
                     Now running
                     <kbd>mvn test</kbd>
@@ -170,9 +160,7 @@ public class EclipseTest {
         core.addListener(new TestLinkXmlRunListener());
         core.run(EclipseTest.class);
     }
-}
-
-            ]]></source>
+}]]></source>
             </subsection>
         </section>
     </body>
