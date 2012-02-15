@@ -89,6 +89,9 @@ import org.junit.runner.Result;
  * }
  * </pre>
  *
+ * <p>Note that this implementation is threadsafe but holds all results in memory before flushing them
+ * to the specified XML file.</p>
+ *
  * @author Mirko Friedenhagen
  */
 public class TestLinkXmlRunListener extends AbstractTestLinkRunListener<InTestLinkXmlRunListener> {
