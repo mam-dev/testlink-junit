@@ -46,7 +46,7 @@ import org.junit.runner.Result;
  *     <dependencies>
  *       <dependency>
  *         <groupId>net.oneandone.testlinkjunit</groupId>
- *         <artifactId>tljunit</artifactId>
+ *         <artifactId>tljunit-surefire</artifactId>
  *         <version>}${tljunit.version}{@code </version>
  *       </dependency>
  *     </dependencies>

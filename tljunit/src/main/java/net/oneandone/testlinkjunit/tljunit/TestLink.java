@@ -31,30 +31,14 @@ import java.lang.annotation.Target;
  * <li>
  * Tests annotated with {@link org.junit.Ignore} as well as tests with failing assumptions will be reported as
  * <tt>BLOCKED</tt>, see {@link org.junit.Assume} as well.</li>
+ * <li>Failing tests or tests in error are reported as <tt>FAILED</tt>.</li>
  * </ul>
  * 
  * <pre>
  * &#064;Test
  * &#064;TestLink(internalId = 1)
  * public void testPassed() {
- *     assertTrue(true);
- * }
- * </pre>
- * 
- * <pre>
- * &#064;Test
- * &#064;TestLink(internalId = 2)
- * &#064;Ignore(&quot;Just ignore this&quot;)
- * public void testIgnored() {
- *     assertTrue(true);
- * }
- * </pre>
- * 
- * <pre>
- * &#064;Test
- * &#064;TestLink(externalId = &quot;ASSUMPTION_FAILED&quot;)
- * public void testWithFailingAssumption() {
- *     assumeTrue(false);
+ *     assertTrue(true); // PASSED
  * }
  * </pre>
  * 
@@ -62,7 +46,24 @@ import java.lang.annotation.Target;
  * &#064;Test
  * &#064;TestLink(externalId = &quot;PROJECT-1&quot;)
  * public void testExternalId() {
- *     assertTrue(true);
+ *     assertTrue(false); // FAILED
+ * }
+ * </pre>
+ *
+ * <pre>
+ * &#064;Test
+ * &#064;TestLink(internalId = 2)
+ * &#064;Ignore(&quot;Just ignore this&quot;)
+ * public void testIgnored() {
+ *     assertTrue(true); // BLOCKED as test is ignored.
+ * }
+ * </pre>
+ * 
+ * <pre>
+ * &#064;Test
+ * &#064;TestLink(externalId = &quot;ASSUMPTION_FAILED&quot;)
+ * public void testWithFailingAssumption() {
+ *     assumeTrue(false); // BLOCKED as assumption failed.
  * }
  * </pre>
  * 

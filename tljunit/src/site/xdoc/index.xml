@@ -3,6 +3,7 @@
     xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 xdoc-2.0.xsd">
     <properties>
         <title>Introduction</title>
+        <author>Mirko Friedenhagen</author>
     </properties>
     <body>
         <section name="Introduction">
@@ -19,13 +20,17 @@
                 <a href="http://www.teamst.org/_tldoc/1.8/user_manual.pdf">user manual</a>
                 .
             </p>
+            <p>
+                Another option is to log the start and end of an executed test to
+                an injected <a href="http://www.slf4j.org/apidocs/org/slf4j/Logger.html">Logger</a>.
+            </p>
         </section>
         <section name="Usage">
             <subsection name="Annotating your tests">
                 <p>
                     You have to annotate your tests and provide either an
                     <tt>externalId</tt>
-                    or
+                    or a numeric
                     <tt>internalId</tt>
                 </p>
                 <source><![CDATA[
@@ -36,6 +41,22 @@ public void testPassed() {
 }
 
                     ]]></source>
+                <source><![CDATA[
+@Test
+@TestLink(externalId="PROJECT-1")
+public void testExternalId() {
+    assertTrue(true);
+}
+                    ]]></source>
+                <p>
+                    Tests annotated with
+                    <a href="http://kentbeck.github.com/junit/javadoc/latest/org/junit/Ignore.html">
+                        <tt>Ignore</tt>
+                    </a>
+                    will be marked as
+                    <tt>BLOCKED</tt>
+                    as well as tests with <a href="http://kentbeck.github.com/junit/javadoc/latest/org/junit/Assume.html">failing assumptions</a>.
+                </p>
                 <source><![CDATA[
 @Test
 @TestLink(internalId=2)
@@ -53,20 +74,17 @@ public void testWithFailingAssumption() {
 }
 
                     ]]></source>
+                <p>
+                    Failing tests or tests in error are marked as <tt>FAILED</tt>.
+                </p>
                 <source><![CDATA[
 @Test
-@TestLink(externalId="PROJECT-1")
-public void testExternalId() {
-    assertTrue(true);
+@TestLink(internalId=5)
+public void testFailed() {
+    assertTrue(false);
 }
+
                     ]]></source>
-                <p>
-                    Tests annotated with
-                    <tt>Ignore</tt>
-                    will be marked as
-                    <tt>BLOCKED</tt>
-                    as well as tests with failing assumptions.
-                </p>
             </subsection>
             <subsection name="Running tests with the maven-surefire-plugin">
                 <p>
@@ -74,9 +92,13 @@ public void testExternalId() {
                     <a href="apidocs/net/oneandone/testlinkjunit/tljunit/TestLinkXmlRunListener.html">
                         <tt>TestLinkXmlRunListener</tt>
                     </a>
-                    .
-                    As can be seen below, the username and file-location for the result file may be provided as system
-                    properties.
+                    or
+                    <a href="apidocs/net/oneandone/testlinkjunit/tljunit/TestLinkLoggingRunListener.html">
+                        <tt>TestLinkLoggingRunListener</tt>
+                    </a>
+                    (For more information, see
+                    As can be seen below, username and file-location for the result file or the logger name may be provided as
+                    system properties.
                 </p>
                 <source><![CDATA[
 <build>
@@ -88,7 +110,7 @@ public void testExternalId() {
             <dependencies>
                 <dependency>
                     <groupId>net.oneandone.testlinkjunit</groupId>
-                    <artifactId>tljunit</artifactId>
+                    <artifactId>tljunit-surefire</artifactId>
                     <version>1.X</version>
                 </dependency>
             </dependencies>
@@ -96,12 +118,14 @@ public void testExternalId() {
                 <properties>
                     <property>
                         <name>listener</name>
-                        <value>net.oneandone.testlinkjunit.tljunit.TestLinkXmlRunListener</value>
+                        <value>net.oneandone.testlinkjunit.tljunit.TestLinkXmlRunListener,net.oneandone.testlinkjunit.tljunit.TestLinkLoggingRunListener
+</value>
                     </property>
                 </properties>
                 <systemPropertyVariables>
                     <testlink.results>target/my-testlink.xml</testlink.results>
                     <testlink.userName>memyselfandi</testlink.userName>
+                    <teslink.loggername>MY_LOGGER</teslink.loggername>
                 </systemPropertyVariables>
             </configuration>
         </plugin>
