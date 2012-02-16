@@ -185,7 +185,6 @@
                             <link>http://kentbeck.github.com/junit/javadoc/latest/</link>
                             <link>http://www.slf4j.org/apidocs/</link>
                         </links>
-                        <stylesheet>maven</stylesheet>
                     </configuration>
                     <executions>
                         <execution>
@@ -369,7 +368,6 @@
                         <link>http://kentbeck.github.com/junit/javadoc/latest/</link>
                         <link>http://www.slf4j.org/apidocs/</link>
                     </links>
-                    <stylesheet>maven</stylesheet>
                 </configuration>
             </plugin>
             <plugin>
