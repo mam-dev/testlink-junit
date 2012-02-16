@@ -18,36 +18,49 @@ package net.oneandone.testlinkjunit.tljunit;
 
 /**
  * State of the current {@link org.junit.Test}. Note that {@link org.junit.Test}s annotated with
- * {@link org.junit.Ignore} will be marked as blocked.
+ * {@link org.junit.Ignore} or with a failing Assumption will be marked as blocked.
  *
  * @author Mirko Friedenhagen
  */
 enum TestState {
-    /** Test passed. */
-    p("PASSED"),
 
-    /** Test blocked as test is ignored. */
-    b("BLOCKED"),
+    /** Test passed. */
+    passed("PASSED", 'p'),
+
+    /** Test blocked as test is ignored or Assumption failed. */
+    blocked("BLOCKED", 'b'),
 
     /** Test failed. */
-    f("FAILED");
+    failed("FAILED", 'f');
 
-    /** description shown in XML output. */
+    /** Description shown in XML output. */
     private final String description;
+
+    /** One letter state shown in XML output. */
+    private final char state;
 
     /**
      * Constructor.
      *
      * @param description shown in XML output.
+     * @param state       one letter state in XML output.
      */
-    TestState(final String description) {
+    TestState(final String description, final char state) {
         this.description = description;
+        this.state = state;
     }
 
     /**
-     * @return the description
+     * @return the description.
      */
     String getDescription() {
         return description;
+    }
+
+    /**
+     * @return the one letter state.
+     */
+    String getState() {
+        return String.valueOf(state);
     }
 }

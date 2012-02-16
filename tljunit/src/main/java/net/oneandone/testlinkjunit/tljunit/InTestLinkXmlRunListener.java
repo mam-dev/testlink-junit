@@ -74,7 +74,7 @@ class InTestLinkXmlRunListener extends AbstractInTestLinkRunListener {
     public void testIgnored(Description description) {
         testStarted(description);
         final Xpp3Dom testCase = getCurrentTestCase();
-        testCase.addChild(createResult(TestState.b));
+        testCase.addChild(createResult(TestState.blocked));
         final String message = description.getAnnotation(Ignore.class).value();
         testCase.addChild(createNotes(String.format("'%s' BLOCKED because '%s'.", description.getDisplayName(), message)));
     }
@@ -82,14 +82,14 @@ class InTestLinkXmlRunListener extends AbstractInTestLinkRunListener {
     /** {@inheritDoc} */
     @Override
     public void testAssumptionFailure(Failure failure) {
-        setFailedOrIgnoredForFailureOrAssumptionFailure(failure, TestState.b);
+        setFailedOrIgnoredForFailureOrAssumptionFailure(failure, TestState.blocked);
 
     }
 
     /** {@inheritDoc} */
     @Override
     public void testFailure(Failure failure) {
-        setFailedOrIgnoredForFailureOrAssumptionFailure(failure, TestState.f);
+        setFailedOrIgnoredForFailureOrAssumptionFailure(failure, TestState.failed);
     }
 
     /**
@@ -126,7 +126,7 @@ class InTestLinkXmlRunListener extends AbstractInTestLinkRunListener {
     public void testFinished(Description description) {
         if (hasPassed()) {
             final Xpp3Dom testCase = getCurrentTestCase();
-            testCase.addChild(createResult(TestState.p));
+            testCase.addChild(createResult(TestState.passed));
             testCase.addChild(createNotes(String.format("'%s' PASSED.", description.getDisplayName())));
         }
     }
@@ -180,7 +180,7 @@ class InTestLinkXmlRunListener extends AbstractInTestLinkRunListener {
      */
     Xpp3Dom createResult(final TestState testState) {
         final Xpp3Dom result = new Xpp3Dom("result");
-        result.setValue(testState.toString());
+        result.setValue(testState.getState());
         return result;
     }
 

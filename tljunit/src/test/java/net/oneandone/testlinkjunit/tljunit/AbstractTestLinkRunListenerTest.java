@@ -67,7 +67,7 @@ abstract public class AbstractTestLinkRunListenerTest {
             @Override
             void apply(Xpp3Dom each) {
                 final String result = each.getChild("result").getValue();
-                ignored.addAndGet(result.equals("b") ? 1 : 0);
+                ignored.addAndGet(result.equals(TestState.blocked.getState()) ? 1 : 0);
             }
         }.run();
         return ignored.intValue();
