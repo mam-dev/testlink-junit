@@ -4,6 +4,12 @@
     xmlns="http://maven.apache.org/DECORATION/1.0.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <version position="right" />
     <publishDate format="yyyy-MM-dd HH:mm" position="right" />
+    <poweredBy>
+        <logo name="Maven" href="http://maven.apache.org/"
+            img="http://maven.apache.org/images/logos/maven-feather.png" />
+        <logo name="1&amp;1 at github" href="https://github.com/1and1/"
+            img="https://assets.github.com/images/modules/header/logov7-hover.png" />
+    </poweredBy>
     <bannerLeft>
         <name>1&amp;1</name>
         <src>https://secure.gravatar.com/avatar/4bc599826789a6d0265a406b7e64e012</src>
@@ -11,11 +17,6 @@
         <height>45</height>
         <width>45</width>
     </bannerLeft>
-    <bannerRight>
-        <name>1&amp;1 at github</name>
-        <src>https://assets.github.com/images/modules/header/logov7@4x-hover.png</src>
-        <href>https://github.com/1and1/</href>
-    </bannerRight>
     <skin>
         <groupId>org.apache.maven.skins</groupId>
         <artifactId>maven-fluido-skin</artifactId>
@@ -33,6 +34,9 @@
       <item name="1&amp;1 FOSS" href="https://github.com/1and1/" />
       <item name="tljunit" href="${project.url}" />
     </breadcrumbs>
+    <links>
+        <item name="Testlink" href="http://www.teamst.org/"/>
+    </links>
     <menu ref="parent" />
     <menu ref="modules" />
     <menu ref="reports" inherit="bottom" />
