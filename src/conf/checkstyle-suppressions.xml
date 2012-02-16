@@ -5,5 +5,5 @@
 <suppressions>
     <suppress checks="JavadocStyleCheck"
             files="TestLinkXmlRunListener.java"
-            lines="37-90,99-108"/>
+            lines="27-97,106-111"/>
 </suppressions>
