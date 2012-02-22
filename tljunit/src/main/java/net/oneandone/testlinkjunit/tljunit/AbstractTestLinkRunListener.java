@@ -40,7 +40,7 @@ public abstract class AbstractTestLinkRunListener<T extends AbstractInTestLinkRu
 
     /**
      * Listener to be called when <em>no</em> {@link TestLink} annotation exists.
-     * Note that RunlIstener just does nothing which is fine as executing
+     * Note that RunListener just does nothing which is fine as executing
      * an empty method allows us to avoid cyclomatic complexity in all methods
      * but {@link AbstractTestLinkRunListener#selectListener(org.junit.runner.Description)}.
      */
