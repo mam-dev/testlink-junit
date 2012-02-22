@@ -37,7 +37,7 @@ public abstract class AbstractInTestLinkRunListener extends RunListener {
     private final ThreadLocal<Failure> currentFailure = new ThreadLocal<Failure>();
 
     /**
-     * Returns the failure in the current {@link Thread}.
+     * Returns the failure of the current {@link Thread}.
      *
      * @return the currentFailure
      */
@@ -46,7 +46,7 @@ public abstract class AbstractInTestLinkRunListener extends RunListener {
     }
 
     /**
-     * Sets the failure in the current {@link Thread}.
+     * Sets the failure of the current {@link Thread}.
      *
      * @param currentFailure
      *            the currentFailure to set
@@ -62,7 +62,7 @@ public abstract class AbstractInTestLinkRunListener extends RunListener {
         this.currentFailure.set(NO_FAILURE);
     }
     /**
-     * Has the the current test passed or failed (an assumption)?
+     * Has the the current test passed or failed (was an assumption)?
      * 
      * @return true when the current test passed.
      */
