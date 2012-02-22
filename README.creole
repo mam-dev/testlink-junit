@@ -1,1 +1,4 @@
-See [changes.xml](testlink-junit/blob/master/src/changes/changes.xml) for more details.
+= Modules improving collaboration between JUnit and Testlink. =
+
+
+See [[http://huschteguzzel.de/hudson/job/testlink-junit/site/tljunit-surefire/index.html|the surefire listener javadoc]] for what this is about, [[testlink-junit/blob/master/src/changes/changes.xml|changes.xml]] for current changes .
