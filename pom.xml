@@ -456,11 +456,11 @@
             <url>https://github.com/1and1/testlink-junit</url>
         </site>
         <snapshotRepository>
-            <id>testlink-snapshots</id>
+            <id>sonatype-nexus-snapshots</id>
             <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
         </snapshotRepository>
         <repository>
-            <id>testlink-releases</id>
+            <id>sonatype-nexus-staging</id>
             <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
         </repository>
     </distributionManagement>
