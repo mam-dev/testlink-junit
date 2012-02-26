@@ -169,6 +169,11 @@
                     <version>2.2.2</version>
                     <inherited>true</inherited>
                     <configuration>
+                        <!-- Workaround for passphrse prompting in gpg-plugin,
+                        http://jira.codehaus.org/browse/MRELEASE-263
+                        http://jira.codehaus.org/browse/MGPG-9
+                        -->
+                        <mavenExecutorId>forked-path</mavenExecutorId>
                         <autoVersionSubmodules>true</autoVersionSubmodules>
                         <!-- groupId is sufficient as we always release all modules -->
                         <tagNameFormat>@{groupId}-@{version}</tagNameFormat>
@@ -416,6 +421,33 @@
                 <defaultGoal>clean deploy site site:stage</defaultGoal>
             </build>
         </profile>
+        <profile>
+            <id>release-sign-artifacts</id>
+            <activation>
+                <property>
+                    <name>performRelease</name>
+                    <value>true</value>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>1.4</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
     </profiles>
     <distributionManagement>
         <site>
@@ -425,11 +457,11 @@
         </site>
         <snapshotRepository>
             <id>testlink-snapshots</id>
-            <url>file:target/deployrepo-snapshots</url>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
         </snapshotRepository>
         <repository>
             <id>testlink-releases</id>
-            <url>file:target/deployrepo-releases</url>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
         </repository>
     </distributionManagement>
     <modules>
