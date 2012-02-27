@@ -177,6 +177,7 @@
                         <autoVersionSubmodules>true</autoVersionSubmodules>
                         <!-- groupId is sufficient as we always release all modules -->
                         <tagNameFormat>@{groupId}-@{version}</tagNameFormat>
+                        <goals>clean deploy</goals>
                     </configuration>
                 </plugin>
                 <plugin>
