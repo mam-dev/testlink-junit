@@ -3,7 +3,7 @@
 
     <groupId>net.oneandone.testlinkjunit</groupId>
     <artifactId>tljunit-parent</artifactId>
-    <version>3.0.0-SNAPSHOT</version>
+    <version>3.0.0</version>
     <packaging>pom</packaging>
 
     <name>tljunit parent</name>
@@ -252,7 +252,7 @@
                                 <regex>scm:git:ssh://git@github.com/1and1/.*$</regex>
                                 <regexMessage>"project.scm.developerConnection must start with scm:git:ssh://git@github.com/1and1/"</regexMessage>
                             </requireProperty>
-                            <DependencyConvergence/>
+                            <DependencyConvergence />
                         </rules>
                     </configuration>
                     <executions>
