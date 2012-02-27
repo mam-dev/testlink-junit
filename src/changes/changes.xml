@@ -5,7 +5,7 @@
         <author email="mirko.friedenhagen@1und1.de">Mirko Friedenhagen</author>
     </properties>
     <body>
-        <release version="3.0.0" date="2012-02-22" description="Maven3, renamed modules and compacted API.">
+        <release version="3.0.0" date="2012-02-27" description="Maven3, renamed modules and compacted API.">
             <action dev="mifr" type="update">
                 Using Maven3 is mandatory.
             </action>
