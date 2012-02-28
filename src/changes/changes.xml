@@ -5,6 +5,12 @@
         <author email="mirko.friedenhagen@1und1.de">Mirko Friedenhagen</author>
     </properties>
     <body>
+        <release version="3.0.1" date="2012-02-28" description="Bugfix for UTF-8">
+            <action>
+                Wrong encoding in XML. Now all output is written as UTF-8.
+                <fixes issue="4">
+            </action>
+        </release>
         <release version="3.0.0" date="2012-02-27" description="Maven3, renamed modules and compacted API.">
             <action dev="mifr" type="update">
                 Using Maven3 is mandatory.

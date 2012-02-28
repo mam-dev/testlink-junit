@@ -16,10 +16,11 @@
 
 package net.oneandone.testlinkjunit.tljunit;
 
-import java.io.BufferedOutputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.PrintStream;
+import java.io.OutputStream;
+import java.nio.charset.Charset;
+import org.codehaus.plexus.util.IOUtil;
 
 import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.junit.runner.Result;
@@ -32,6 +33,7 @@ import org.junit.runner.Result;
  * <p>
  * You have to configure the surefire plugin to use the additional {@link TestLinkXmlRunListener}.
  * As can be seen below, the tester name and file-location for the result file may be provided as system properties.
+ * The resulting XML is written as UTF-8.
  * </p>
  * <pre>
  * {@code
@@ -97,36 +99,42 @@ import org.junit.runner.Result;
 public class TestLinkXmlRunListener extends AbstractTestLinkRunListener<InTestLinkXmlRunListener> {
 
     /** Stream to which the results will be printed. */
-    private final PrintStream out;
+    private final OutputStream out;
+
+    /** Needed for conversion of final result to bytes */
+    private final static Charset UTF8 = Charset.forName("utf-8");
 
     /**
-     * Instantiates {@link TestLinkXmlRunListener#TestLinkXmlRunListener(PrintStream, String)} with parameters taken
+     * Instantiates {@link TestLinkXmlRunListener#TestLinkXmlRunListener(OutputStream, String)} with parameters taken
      * from System properties.
      * 
      * <dl>
      * <dt><code>testlink.results</code></dt>
-     * <dd>Results are written to this filename (<tt>target/testlink.xml</tt> by default).</dd>
+     * <dd>Results are written to this filename (<tt>target/testlink.xml</tt> by default). Intermediate directories must be
+     * created beforehand.</dd>
      * <dt><code>testlink.tester</code></dt>
      * <dd>To be used as name of the tester. (falls back to system property <tt>user.name</tt> by default).</dd>
      * </dl>
      * 
      * @throws FileNotFoundException
-     *             when the file could not be written.
+     *             when the file could not be written, e.g. the parent directory does not exist.
      */
     public TestLinkXmlRunListener() throws FileNotFoundException {
-        this(new PrintStream(new BufferedOutputStream(new FileOutputStream(System.getProperty("testlink.results",
-                "target/testlink.xml")))), System.getProperty("testlink.tester", System.getProperty("user.name")));
+        this(new FileOutputStream(System.getProperty("testlink.results",
+                "target/testlink.xml")), System.getProperty("testlink.tester", System.getProperty("user.name")));
     }
 
     /**
      * Writes results to <tt>out</tt> using <tt>tester</tt> as name of the tester.
+     *
+     * All results will be written bufferedly {@link TestLinkXmlRunListener#testRunFinished(org.junit.runner.Result)}.
      * 
      * @param out
      *            the xml data is written to.
      * @param tester
      *            name of the tester.
      */
-    public TestLinkXmlRunListener(final PrintStream out, final String tester) {
+    public TestLinkXmlRunListener(final OutputStream out, final String tester) {
         super(new InTestLinkXmlRunListener(tester));
         this.out = out;
     }
@@ -135,7 +143,8 @@ public class TestLinkXmlRunListener extends AbstractTestLinkRunListener<InTestLi
     @Override
     public void testRunFinished(Result result) throws Exception {
         super.testRunFinished(result);
-        out.print(String.valueOf(getInTestLinkListener().getResults()));
+        final String valueOf = String.valueOf(getResults());
+        IOUtil.copy(valueOf.getBytes(UTF8), out);
         out.close();
     }
 

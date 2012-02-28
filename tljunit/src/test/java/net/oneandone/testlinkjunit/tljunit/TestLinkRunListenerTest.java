@@ -105,9 +105,8 @@ public class TestLinkRunListenerTest extends AbstractTestLinkRunListenerTest {
     @Test
     @TestLink(externalId="ASSUMPTION_FAILED")
     public void testBlockedBecauseOfFailingAssumption() {
-        // Servername is &auml;&ouml;&uuml;&szlig;
+        // Servername is &auml;&ouml;&uuml;&szlig; - this file should be UTF-8.
         assumeNoException(new IllegalStateException(
                 "can not proceed because server 'äöüß' not available"));
     }
-
 }
