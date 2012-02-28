@@ -3,7 +3,7 @@
     <parent>
         <groupId>net.oneandone.testlinkjunit</groupId>
         <artifactId>tljunit-parent</artifactId>
-        <version>3.0.1-SNAPSHOT</version>
+        <version>3.0.1</version>
     </parent>
     <artifactId>tljunit-surefire</artifactId>
     <packaging>jar</packaging>

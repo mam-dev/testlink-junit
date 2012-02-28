@@ -3,7 +3,7 @@
     <parent>
         <artifactId>tljunit-parent</artifactId>
         <groupId>net.oneandone.testlinkjunit</groupId>
-        <version>3.0.1-SNAPSHOT</version>
+        <version>3.0.1</version>
     </parent>
     <artifactId>tljunit-eclipse</artifactId>
     <name>tljunit sample project for running tests from eclipse.</name>
