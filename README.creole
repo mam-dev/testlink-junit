@@ -4,3 +4,9 @@
 See:
 * [[http://huschteguzzel.de/hudson/job/testlink-junit/site/tljunit-surefire/index.html|the surefire listener javadoc]] for what this is about, 
 * [[http://huschteguzzel.de/hudson/job/testlink-junit/site/changes-report.html|Maven Changes Report]] for current changes.
+
+= Where to find Releases and Snapshots =
+
+* Releases may be found in [[http://repo1.maven.org/maven2/net/oneandone/testlinkjunit/|Maven Central]].
+* Snapshots (only deployed manually at the moment) may be found in [[https://oss.sonatype.org/content/repositories/snapshots/net/oneandone/testlinkjunit/|OSS]].
+* Bleeding edge fresh from Jenkins may be found at [[http://huschteguzzel.de/hudson/plugin/repository/project/testlink-junit/LastSuccessful/repository/net/oneandone/testlinkjunit/|Jenkins]]
