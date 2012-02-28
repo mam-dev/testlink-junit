@@ -71,7 +71,7 @@
 
     <issueManagement>
         <system>GitHub</system>
-        <url>https://github.com/1and1/testlink-junit/issues?labels=${project.artifactId}&amp;sort=created&amp;state=open</url>
+        <url>https://github.com/1and1/testlink-junit/issues/?labels=${project.artifactId}&amp;sort=created&amp;state=open</url>
     </issueManagement>
 
     <developers>
