@@ -127,7 +127,8 @@ public class TestLinkXmlRunListener extends AbstractTestLinkRunListener<InTestLi
     /**
      * Writes results to <tt>out</tt> using <tt>tester</tt> as name of the tester.
      *
-     * All results will be written bufferedly {@link TestLinkXmlRunListener#testRunFinished(org.junit.runner.Result)}.
+     * All results will be written bufferedly in {@link TestLinkXmlRunListener#testRunFinished(org.junit.runner.Result)},
+     * <tt>out</tt> will be closed there.
      * 
      * @param out
      *            the xml data is written to.
@@ -139,13 +140,19 @@ public class TestLinkXmlRunListener extends AbstractTestLinkRunListener<InTestLi
         this.out = out;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     * Will write the result to the outputstream and close the stream afterwards.
+     */
     @Override
     public void testRunFinished(Result result) throws Exception {
         super.testRunFinished(result);
         final String valueOf = String.valueOf(getResults());
-        IOUtil.copy(valueOf.getBytes(UTF8), out);
-        out.close();
+        try {
+            IOUtil.copy(valueOf.getBytes(UTF8), out);
+        } finally {
+            out.close();
+        }
     }
 
     /**
