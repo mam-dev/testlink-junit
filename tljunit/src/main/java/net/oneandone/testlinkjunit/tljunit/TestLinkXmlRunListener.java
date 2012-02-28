@@ -101,8 +101,8 @@ public class TestLinkXmlRunListener extends AbstractTestLinkRunListener<InTestLi
     /** Stream to which the results will be printed. */
     private final OutputStream out;
 
-    /** Needed for conversion of final result to bytes */
-    private final static Charset UTF8 = Charset.forName("utf-8");
+    /** Needed for conversion of final result to bytes. */
+    private static final Charset UTF8 = Charset.forName("utf-8");
 
     /**
      * Instantiates {@link TestLinkXmlRunListener#TestLinkXmlRunListener(OutputStream, String)} with parameters taken
