@@ -87,7 +87,7 @@ public void testFailed() {
                     <a href="apidocs/net/oneandone/testlinkjunit/tljunit/TestLinkLoggingRunListener.html">
                         <tt>TestLinkLoggingRunListener</tt>
                     </a>
-                    (For more information, see
+                    (For more information, take a look into the classes' documentation above.).
                     As can be seen below, username and file-location for the result file or the logger name may be provided as
                     system properties.
                 </p>
