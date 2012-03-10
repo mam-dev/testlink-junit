@@ -100,9 +100,9 @@ public void testFailed() {
             <version>2.10</version>
             <dependencies>
                 <dependency>
-                    <groupId>net.oneandone.testlinkjunit</groupId>
-                    <artifactId>tljunit-surefire</artifactId>
-                    <version>1.X</version>
+                    <groupId>${project.groupId}</groupId>
+                    <artifactId>${project.artifactId}</artifactId>
+                    <version>${project.version}</version>
                 </dependency>
             </dependencies>
             <configuration>
