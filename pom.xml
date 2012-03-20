@@ -1,3 +1,4 @@
+
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
@@ -83,8 +84,32 @@
             <organizationUrl>${project.url}</organizationUrl>
             <url>http://github.com/mfriedenhagen/</url>
             <timezone>+1</timezone>
+            <roles>
+                <role>developer</role>
+            </roles>
         </developer>
     </developers>
+
+    <contributors>
+        <contributor>
+            <name>Uli Kraus</name>
+            <organization>1 &amp; 1 Internet AG</organization>
+            <url>https://github.com/ulkraus</url>
+            <timezone>+1</timezone>
+            <roles>
+                <role>bug reporter</role>
+            </roles>
+        </contributor>
+        <contributor>
+            <name>Mario Mancino</name>
+            <organization>1 &amp; 1 Internet AG</organization>
+            <url>https://github.com/mmancino</url>
+            <timezone>+1</timezone>
+            <roles>
+                <role>bug reporter</role>
+            </roles>
+        </contributor>
+    </contributors>
 
     <build>
         <pluginManagement>
