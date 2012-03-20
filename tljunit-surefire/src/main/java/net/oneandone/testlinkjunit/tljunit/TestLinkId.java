@@ -121,7 +121,7 @@ abstract class TestLinkId<T> {
         /** {@inheritDoc} */
         @Override
         public String getType() {
-            return "internal_id";
+            return "id";
         }
     }
 }

@@ -5,6 +5,12 @@
         <author email="mirko.friedenhagen@1und1.de">Mirko Friedenhagen</author>
     </properties>
     <body>
+        <release version="3.0.2" date="2012-03-20" description="Bugfix for internal id">
+            <action dev="mifr" type="fix">
+                Attribute internal_id is called id in Testlink.
+                <fixes issue="5"/>
+            </action>
+        </release>
         <release version="3.0.1" date="2012-02-28" description="Bugfix for UTF-8">
             <action dev="mifr" type="fix">
                 Wrong encoding in XML. Now all output is written as UTF-8.
