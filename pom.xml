@@ -367,23 +367,6 @@
                 <artifactId>maven-site-plugin</artifactId>
             </plugin>
         </plugins>
-        <extensions>
-            <extension>
-                <groupId>org.apache.maven.wagon</groupId>
-                <artifactId>wagon-scm</artifactId>
-                <version>2.2</version>
-            </extension>
-            <extension>
-                <groupId>org.apache.maven.scm</groupId>
-                <artifactId>maven-scm-manager-plexus</artifactId>
-                <version>2.2</version>
-            </extension>
-            <extension>
-                <groupId>org.apache.maven.scm</groupId>
-                <artifactId>maven-scm-provider-gitexe</artifactId>
-                <version>2.2</version>
-            </extension>
-        </extensions>
     </build>
     <reporting>
         <plugins>
@@ -519,7 +502,7 @@
         <site>
             <id>github</id>
             <name>maven-reports at github</name>
-            <url>scm:git:ssh://git@github.com/1and1/testlink-junit.git</url>
+            <url>https://github.com/1and1/testlink-junit</url>
         </site>
         <snapshotRepository>
             <id>sonatype-nexus-snapshots</id>
