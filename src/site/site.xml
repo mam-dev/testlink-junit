@@ -20,12 +20,22 @@
     <skin>
         <groupId>org.apache.maven.skins</groupId>
         <artifactId>maven-fluido-skin</artifactId>
-        <version>1.1</version>
+        <version>1.2</version>
     </skin>
     <custom>
         <fluidoSkin>
             <searchEnabled>true</searchEnabled>
             <sideBarEnabled>true</sideBarEnabled>
+            <gitHub>
+                <projectId>1and1/testlink-junit</projectId>
+                <ribbonOrientation>right</ribbonOrientation>
+                <ribbonColor>gray</ribbonColor>
+            </gitHub>
+            <googlePlusOne />
+            <ohloh>
+                <projectId>tljunit</projectId>
+                <widget>factoids</widget>
+            </ohloh>
         </fluidoSkin>
     </custom>
   <body>
