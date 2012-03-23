@@ -4,7 +4,7 @@
 See:
 * [[http://huschteguzzel.de/hudson/job/testlink-junit/site/tljunit-surefire/index.html|the surefire listener javadoc]] for what this is about, 
 * [[http://huschteguzzel.de/hudson/job/testlink-junit/site/changes-report.html|Maven Changes Report]] for current changes.
-* [[http://1and1.github.com/testlink-junit/[Maven Reports]]
+* [[http://1and1.github.com/testlink-junit/][Maven Reports]]
 
 = Where to find Releases and Snapshots =
 
