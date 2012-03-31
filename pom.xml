@@ -89,6 +89,7 @@
             <timezone>+1</timezone>
             <roles>
                 <role>developer</role>
+                <role>project lead</role>
             </roles>
         </developer>
     </developers>
