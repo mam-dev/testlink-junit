@@ -354,6 +354,14 @@
                             <project>${project}</project>
                         </properties>
                     </configuration>
+                    <executions>
+                        <execution>
+                            <id>tljunit-create-jenkins-description</id>
+                            <goals>
+                                <goal>velocity</goal>
+                            </goals>
+                        </execution>
+                    </executions>
                 </plugin>
             </plugins>
         </pluginManagement>

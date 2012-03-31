@@ -1,0 +1,30 @@
+#macro ( roles $roles ) 
+#if ( $roles.size() )
+(#foreach ( $role in $roles ) $role #end)
+#end
+#end
+#macro ( developersOrContributors $title $devcons )
+#if ( $devcons.size() )
+<h4>$title</h4>
+<ul>
+#foreach ( $devcon in $devcons )
+    #if ( $devcon.url )
+        <li><a href="$devcon.url">$devcon.name</a> #roles( $devcon.roles )</li>
+    #else
+        <li>$devcon.name #roles( $decon.roles )</li>
+    #end
+#end
+</ul>
+#end
+#end
+<h2>$project.name</h2>
+<h3>General</h3>
+<ul>
+<li>$project.description</li>
+<li><a href="$project.url">Project URL</a></li>
+<li><a href="$project.scm.url">SCM</a></li>
+<li><a href="$project.issueManagement.url">Issue-Management via $project.issueManagement.system</a></li>
+</ul>
+<h3>People</h3>
+#developersOrContributors( "Developers" $project.developers )
+#developersOrContributors( "Contributors" $project.contributors )
