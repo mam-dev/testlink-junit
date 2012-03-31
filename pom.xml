@@ -343,9 +343,25 @@
                         <relaxed>false</relaxed>
                     </configuration>
                 </plugin>
+                <plugin>
+                    <groupId>net.rumati.maven.plugins</groupId>
+                    <artifactId>velocity-maven-plugin</artifactId>
+                    <version>0.1.2</version>
+                    <configuration>
+                        <template>${user.dir}/src/conf/jenkins-description.html.vm</template>
+                        <outputFile>target/jenkins-description.html</outputFile>
+                        <properties>
+                            <project>${project}</project>
+                        </properties>
+                    </configuration>
+                </plugin>
             </plugins>
         </pluginManagement>
         <plugins>
+            <plugin>
+                <groupId>net.rumati.maven.plugins</groupId>
+                <artifactId>velocity-maven-plugin</artifactId>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
