@@ -347,13 +347,10 @@
                 <plugin>
                     <groupId>net.rumati.maven.plugins</groupId>
                     <artifactId>velocity-maven-plugin</artifactId>
-                    <version>0.1.2</version>
+                    <version>0.2.0</version>
                     <configuration>
                         <template>${user.dir}/src/conf/jenkins-description.html.vm</template>
                         <outputFile>target/jenkins-description.html</outputFile>
-                        <properties>
-                            <project>${project}</project>
-                        </properties>
                     </configuration>
                     <executions>
                         <execution>
