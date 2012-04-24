@@ -18,7 +18,7 @@
 
     <ciManagement>
         <system>Jenkins</system>
-        <url>http://huschteguzzel.de/hudson/job/testlink-junit/</url>
+        <url>http://huschteguzzel.de/hudson/job/oneandone-testlink-junit/</url>
     </ciManagement>
 
     <scm>
