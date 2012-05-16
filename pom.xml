@@ -29,10 +29,30 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven-surefire-plugin.version>2.12</maven-surefire-plugin.version>
+        <maven-changes-plugin.version>2.7.1</maven-changes-plugin.version>
         <maven-checkstyle-plugin.version>2.9.1</maven-checkstyle-plugin.version>
-        <maven-pmd-plugin.version>2.7.1</maven-pmd-plugin.version>
+        <maven-clean-plugin.version>2.4.1</maven-clean-plugin.version>
+        <maven-compiler-plugin.version>2.4</maven-compiler-plugin.version>
+        <maven-enforcer-plugin.version>1.1</maven-enforcer-plugin.version>
+        <maven-gpg-plugin.version>1.4</maven-gpg-plugin.version>
+        <maven-install-plugin.version>2.3.1</maven-install-plugin.version>
+        <maven-javadoc-plugin.version>2.8.1</maven-javadoc-plugin.version>
         <maven-jar-plugin.version>2.4</maven-jar-plugin.version>
+        <maven-jxr-plugin.version>2.3</maven-jxr-plugin.version>
+        <maven-pmd-plugin.version>2.7.1</maven-pmd-plugin.version>
+        <maven-project-info-reports-plugin.version>2.4</maven-project-info-reports-plugin.version>
+        <maven-release-plugin.version>2.3</maven-release-plugin.version>
+        <maven-resources-plugin.version>2.5</maven-resources-plugin.version>
+        <maven-site-plugin.version>3.1</maven-site-plugin.version>
+        <maven-scm-plugin.version>1.7</maven-scm-plugin.version>
+        <maven-source-plugin.version>2.1.2</maven-source-plugin.version>
+        <maven-surefire-plugin.version>2.12</maven-surefire-plugin.version>
+        <buildnumber-maven-plugin.version>1.1</buildnumber-maven-plugin.version>
+        <cobertura-maven-plugin.version>2.5.1</cobertura-maven-plugin.version>
+        <findbugs-maven-plugin.version>2.4.0</findbugs-maven-plugin.version>
+        <jdepend-maven-plugin.version>2.0-beta-2</jdepend-maven-plugin.version>
+        <velocity-maven-plugin.version>0.2.0</velocity-maven-plugin.version>
+        <extra-enforcer-rules.version>1.0-alpha-3</extra-enforcer-rules.version>
     </properties>
 
     <licenses>
@@ -121,22 +141,22 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-clean-plugin</artifactId>
-                    <version>2.4.1</version>
+                    <version>${maven-clean-plugin.version}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-install-plugin</artifactId>
-                    <version>2.3.1</version>
+                    <version>${maven-install-plugin.version}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-resources-plugin</artifactId>
-                    <version>2.5</version>
+                    <version>${maven-resources-plugin.version}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>2.3.2</version>
+                    <version>${maven-compiler-plugin.version}</version>
                     <configuration>
                         <source>1.6</source>
                         <target>1.6</target>
@@ -145,7 +165,7 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>buildnumber-maven-plugin</artifactId>
-                    <version>1.0</version>
+                    <version>${buildnumber-maven-plugin.version}</version>
                     <executions>
                         <execution>
                             <phase>validate</phase>
@@ -173,7 +193,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-source-plugin</artifactId>
-                    <version>2.1.2</version>
+                    <version>${maven-source-plugin.version}</version>
                     <executions>
                         <execution>
                             <id>attach-sources</id>
@@ -188,7 +208,7 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>cobertura-maven-plugin</artifactId>
-                    <version>2.5.1</version>
+                    <version>${cobertura-maven-plugin.version}</version>
                     <executions>
                         <execution>
                             <goals>
@@ -205,12 +225,12 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-scm-plugin</artifactId>
-                    <version>1.6</version>
+                    <version>${maven-scm-plugin.version}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-release-plugin</artifactId>
-                    <version>2.2.2</version>
+                    <version>${maven-release-plugin.version}</version>
                     <inherited>true</inherited>
                     <configuration>
                         <!-- Workaround for passphrse prompting in gpg-plugin,
@@ -227,7 +247,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-javadoc-plugin</artifactId>
-                    <version>2.8.1</version>
+                    <version>${maven-javadoc-plugin.version}</version>
                     <configuration>
                         <quiet>true</quiet>
                         <links>
@@ -254,17 +274,17 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-changes-plugin</artifactId>
-                    <version>2.6</version>
+                    <version>${maven-changes-plugin.version}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-enforcer-plugin</artifactId>
-                    <version>1.0.1</version>
+                    <version>${maven-enforcer-plugin.version}</version>
                     <dependencies>
                         <dependency>
                             <groupId>org.codehaus.mojo</groupId>
                             <artifactId>extra-enforcer-rules</artifactId>
-                            <version>1.0-alpha-2</version>
+                            <version>${extra-enforcer-rules.version}</version>
                         </dependency>
                     </dependencies>
                     <configuration>
@@ -311,7 +331,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-site-plugin</artifactId>
-                    <version>3.0</version>
+                    <version>${maven-site-plugin.version}</version>
                     <executions>
                         <execution>
                             <id>attach-descriptor</id>
@@ -334,7 +354,7 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>findbugs-maven-plugin</artifactId>
-                    <version>2.4.0</version>
+                    <version>${findbugs-maven-plugin.version}</version>
                     <configuration>
                         <excludeFilterFile>${user.dir}/src/conf/findbugs-exclude.xml</excludeFilterFile>
                         <xmlOutput>true</xmlOutput>
@@ -347,7 +367,7 @@
                 <plugin>
                     <groupId>net.rumati.maven.plugins</groupId>
                     <artifactId>velocity-maven-plugin</artifactId>
-                    <version>0.2.0</version>
+                    <version>${velocity-maven-plugin.version}</version>
                     <configuration>
                         <template>${user.dir}/src/conf/jenkins-description.html.vm</template>
                         <outputFile>target/jenkins-description.html</outputFile>
@@ -395,17 +415,17 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-project-info-reports-plugin</artifactId>
-                <version>2.4</version>
+                <version>${maven-project-info-reports-plugin.version}</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jxr-plugin</artifactId>
-                <version>2.3</version>
+                <version>${maven-jxr-plugin.version}</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-changes-plugin</artifactId>
-                <version>2.6</version>
+                <version>${maven-changes-plugin.version}</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -431,7 +451,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.8.1</version>
+                <version>${maven-javadoc-plugin.version}</version>
                 <configuration>
                     <quiet>true</quiet>
                     <links>
@@ -449,7 +469,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>cobertura-maven-plugin</artifactId>
-                <version>2.5.1</version>
+                <version>${cobertura-maven-plugin.version}</version>
                 <configuration>
                     <formats>
                         <format>xml</format>
@@ -460,12 +480,12 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>jdepend-maven-plugin</artifactId>
-                <version>2.0-beta-2</version>
+                <version>${jdepend-maven-plugin.version}</version>
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>findbugs-maven-plugin</artifactId>
-                <version>2.4.0</version>
+                <version>${findbugs-maven-plugin.version}</version>
                 <configuration>
                     <excludeFilterFile>${user.dir}/src/conf/findbugs-exclude.xml</excludeFilterFile>
                     <xmlOutput>true</xmlOutput>
@@ -493,7 +513,7 @@
                     <plugin>
                         <groupId>com.github.github</groupId>
                         <artifactId>site-maven-plugin</artifactId>
-                        <version>0.5</version>
+                        <version>0.6</version>
                         <configuration>
                             <message>Creating site for ${project.version}</message>
                             <repositoryOwner>1and1</repositoryOwner>
@@ -530,7 +550,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
-                        <version>1.4</version>
+                        <version>${maven-gpg-plugin.version}</version>
                         <executions>
                             <execution>
                                 <id>sign-artifacts</id>
