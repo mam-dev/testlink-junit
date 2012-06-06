@@ -31,8 +31,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven-changes-plugin.version>2.7.1</maven-changes-plugin.version>
         <maven-checkstyle-plugin.version>2.9.1</maven-checkstyle-plugin.version>
-        <maven-clean-plugin.version>2.4.1</maven-clean-plugin.version>
-        <maven-compiler-plugin.version>2.4</maven-compiler-plugin.version>
+        <maven-clean-plugin.version>2.5</maven-clean-plugin.version>
+        <maven-compiler-plugin.version>2.5.1</maven-compiler-plugin.version>
         <maven-enforcer-plugin.version>1.1</maven-enforcer-plugin.version>
         <maven-gpg-plugin.version>1.4</maven-gpg-plugin.version>
         <maven-install-plugin.version>2.3.1</maven-install-plugin.version>
@@ -41,7 +41,7 @@
         <maven-jxr-plugin.version>2.3</maven-jxr-plugin.version>
         <maven-pmd-plugin.version>2.7.1</maven-pmd-plugin.version>
         <maven-project-info-reports-plugin.version>2.4</maven-project-info-reports-plugin.version>
-        <maven-release-plugin.version>2.3</maven-release-plugin.version>
+        <maven-release-plugin.version>2.3.1</maven-release-plugin.version>
         <maven-resources-plugin.version>2.5</maven-resources-plugin.version>
         <maven-site-plugin.version>3.1</maven-site-plugin.version>
         <maven-scm-plugin.version>1.7</maven-scm-plugin.version>
@@ -49,7 +49,7 @@
         <maven-surefire-plugin.version>2.12</maven-surefire-plugin.version>
         <buildnumber-maven-plugin.version>1.1</buildnumber-maven-plugin.version>
         <cobertura-maven-plugin.version>2.5.1</cobertura-maven-plugin.version>
-        <findbugs-maven-plugin.version>2.4.0</findbugs-maven-plugin.version>
+        <findbugs-maven-plugin.version>2.5</findbugs-maven-plugin.version>
         <jdepend-maven-plugin.version>2.0-beta-2</jdepend-maven-plugin.version>
         <velocity-maven-plugin.version>0.2.0</velocity-maven-plugin.version>
         <extra-enforcer-rules.version>1.0-alpha-3</extra-enforcer-rules.version>
