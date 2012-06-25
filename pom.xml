@@ -41,7 +41,7 @@
         <maven-jxr-plugin.version>2.3</maven-jxr-plugin.version>
         <maven-pmd-plugin.version>2.7.1</maven-pmd-plugin.version>
         <maven-project-info-reports-plugin.version>2.4</maven-project-info-reports-plugin.version>
-        <maven-release-plugin.version>2.3.1</maven-release-plugin.version>
+        <maven-release-plugin.version>2.3.2</maven-release-plugin.version>
         <maven-resources-plugin.version>2.5</maven-resources-plugin.version>
         <maven-site-plugin.version>3.1</maven-site-plugin.version>
         <maven-scm-plugin.version>1.7</maven-scm-plugin.version>
@@ -49,7 +49,7 @@
         <maven-surefire-plugin.version>2.12</maven-surefire-plugin.version>
         <buildnumber-maven-plugin.version>1.1</buildnumber-maven-plugin.version>
         <cobertura-maven-plugin.version>2.5.1</cobertura-maven-plugin.version>
-        <findbugs-maven-plugin.version>2.5</findbugs-maven-plugin.version>
+        <findbugs-maven-plugin.version>2.5.1</findbugs-maven-plugin.version>
         <jdepend-maven-plugin.version>2.0-beta-2</jdepend-maven-plugin.version>
         <velocity-maven-plugin.version>0.2.0</velocity-maven-plugin.version>
         <extra-enforcer-rules.version>1.0-alpha-3</extra-enforcer-rules.version>
@@ -83,12 +83,12 @@
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
-                <version>1.6.5</version>
+                <version>1.6.6</version>
             </dependency>
             <dependency>
                 <groupId>ch.qos.logback</groupId>
                 <artifactId>logback-classic</artifactId>
-                <version>1.0.5</version>
+                <version>1.0.6</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
