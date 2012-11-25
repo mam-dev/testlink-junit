@@ -38,7 +38,9 @@
             <distribution>repo</distribution>
         </license>
     </licenses>
-
+    <properties>
+        <maven-checkstyle-plugin.suppressionsLocation>${user.dir}/src/conf/checkstyle-suppressions.xml</maven-checkstyle-plugin.suppressionsLocation>
+    </properties>
     <dependencyManagement>
         <dependencies>
             <dependency>
