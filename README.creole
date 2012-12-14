@@ -11,3 +11,7 @@ See:
 * Releases may be found in [[http://repo1.maven.org/maven2/net/oneandone/testlinkjunit/|Maven Central]].
 * Snapshots (only deployed manually at the moment) may be found in [[https://oss.sonatype.org/content/repositories/snapshots/net/oneandone/testlinkjunit/|OSS]].
 * Bleeding edge fresh from Jenkins may be found at [[http://huschteguzzel.de/hudson/plugin/repository/project/oneandone-testlink-junit/LastSuccessful/repository/net/oneandone/testlinkjunit/|Jenkins]]
+
+= Internal =
+
+* Publish the site with {{mvn clean install site site:stage org.apache.maven.plugins:maven-scm-publish-plugin:1.0-beta-2:publish-scm -Dscmpublish.pubScmUrl=scm:git:ssh://git@github.com/1and1/testlink-junit.git -Dscmpublish.scm.branch=gh-pages -Dscmpublish.content=target/testlink-junit/}}
