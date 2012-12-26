@@ -30,5 +30,5 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-    <description>Documents how to create a Testlink-XML file when running tests from Eclipse, see EclipseTest.java.</description>
+    <description>Documents how to create a Testlink-XML file when running tests from Eclipse, see EclipseIT.java.</description>
 </project>

@@ -28,7 +28,7 @@ import org.junit.Test;
 import org.junit.runner.JUnitCore;
 import org.slf4j.LoggerFactory;
 
-public class EclipseTest {
+public class EclipseIT {
 
     @Test
     @TestLink(externalId="ECLIPSE_TEST")
@@ -40,6 +40,6 @@ public class EclipseTest {
         final JUnitCore core = new JUnitCore();
         core.addListener(new TestLinkXmlRunListener());
         core.addListener(new TestLinkLoggingRunListener(LoggerFactory.getLogger("MYTESTLINK"), URI.create("http://testlink.sourceforge.net/demo/")));
-        core.run(EclipseTest.class);
+        core.run(EclipseIT.class);
     }
 }

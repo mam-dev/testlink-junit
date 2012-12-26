@@ -43,7 +43,7 @@
  *    public static void main(String[] args) throws FileNotFoundException {
  *        final JUnitCore core = new JUnitCore();
  *        core.addListener(new TestLinkXmlRunListener());
- *        core.run(EclipseTest.class);
+ *        core.run(EclipseIT.class);
  *    }
  * </pre>
  *

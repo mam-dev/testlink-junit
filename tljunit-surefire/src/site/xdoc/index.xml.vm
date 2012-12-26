@@ -147,7 +147,7 @@ import net.oneandone.testlinkjunit.tljunit.TestLinkXmlRunListener;
 import org.junit.Test;
 import org.junit.runner.JUnitCore;
 
-public class EclipseTest {
+public class EclipseIT {
 
     @Test
     @TestLink(externalId="ECLIPSE_TEST")
@@ -158,7 +158,7 @@ public class EclipseTest {
     public static void main(String[] args) throws FileNotFoundException {
         final JUnitCore core = new JUnitCore();
         core.addListener(new TestLinkXmlRunListener());
-        core.run(EclipseTest.class);
+        core.run(EclipseIT.class);
     }
 }]]></source>
             </subsection>
