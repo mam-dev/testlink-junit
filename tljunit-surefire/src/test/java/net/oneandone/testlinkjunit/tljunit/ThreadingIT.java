@@ -36,7 +36,7 @@ import org.junit.runner.Result;
  * @author mirko
  * 
  */
-public class ThreadingTest extends AbstractTestLinkRunListenerTest {
+public class ThreadingIT extends AbstractTestLinkRunListenerTest {
 
     private final ExecutorService pool = Executors.newFixedThreadPool(50);
 
@@ -44,7 +44,7 @@ public class ThreadingTest extends AbstractTestLinkRunListenerTest {
 
     private final PrintStream out;
 
-    public ThreadingTest() throws FileNotFoundException {
+    public ThreadingIT() throws FileNotFoundException {
         out = new PrintStream(new OutputStream() {
             @Override
             public void write(int b) throws IOException {
