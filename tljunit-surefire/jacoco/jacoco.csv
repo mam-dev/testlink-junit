@@ -1,0 +1,12 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+tljunit surefire RunListeners,net.oneandone.testlinkjunit.tljunit,TestLinkId.ExternalTestLinkId,0,7,0,0,0,3,0,2,0,2
+tljunit surefire RunListeners,net.oneandone.testlinkjunit.tljunit,InTestLinkXmlRunListener,5,269,0,4,0,57,0,16,0,14
+tljunit surefire RunListeners,net.oneandone.testlinkjunit.tljunit,TestState,9,58,0,0,0,10,2,4,2,4
+tljunit surefire RunListeners,net.oneandone.testlinkjunit.tljunit,TestLinkUriResolver,0,64,0,4,0,11,0,6,0,4
+tljunit surefire RunListeners,net.oneandone.testlinkjunit.tljunit,InTestLinkLogRunListener,0,178,0,6,0,29,0,11,0,8
+tljunit surefire RunListeners,net.oneandone.testlinkjunit.tljunit,TestLinkId,0,69,0,4,0,13,0,6,0,4
+tljunit surefire RunListeners,net.oneandone.testlinkjunit.tljunit,TestLinkLoggingRunListener,0,19,0,0,0,4,0,2,0,2
+tljunit surefire RunListeners,net.oneandone.testlinkjunit.tljunit,TestLinkXmlRunListener,6,50,0,0,0,13,0,5,0,5
+tljunit surefire RunListeners,net.oneandone.testlinkjunit.tljunit,TestLinkId.InternalTestLinkId,0,7,0,0,0,3,0,2,0,2
+tljunit surefire RunListeners,net.oneandone.testlinkjunit.tljunit,AbstractTestLinkRunListener,0,74,0,2,0,24,0,9,0,8
+tljunit surefire RunListeners,net.oneandone.testlinkjunit.tljunit,AbstractInTestLinkRunListener,0,35,0,0,0,9,0,6,0,6
