@@ -10,6 +10,7 @@
     <name>tljunit sample project for running tests from eclipse.</name>
     <properties>
         <jacoco.skip>true</jacoco.skip>
+        <skipITs>true</skipITs>
     </properties>
     <dependencies>
         <dependency>
