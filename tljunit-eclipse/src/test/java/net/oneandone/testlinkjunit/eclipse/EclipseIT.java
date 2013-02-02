@@ -23,6 +23,8 @@ import java.net.URI;
 import net.oneandone.testlinkjunit.tljunit.TestLink;
 import net.oneandone.testlinkjunit.tljunit.TestLinkLoggingRunListener;
 import net.oneandone.testlinkjunit.tljunit.TestLinkXmlRunListener;
+import org.junit.Assume;
+import org.junit.Ignore;
 
 import org.junit.Test;
 import org.junit.runner.JUnitCore;
@@ -34,6 +36,31 @@ public class EclipseIT {
     @TestLink(externalId="ECLIPSE_TEST")
     public void test() {
         assertTrue(true);
+    }
+
+    @Test
+    @TestLink(internalId = 5)
+    @Ignore("Should be ignored")
+    public void blockedBecauseOfIgnore() {
+        assertTrue(true);
+    }
+
+    @Test
+    @TestLink(internalId = 6)
+    public void blockedBecauseOfFailingAssumption() {
+        Assume.assumeTrue("This should be true", false);
+    }
+
+    @Test
+    @TestLink(internalId = 7)
+    public void failesWithMessage() {
+        assertTrue("This fails with a message", false);
+    }
+
+    @Test
+    @TestLink(internalId = 8)
+    public void failesWithoutMessage() {
+        assertTrue(false);
     }
 
     public static void main(String[] args) throws FileNotFoundException {
