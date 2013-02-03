@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>AbstractTestLinkRunListener.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="right"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Jacoco from main</a> &gt; <a href="index.html" class="el_package">net.oneandone.testlinkjunit.tljunit</a> &gt; <span class="el_source">AbstractTestLinkRunListener.java</span></div><h1>AbstractTestLinkRunListener.java</h1><pre class="source lang-java linenums">/**
+ * Copyright 1&amp;1 Internet AG, https://github.com/1and1/
+ *
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package net.oneandone.testlinkjunit.tljunit;
+
+import org.junit.runner.Description;
+import org.junit.runner.notification.Failure;
+import org.junit.runner.notification.RunListener;
+
+/**
+ * Abstract class which encapsulates the switching between Tests with and without {@link TestLink} annotations.
+ *
+ * Overriding of behaviour must be accomplished by injecting a specific {@link AbstractInTestLinkRunListener} as
+ * all methods defined here are final. Note that {@link RunListener#testRunStarted(org.junit.runner.Description)}
+ * and {@link RunListener#testRunFinished(org.junit.runner.Result)} are not &lt;tt&gt;final&lt;/tt&gt; as these probably
+ * must be extended for flushing and closing a stream etc.
+ * 
+ * @param &lt;T&gt;
+ *            type of the listener to be called when a {@link TestLink} annotation exists.
+ *
+ * @author Mirko Friedenhagen
+ */
+public abstract class AbstractTestLinkRunListener&lt;T extends AbstractInTestLinkRunListener&gt; extends RunListener {
+
+    /** Listener to be called when a {@link TestLink} annotation exists. */
+    private final T inTestLinkListener;
+
+    /**
+     * Listener to be called when &lt;em&gt;no&lt;/em&gt; {@link TestLink} annotation exists.
+     * Note that RunListener just does nothing which is fine as executing
+     * an empty method allows us to avoid cyclomatic complexity in all methods
+     * but {@link AbstractTestLinkRunListener#selectListener(org.junit.runner.Description)}.
+     */
+<span class="fc" id="L46">    private final RunListener noTestLinkListener = new RunListener();</span>
+
+    /**
+     * Injects the listener for the actual report.
+     * 
+     * @param testLinkRunListener
+     *            to be called when a {@link TestLink} annotation exists.
+     */
+<span class="fc" id="L54">    public AbstractTestLinkRunListener(final T testLinkRunListener) {</span>
+<span class="fc" id="L55">        this.inTestLinkListener = testLinkRunListener;</span>
+<span class="fc" id="L56">    }</span>
+
+    /** {@inheritDoc} */
+    @Override
+    public final void testStarted(Description description) throws Exception {
+<span class="fc" id="L61">        super.testStarted(description);</span>
+<span class="fc" id="L62">        selectListener(description).testStarted(description);</span>
+<span class="fc" id="L63">    }</span>
+
+    /** {@inheritDoc} */
+    @Override
+    public final void testIgnored(Description description) throws Exception {
+<span class="fc" id="L68">        super.testIgnored(description);</span>
+<span class="fc" id="L69">        selectListener(description).testIgnored(description);</span>
+<span class="fc" id="L70">    }</span>
+
+    /** {@inheritDoc} */
+    @Override
+    public final void testFailure(Failure failure) throws Exception {
+<span class="fc" id="L75">        super.testFailure(failure);</span>
+<span class="fc" id="L76">        selectListener(failure.getDescription()).testFailure(failure);</span>
+<span class="fc" id="L77">    }</span>
+
+    /** {@inheritDoc} */
+    @Override
+    public final void testAssumptionFailure(final Failure failure) {
+<span class="fc" id="L82">        super.testAssumptionFailure(failure);</span>
+<span class="fc" id="L83">        selectListener(failure.getDescription()).testAssumptionFailure(failure);</span>
+<span class="fc" id="L84">    }</span>
+
+    /** {@inheritDoc} */
+    @Override
+    public final void testFinished(Description description) throws Exception {
+<span class="fc" id="L89">        super.testFinished(description);</span>
+<span class="fc" id="L90">        selectListener(description).testFinished(description);</span>
+<span class="fc" id="L91">    }</span>
+
+    /**
+     * @return the injected {@link AbstractInTestLinkRunListener}.
+     */
+    public final T getInTestLinkListener() {
+<span class="fc" id="L97">        return inTestLinkListener;</span>
+    }
+
+    /**
+     * Selects strategy for test cases with or without {@link TestLink} annotation.
+     * 
+     * @param description
+     *            of the test case.
+     * @return the currently valid strategy
+     */
+    private RunListener selectListener(Description description) {
+<span class="fc" id="L108">        final TestLink testLink = description.getAnnotation(TestLink.class);</span>
+<span class="pc bpc" id="L109" title="1 of 2 branches missed.">        if (testLink != null) {</span>
+<span class="fc" id="L110">            return inTestLinkListener;</span>
+        } else {
+<span class="nc" id="L112">            return noTestLinkListener;</span>
+        }
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.6.2.201302030002</span></div></body></html>

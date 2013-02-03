@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>TestLinkXmlRunListener.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="right"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Jacoco from main</a> &gt; <a href="index.html" class="el_package">net.oneandone.testlinkjunit.tljunit</a> &gt; <span class="el_source">TestLinkXmlRunListener.java</span></div><h1>TestLinkXmlRunListener.java</h1><pre class="source lang-java linenums">/**
+ * Copyright 1&amp;1 Internet AG, https://github.com/1and1/
+ *
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package net.oneandone.testlinkjunit.tljunit;
+
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
+import java.nio.charset.Charset;
+import org.codehaus.plexus.util.IOUtil;
+
+import org.codehaus.plexus.util.xml.Xpp3Dom;
+import org.junit.runner.Result;
+
+/**
+ * Writes an additional TestLink XML file as described in Testlink's &lt;a
+ * href=&quot;http://www.teamst.org/_tldoc/1.8/user_manual.pdf&quot;&gt;user manual&lt;/a&gt;.
+ * 
+ * &lt;h3&gt;Usage with maven-surefire-plugin&lt;/h3&gt;
+ * &lt;p&gt;
+ * You have to configure the surefire plugin to use the additional {@link TestLinkXmlRunListener}.
+ * As can be seen below, the tester name and file-location for the result file may be provided as system properties.
+ * The resulting XML is written as UTF-8.
+ * &lt;/p&gt;
+ * &lt;pre&gt;
+ * {@code
+ * &lt;properties&gt;
+ *   &lt;tljunit.version&gt;X.X&lt;tljunit.version&gt;
+ * &lt;/properties&gt;
+ * [...]
+ *   &lt;plugin&gt;
+ *     &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+ *     &lt;artifactId&gt;maven-surefire-plugin&lt;/artifactId&gt;
+ *     &lt;version&gt;2.10&lt;/version&gt;
+ *     &lt;dependencies&gt;
+ *       &lt;dependency&gt;
+ *         &lt;groupId&gt;net.oneandone.testlinkjunit&lt;/groupId&gt;
+ *         &lt;artifactId&gt;tljunit-surefire&lt;/artifactId&gt;
+ *         &lt;version&gt;}${tljunit.version}{@code &lt;/version&gt;
+ *       &lt;/dependency&gt;
+ *     &lt;/dependencies&gt;
+ *     &lt;configuration&gt;
+ *       &lt;properties&gt;
+ *         &lt;property&gt;
+ *           &lt;name&gt;listener&lt;/name&gt;
+ *           &lt;value&gt;net.oneandone.testlinkjunit.tljunit.TestLinkXmlRunListener&lt;/value&gt;
+ *         &lt;/property&gt;
+ *       &lt;/properties&gt;
+ *         &lt;systemPropertyVariables&gt;
+ *           &lt;testlink.results&gt;target/my-testlink.xml&lt;/testlink.results&gt;
+ *           &lt;testlink.tester&gt;memyselfandi&lt;/testlink.tester&gt;
+ *         &lt;/systemPropertyVariables&gt;
+ *     &lt;/configuration&gt;
+ *   &lt;/plugin&gt;
+ * [...]
+ *   &lt;dependencies&gt;
+ *       &lt;dependency&gt;
+ *         &lt;groupId&gt;net.oneandone.testlinkjunit&lt;/groupId&gt;
+ *         &lt;artifactId&gt;tljunit&lt;/artifactId&gt;
+ *         &lt;version&gt;}${tljunit.version}{@code &lt;/version&gt;
+ *       &lt;/dependency&gt;
+ *   &lt;/dependencies&gt;
+ * [...]
+ * }
+ * &lt;/pre&gt;
+ * &lt;p&gt;
+ * Now running &lt;kbd&gt;mvn test&lt;/kbd&gt; will run your tests and put the resulting TestLink XML file into
+ * &lt;tt&gt;target/my-testlink.xml&lt;/tt&gt; using &lt;tt&gt;memyselfandi&lt;/tt&gt; as name of the user who executed the test run.
+ * &lt;/p&gt;
+ *
+ * &lt;h3&gt;Using from &lt;tt&gt;main&lt;/tt&gt;&lt;/h3&gt;
+ * 
+ * &lt;pre&gt;
+ * public static void main(String[] args) throws FileNotFoundException {
+ *     final JUnitCore core = new JUnitCore();
+ *     core.addListener(new TestLinkXmlRunListener(System.out, &amp;quot;name_of_tester&amp;quot;));
+ *     core.run(MyTest.class);
+ * }
+ * &lt;/pre&gt;
+ *
+ * &lt;p&gt;Note that this implementation is threadsafe but holds all results in memory before flushing them
+ * to the specified XML file.&lt;/p&gt;
+ *
+ * @author Mirko Friedenhagen
+ */
+public class TestLinkXmlRunListener extends AbstractTestLinkRunListener&lt;InTestLinkXmlRunListener&gt; {
+
+    /** Stream to which the results will be printed. */
+    private final OutputStream out;
+
+    /** Needed for conversion of final result to bytes. */
+<span class="fc" id="L104">    private static final Charset UTF8 = Charset.forName(&quot;utf-8&quot;);</span>
+
+    /**
+     * Instantiates {@link TestLinkXmlRunListener#TestLinkXmlRunListener(OutputStream, String)} with parameters taken
+     * from System properties.
+     * 
+     * &lt;dl&gt;
+     * &lt;dt&gt;&lt;code&gt;testlink.results&lt;/code&gt;&lt;/dt&gt;
+     * &lt;dd&gt;Results are written to this filename (&lt;tt&gt;target/testlink.xml&lt;/tt&gt; by default). Intermediate directories must be
+     * created beforehand.&lt;/dd&gt;
+     * &lt;dt&gt;&lt;code&gt;testlink.tester&lt;/code&gt;&lt;/dt&gt;
+     * &lt;dd&gt;To be used as name of the tester. (falls back to system property &lt;tt&gt;user.name&lt;/tt&gt; by default).&lt;/dd&gt;
+     * &lt;/dl&gt;
+     * 
+     * @throws FileNotFoundException
+     *             when the file could not be written, e.g. the parent directory does not exist.
+     */
+    public TestLinkXmlRunListener() throws FileNotFoundException {
+<span class="fc" id="L122">        this(new FileOutputStream(System.getProperty(&quot;testlink.results&quot;,</span>
+                &quot;target/testlink.xml&quot;)), System.getProperty(&quot;testlink.tester&quot;, System.getProperty(&quot;user.name&quot;)));
+<span class="fc" id="L124">    }</span>
+
+    /**
+     * Writes results to &lt;tt&gt;out&lt;/tt&gt; using &lt;tt&gt;tester&lt;/tt&gt; as name of the tester.
+     *
+     * All results will be written bufferedly in {@link TestLinkXmlRunListener#testRunFinished(org.junit.runner.Result)},
+     * &lt;tt&gt;out&lt;/tt&gt; will be closed there.
+     * 
+     * @param out
+     *            the xml data is written to.
+     * @param tester
+     *            name of the tester.
+     */
+    public TestLinkXmlRunListener(final OutputStream out, final String tester) {
+<span class="fc" id="L138">        super(new InTestLinkXmlRunListener(tester));</span>
+<span class="fc" id="L139">        this.out = out;</span>
+<span class="fc" id="L140">    }</span>
+
+    /**
+     * {@inheritDoc}
+     * Will write the result to the outputstream and close the stream afterwards.
+     */
+    @Override
+    public void testRunFinished(Result result) throws Exception {
+<span class="fc" id="L148">        super.testRunFinished(result);</span>
+<span class="fc" id="L149">        final String valueOf = String.valueOf(getResults());</span>
+        try {
+<span class="fc" id="L151">            IOUtil.copy(valueOf.getBytes(UTF8), out);</span>
+        } finally {
+<span class="pc" id="L153">            out.close();</span>
+<span class="fc" id="L154">        }</span>
+<span class="fc" id="L155">    }</span>
+
+    /**
+     * Returns the results of the {@link InTestLinkXmlRunListener} for unit testing.
+     * 
+     * @return the results
+     */
+    Xpp3Dom getResults() {
+<span class="fc" id="L163">        return getInTestLinkListener().getResults();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.6.2.201302030002</span></div></body></html>
