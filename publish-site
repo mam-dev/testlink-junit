@@ -1,3 +1,2 @@
 #!/bin/sh
-# make sure github will copy all files and does not think this is a jekyll site.
-mvn org.apache.maven.plugins:maven-scm-publish-plugin:1.0-beta-2:publish-scm -Dscmpublish.pubScmUrl=scm:git:ssh://git@github.com/1and1/testlink-junit.git -Dscmpublish.scm.branch=gh-pages -Dscmpublish.content=target/staging/tljunit-parent
+mvn clean verify site site:stage scm-publish:publish-scm
