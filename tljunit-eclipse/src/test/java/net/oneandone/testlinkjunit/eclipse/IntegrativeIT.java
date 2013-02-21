@@ -15,13 +15,15 @@
  */
 package net.oneandone.testlinkjunit.eclipse;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.URI;
 
-import net.oneandone.testlinkjunit.tljunit.EclipseIntegration;
+import net.oneandone.testlinkjunit.tljunit.SUTTestLinkRunListener;
 import net.oneandone.testlinkjunit.tljunit.TestLinkLoggingRunListener;
 import net.oneandone.testlinkjunit.tljunit.TestLinkXmlRunListener;
 
+import static org.junit.Assert.*;
 import org.junit.Test;
 import org.junit.runner.JUnitCore;
 import org.slf4j.LoggerFactory;
@@ -33,6 +35,7 @@ public class IntegrativeIT {
         final JUnitCore core = new JUnitCore();
         core.addListener(new TestLinkXmlRunListener());
         core.addListener(new TestLinkLoggingRunListener(LoggerFactory.getLogger("MYTESTLINK"), URI.create("http://testlink.sourceforge.net/demo/")));
-        core.run(EclipseIntegration.class);
+        core.run(SUTTestLinkRunListener.class);
+        assertTrue("Did not find logfile", new File("target/testlink.xml").exists());
     }
 }
