@@ -13,16 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.oneandone.testlinkjunit.eclipse;
+package net.oneandone.testlinkjunit.tljunit;
 
 import static org.junit.Assert.assertTrue;
 
 import java.io.FileNotFoundException;
 import java.net.URI;
 
-import net.oneandone.testlinkjunit.tljunit.TestLink;
-import net.oneandone.testlinkjunit.tljunit.TestLinkLoggingRunListener;
-import net.oneandone.testlinkjunit.tljunit.TestLinkXmlRunListener;
 import org.junit.Assume;
 import org.junit.Ignore;
 
@@ -30,7 +27,7 @@ import org.junit.Test;
 import org.junit.runner.JUnitCore;
 import org.slf4j.LoggerFactory;
 
-public class EclipseIT {
+public class EclipseIntegration {
 
     @Test
     @TestLink(externalId="ECLIPSE_TEST")
@@ -67,6 +64,6 @@ public class EclipseIT {
         final JUnitCore core = new JUnitCore();
         core.addListener(new TestLinkXmlRunListener());
         core.addListener(new TestLinkLoggingRunListener(LoggerFactory.getLogger("MYTESTLINK"), URI.create("http://testlink.sourceforge.net/demo/")));
-        core.run(EclipseIT.class);
+        core.run(EclipseIntegration.class);
     }
 }
