@@ -8,31 +8,25 @@
     </parent>
     <artifactId>tljunit-eclipse</artifactId>
     <name>tljunit sample project for running tests from eclipse.</name>
-    <properties>
-        <jacoco.skip>true</jacoco.skip>
-        <skipITs>true</skipITs>
-    </properties>
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <scope>test</scope>
+            <scope>compile</scope>
         </dependency>
-        <dependency>
-            <groupId>net.oneandone.testlinkjunit</groupId>
-            <artifactId>tljunit-surefire</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
+        <dependency><!-- include tests jar to run SUTTestLinkRunListener -->
             <groupId>net.oneandone.testlinkjunit</groupId>
             <artifactId>tljunit-surefire</artifactId>
             <classifier>tests</classifier>
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>org.codehaus.plexus</groupId>
+            <artifactId>plexus-utils</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
@@ -45,59 +39,41 @@
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.jacoco</groupId>
-                        <artifactId>org.jacoco.ant</artifactId>
-                        <version>${jacoco-maven-plugin.version}</version>
-                    </dependency>
-                </dependencies>
+                <artifactId>maven-dependency-plugin</artifactId>
                 <executions>
                     <execution>
-                        <id>jacoco-prepare</id>
-                        <phase>integration-test</phase>
+                        <id>unpack-sources</id>
                         <goals>
-                            <goal>run</goal>
+                            <goal>unpack</goal>
                         </goals>
                         <configuration>
-                            <target xmlns:jacoco="antlib:org.jacoco.ant">
-                                <property name="test_classpath" refid="maven.test.classpath"/>
-                                <taskdef uri="antlib:org.jacoco.ant" resource="org/jacoco/ant/antlib.xml"/>
-                                <jacoco:coverage destfile="target/jacoco.exec">
-                                    <java classname="net.oneandone.testlinkjunit.eclipse.EclipseIT" fork="true" classpath="${test_classpath}">
-                                        <classpath>
-                                            <pathelement location="target/test-classes"/>
-                                        </classpath>
-                                    </java>
-                                </jacoco:coverage>
-                            </target>
+                            <outputDirectory>${project.build.directory}/generated-sources/unpack</outputDirectory>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>net.oneandone.testlinkjunit</groupId>
+                                    <artifactId>tljunit-surefire</artifactId>
+                                    <version>${project.version}</version>
+                                    <classifier>sources</classifier>
+                                </artifactItem>
+                            </artifactItems>
                         </configuration>
                     </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>1.7</version>
+                <executions>
                     <execution>
-                        <id>jacoco-report</id>
-                        <phase>verify</phase>
+                        <id>add-source</id>
                         <goals>
-                            <goal>run</goal>
+                            <goal>add-source</goal>
                         </goals>
                         <configuration>
-                            <target xmlns:jacoco="antlib:org.jacoco.ant">
-                                <taskdef uri="antlib:org.jacoco.ant" resource="org/jacoco/ant/antlib.xml"/>
-                                <jacoco:report>
-                                    <executiondata>
-                                        <file file="target/jacoco.exec"/>
-                                    </executiondata>
-                                    <structure name="Jacoco from main">
-                                        <classfiles>
-                                            <fileset dir="../tljunit-surefire/target/classes"/>
-                                        </classfiles>
-                                        <sourcefiles encoding="UTF-8">
-                                            <fileset dir="../tljunit-surefire/src/main/java"/>
-                                        </sourcefiles>
-                                    </structure>
-                                    <html destdir="target/site/jacoco"/>
-                                </jacoco:report>
-                            </target>
+                            <sources>
+                                <source>target/generated-sources/unpack</source>
+                            </sources>
                         </configuration>
                     </execution>
                 </executions>
