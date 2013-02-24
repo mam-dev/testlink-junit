@@ -9,15 +9,15 @@
     <artifactId>tljunit-eclipse</artifactId>
     <name>tljunit sample project for running tests from eclipse.</name>
     <dependencies>
+        <!-- need the same dependencies as tljunit-surefire as we compile this here again. -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <scope>compile</scope>
         </dependency>
-        <dependency><!-- include tests jar to run SUTTestLinkRunListener -->
-            <groupId>net.oneandone.testlinkjunit</groupId>
-            <artifactId>tljunit-surefire</artifactId>
-            <classifier>tests</classifier>
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-core</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -33,46 +33,29 @@
             <artifactId>logback-classic</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency><!-- include tests jar to run SUTTestLinkRunListener -->
+            <groupId>net.oneandone.testlinkjunit</groupId>
+            <artifactId>tljunit-surefire</artifactId>
+            <classifier>tests</classifier>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
     <description>Documents how to create a Testlink-XML file when running tests from Eclipse, see EclipseIT.java.</description>
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>unpack-sources</id>
-                        <goals>
-                            <goal>unpack</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${project.build.directory}/generated-sources/unpack</outputDirectory>
-                            <artifactItems>
-                                <artifactItem>
-                                    <groupId>net.oneandone.testlinkjunit</groupId>
-                                    <artifactId>tljunit-surefire</artifactId>
-                                    <version>${project.version}</version>
-                                    <classifier>sources</classifier>
-                                </artifactItem>
-                            </artifactItems>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
                 <version>1.7</version>
                 <executions>
                     <execution>
-                        <id>add-source</id>
+                        <id>default-source</id>
                         <goals>
                             <goal>add-source</goal>
                         </goals>
                         <configuration>
                             <sources>
-                                <source>target/generated-sources/unpack</source>
+                                <source>../tljunit-surefire/src/main/java</source>
                             </sources>
                         </configuration>
                     </execution>
