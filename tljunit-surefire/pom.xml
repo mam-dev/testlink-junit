@@ -10,7 +10,7 @@
     <packaging>jar</packaging>
 
     <name>tljunit surefire RunListeners</name>
-
+    <description>Currently two RunListeners, one of which writes an Testlink compatible XML file, the other one logs to an injected slf4j Logger.</description>
     <scm>
         <connection>${project.parent.scm.connection}</connection>
         <developerConnection>${project.parent.scm.developerConnection}</developerConnection>
@@ -30,10 +30,6 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>build-helper-maven-plugin</artifactId>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -85,5 +81,4 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-    <description>Currently two RunListeners, one of which writes an Testlink compatible XML file, the other one logs to an injected slf4j Logger.</description>
 </project>

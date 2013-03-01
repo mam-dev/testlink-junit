@@ -167,45 +167,15 @@
                     </executions>
                 </plugin>
                 <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>build-helper-maven-plugin</artifactId>
-                    <version>1.7</version>
+                    <groupId>net.oneandone.maven.plugins</groupId>
+                    <artifactId>attach-qar-maven-plugin</artifactId>
+                    <version>1.0</version>
                     <executions>
                         <execution>
-                            <id>attach-qa-files</id>
-                            <phase>verify</phase>
+                            <id>default-attach</id>
                             <goals>
-                                <goal>attach-artifact</goal>
+                                <goal>attach</goal>
                             </goals>
-                            <configuration>
-                                <artifacts>
-                                    <artifact>
-                                        <file>target/site/jacoco/jacoco.xml</file>
-                                        <type>xml</type>
-                                        <classifier>jacoco</classifier>
-                                    </artifact>
-                                    <artifact>
-                                        <file>target/checkstyle-result.xml</file>
-                                        <type>xml</type>
-                                        <classifier>checkstyle</classifier>
-                                    </artifact>
-                                    <artifact>
-                                        <file>target/findbugs.xml</file>
-                                        <type>xml</type>
-                                        <classifier>findbugs</classifier>
-                                    </artifact>
-                                    <artifact>
-                                        <file>target/pmd.xml</file>
-                                        <type>xml</type>
-                                        <classifier>pmd</classifier>
-                                    </artifact>
-                                    <artifact>
-                                        <file>target/cpd.xml</file>
-                                        <type>xml</type>
-                                        <classifier>cpd</classifier>
-                                    </artifact>
-                                </artifacts>                                    
-                            </configuration>
                         </execution>
                     </executions>
                 </plugin>
@@ -223,6 +193,10 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>findbugs-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>net.oneandone.maven.plugins</groupId>
+                <artifactId>attach-qar-maven-plugin</artifactId>
             </plugin>
         </plugins>
     </build>
