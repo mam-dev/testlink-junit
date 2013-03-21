@@ -160,81 +160,8 @@
                         </execution>
                     </executions>
                 </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-checkstyle-plugin</artifactId>
-                    <executions>
-                        <execution>
-                            <id>default-check</id>
-                            <goals>
-                                <goal>check</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-pmd-plugin</artifactId>
-                    <executions>
-                        <execution>
-                            <id>default-check</id>
-                            <goals>
-                                <goal>check</goal>
-                            </goals>
-                        </execution>
-                        <execution>
-                            <id>default-cpd-check</id>
-                            <goals>
-                                <goal>cpd-check</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                </plugin>
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>findbugs-maven-plugin</artifactId>
-                    <executions>
-                        <execution>
-                            <id>default-check</id>
-                            <goals>
-                                <goal>check</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                </plugin>
-                <plugin>
-                    <groupId>net.oneandone.maven.plugins</groupId>
-                    <artifactId>attach-qar-maven-plugin</artifactId>
-                    <version>1.0</version>
-                    <executions>
-                        <execution>
-                            <id>default-attach</id>
-                            <goals>
-                                <goal>attach</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                </plugin>
             </plugins>
         </pluginManagement>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-pmd-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>findbugs-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>net.oneandone.maven.plugins</groupId>
-                <artifactId>attach-qar-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
     </build>
     <prerequisites>
         <maven>3.0.3</maven>
