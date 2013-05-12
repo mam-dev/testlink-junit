@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>TestState.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="right"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">tljunit surefire RunListeners</a> &gt; <a href="index.html" class="el_package">net.oneandone.testlinkjunit.tljunit</a> &gt; <span class="el_source">TestState.java</span></div><h1>TestState.java</h1><pre class="source lang-java linenums">/**
+ * Copyright 1&amp;1 Internet AG, https://github.com/1and1/
+ *
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package net.oneandone.testlinkjunit.tljunit;
+
+/**
+ * State of the current {@link org.junit.Test}. Note that {@link org.junit.Test}s annotated with
+ * {@link org.junit.Ignore} or with a failing Assumption will be marked as blocked.
+ *
+ * @author Mirko Friedenhagen
+ */
+<span class="pc" id="L24">enum TestState {</span>
+
+    /** Test passed. */
+<span class="fc" id="L27">    passed(&quot;PASSED&quot;, 'p'),</span>
+
+    /** Test blocked as test is ignored or Assumption failed. */
+<span class="fc" id="L30">    blocked(&quot;BLOCKED&quot;, 'b'),</span>
+
+    /** Test failed. */
+<span class="fc" id="L33">    failed(&quot;FAILED&quot;, 'f');</span>
+
+    /** Description shown in XML output. */
+    private final String description;
+
+    /** One letter state shown in XML output. */
+    private final char state;
+
+    /**
+     * Constructor.
+     *
+     * @param description shown in XML output.
+     * @param state       one letter state in XML output.
+     */
+<span class="fc" id="L47">    TestState(final String description, final char state) {</span>
+<span class="fc" id="L48">        this.description = description;</span>
+<span class="fc" id="L49">        this.state = state;</span>
+<span class="fc" id="L50">    }</span>
+
+    /**
+     * @return the description.
+     */
+    String getDescription() {
+<span class="fc" id="L56">        return description;</span>
+    }
+
+    /**
+     * @return the one letter state.
+     */
+    String getState() {
+<span class="fc" id="L63">        return String.valueOf(state);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.6.2.201302030002</span></div></body></html>

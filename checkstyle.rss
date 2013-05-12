@@ -3,7 +3,7 @@
 <rss version="0.91">
   <channel>
     <title>tljunit parent - Checkstyle report</title>
-    <link>http://1and1.github.com/testlink-junit/</link>
+    <link>http://1and1.github.io/testlink-junit/</link>
     <description>tljunit parent - Checkstyle report</description>
     <language>en-us</language>
     <copyright>&#169;2012 - 2013 1&1</copyright>
@@ -13,9 +13,9 @@
              Warnings: 0,
              Infos: 0
       </title>
-            <link>http://1and1.github.com/testlink-junit//checkstyle.html</link>
+            <link>http://1and1.github.io/testlink-junit//checkstyle.html</link>
       <description>
-        <p>Click <a href="http://1and1.github.com/testlink-junit//checkstyle.html">here</a> for the full Checkstyle report.</p>
+        <p>Click <a href="http://1and1.github.io/testlink-junit//checkstyle.html">here</a> for the full Checkstyle report.</p>
 
         <table summary="Files" boder="1">
           <thead>
@@ -29,7 +29,7 @@
           <tbody>
                           <tr>
                 <td>
-                  <a href="http://1and1.github.com/testlink-junit//checkstyle.html#net.oneandone.testlinkjunit.tljunit.package-info.java">net/oneandone/testlinkjunit/tljunit/package-info.java</a>
+                  <a href="http://1and1.github.io/testlink-junit//checkstyle.html#net.oneandone.testlinkjunit.tljunit.package-info.java">net/oneandone/testlinkjunit/tljunit/package-info.java</a>
                 </td>
                 <td>
                   0
@@ -43,7 +43,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://1and1.github.com/testlink-junit//checkstyle.html#net.oneandone.testlinkjunit.tljunit.TestLinkXmlRunListener.java">net/oneandone/testlinkjunit/tljunit/TestLinkXmlRunListener.java</a>
+                  <a href="http://1and1.github.io/testlink-junit//checkstyle.html#net.oneandone.testlinkjunit.tljunit.TestLinkXmlRunListener.java">net/oneandone/testlinkjunit/tljunit/TestLinkXmlRunListener.java</a>
                 </td>
                 <td>
                   0
@@ -57,7 +57,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://1and1.github.com/testlink-junit//checkstyle.html#net.oneandone.testlinkjunit.tljunit.TestLinkUriResolver.java">net/oneandone/testlinkjunit/tljunit/TestLinkUriResolver.java</a>
+                  <a href="http://1and1.github.io/testlink-junit//checkstyle.html#net.oneandone.testlinkjunit.tljunit.TestLinkUriResolver.java">net/oneandone/testlinkjunit/tljunit/TestLinkUriResolver.java</a>
                 </td>
                 <td>
                   0
@@ -71,7 +71,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://1and1.github.com/testlink-junit//checkstyle.html#net.oneandone.testlinkjunit.tljunit.TestLinkId.java">net/oneandone/testlinkjunit/tljunit/TestLinkId.java</a>
+                  <a href="http://1and1.github.io/testlink-junit//checkstyle.html#net.oneandone.testlinkjunit.tljunit.TestLinkId.java">net/oneandone/testlinkjunit/tljunit/TestLinkId.java</a>
                 </td>
                 <td>
                   0
@@ -85,7 +85,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://1and1.github.com/testlink-junit//checkstyle.html#net.oneandone.testlinkjunit.tljunit.AbstractTestLinkRunListener.java">net/oneandone/testlinkjunit/tljunit/AbstractTestLinkRunListener.java</a>
+                  <a href="http://1and1.github.io/testlink-junit//checkstyle.html#net.oneandone.testlinkjunit.tljunit.AbstractTestLinkRunListener.java">net/oneandone/testlinkjunit/tljunit/AbstractTestLinkRunListener.java</a>
                 </td>
                 <td>
                   0
@@ -99,7 +99,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://1and1.github.com/testlink-junit//checkstyle.html#net.oneandone.testlinkjunit.tljunit.InTestLinkXmlRunListener.java">net/oneandone/testlinkjunit/tljunit/InTestLinkXmlRunListener.java</a>
+                  <a href="http://1and1.github.io/testlink-junit//checkstyle.html#net.oneandone.testlinkjunit.tljunit.InTestLinkXmlRunListener.java">net/oneandone/testlinkjunit/tljunit/InTestLinkXmlRunListener.java</a>
                 </td>
                 <td>
                   0
@@ -113,7 +113,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://1and1.github.com/testlink-junit//checkstyle.html#net.oneandone.testlinkjunit.tljunit.AbstractInTestLinkRunListener.java">net/oneandone/testlinkjunit/tljunit/AbstractInTestLinkRunListener.java</a>
+                  <a href="http://1and1.github.io/testlink-junit//checkstyle.html#net.oneandone.testlinkjunit.tljunit.AbstractInTestLinkRunListener.java">net/oneandone/testlinkjunit/tljunit/AbstractInTestLinkRunListener.java</a>
                 </td>
                 <td>
                   0
@@ -127,7 +127,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://1and1.github.com/testlink-junit//checkstyle.html#net.oneandone.testlinkjunit.tljunit.TestState.java">net/oneandone/testlinkjunit/tljunit/TestState.java</a>
+                  <a href="http://1and1.github.io/testlink-junit//checkstyle.html#net.oneandone.testlinkjunit.tljunit.TestState.java">net/oneandone/testlinkjunit/tljunit/TestState.java</a>
                 </td>
                 <td>
                   0
@@ -141,7 +141,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://1and1.github.com/testlink-junit//checkstyle.html#net.oneandone.testlinkjunit.tljunit.InTestLinkLogRunListener.java">net/oneandone/testlinkjunit/tljunit/InTestLinkLogRunListener.java</a>
+                  <a href="http://1and1.github.io/testlink-junit//checkstyle.html#net.oneandone.testlinkjunit.tljunit.InTestLinkLogRunListener.java">net/oneandone/testlinkjunit/tljunit/InTestLinkLogRunListener.java</a>
                 </td>
                 <td>
                   0
@@ -155,7 +155,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://1and1.github.com/testlink-junit//checkstyle.html#net.oneandone.testlinkjunit.tljunit.TestLink.java">net/oneandone/testlinkjunit/tljunit/TestLink.java</a>
+                  <a href="http://1and1.github.io/testlink-junit//checkstyle.html#net.oneandone.testlinkjunit.tljunit.TestLink.java">net/oneandone/testlinkjunit/tljunit/TestLink.java</a>
                 </td>
                 <td>
                   0
@@ -169,7 +169,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://1and1.github.com/testlink-junit//checkstyle.html#net.oneandone.testlinkjunit.tljunit.TestLinkLoggingRunListener.java">net/oneandone/testlinkjunit/tljunit/TestLinkLoggingRunListener.java</a>
+                  <a href="http://1and1.github.io/testlink-junit//checkstyle.html#net.oneandone.testlinkjunit.tljunit.TestLinkLoggingRunListener.java">net/oneandone/testlinkjunit/tljunit/TestLinkLoggingRunListener.java</a>
                 </td>
                 <td>
                   0
