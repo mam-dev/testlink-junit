@@ -12,7 +12,7 @@
     <packaging>pom</packaging>
 
     <name>tljunit parent</name>
-    <url>http://1and1.github.com/testlink-junit/</url>
+    <url>http://1and1.github.io/testlink-junit/</url>
     <description>Modules improving collaboration between JUnit and Testlink.</description>
 
     <organization>
