@@ -39,7 +39,7 @@ final class InTestLinkLogRunListener extends AbstractInTestLinkRunListener {
     private final Logger logger;
 
     /** Additional resolver which creates links to the testcase in Testlink. */
-    private TestLinkUriResolver testLinkUriResolver;
+    private final TestLinkUriResolver testLinkUriResolver;
 
     /**
      * @param logger

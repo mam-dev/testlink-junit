@@ -38,7 +38,7 @@ class InTestLinkXmlRunListener extends AbstractInTestLinkRunListener {
     private final String testerName;
 
     /** Dom-creator for the results of the current testcase. */
-    private ThreadLocal<Xpp3Dom> currentTestCase = new ThreadLocal<Xpp3Dom>();
+    private final ThreadLocal<Xpp3Dom> currentTestCase = new ThreadLocal<Xpp3Dom>();
 
     /**
      * @param testerName Name of the tester, default to the System property user.name.
