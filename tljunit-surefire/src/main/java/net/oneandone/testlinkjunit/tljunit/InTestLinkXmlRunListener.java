@@ -131,6 +131,18 @@ class InTestLinkXmlRunListener extends AbstractInTestLinkRunListener {
     }
 
     /**
+     * Creates a new element.
+     *
+     * @param elementName elementName of XML
+     * @param text value of XML
+     * @return dom
+     */
+    private Xpp3Dom createElementWithText(String elementName, String text) {
+        final Xpp3Dom element = new Xpp3Dom(elementName);
+        element.setValue(text);
+        return element;
+    }
+    /**
      * Creates a new tester element filled with the tester.
      * 
      * @param userName
@@ -138,9 +150,7 @@ class InTestLinkXmlRunListener extends AbstractInTestLinkRunListener {
      * @return &lt;tester&gt; element.
      */
     Xpp3Dom createTester(final String userName) {
-        final Xpp3Dom tester = new Xpp3Dom("tester");
-        tester.setValue(userName);
-        return tester;
+        return createElementWithText("tester", userName);
     }
 
     /**
@@ -152,9 +162,7 @@ class InTestLinkXmlRunListener extends AbstractInTestLinkRunListener {
      */
     Xpp3Dom createTimeStamp(final Date date) {
         final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
-        final Xpp3Dom timestamp = new Xpp3Dom("timestamp");
-        timestamp.setValue(dateFormat.format(date));
-        return timestamp;
+        return createElementWithText("timestamp", dateFormat.format(date));
     }
 
     /**
@@ -165,9 +173,7 @@ class InTestLinkXmlRunListener extends AbstractInTestLinkRunListener {
      * @return &lt;notes&gt; element.
      */
     Xpp3Dom createNotes(final String notesValue) {
-        final Xpp3Dom notes = new Xpp3Dom("notes");
-        notes.setValue(notesValue);
-        return notes;
+        return createElementWithText("notes", notesValue);
     }
 
     /**
@@ -178,9 +184,7 @@ class InTestLinkXmlRunListener extends AbstractInTestLinkRunListener {
      * @return &lt;result&gt; element.
      */
     Xpp3Dom createResult(final TestState testState) {
-        final Xpp3Dom result = new Xpp3Dom("result");
-        result.setValue(testState.getState());
-        return result;
+        return createElementWithText("result", testState.getState());
     }
 
     /**
