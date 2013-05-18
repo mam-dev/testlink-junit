@@ -22,6 +22,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.net.URI;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -31,6 +32,7 @@ import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author mirko
@@ -40,7 +42,9 @@ public class ThreadingIT extends AbstractTestLinkRunListenerTest {
 
     private final ExecutorService pool = Executors.newFixedThreadPool(50);
 
-    private final TestLinkXmlRunListener listener;
+    private final TestLinkXmlRunListener xmlRunListener;
+
+    private final TestLinkLoggingRunListener loggingRunListener;
 
     private final PrintStream out;
 
@@ -51,7 +55,9 @@ public class ThreadingIT extends AbstractTestLinkRunListenerTest {
                 // just do nothing
             }
         });
-        listener = new TestLinkXmlRunListener(out, "donald");
+        xmlRunListener = new TestLinkXmlRunListener(out, "donald");
+        loggingRunListener = new TestLinkLoggingRunListener(LoggerFactory.getLogger("THREADINGIT"),
+                URI.create("http://testlink.example.org/"));
     }
 
     /**
@@ -61,7 +67,7 @@ public class ThreadingIT extends AbstractTestLinkRunListenerTest {
     public void tearDown() throws Exception {
         pool.shutdown();
         pool.awaitTermination(100, TimeUnit.SECONDS);
-        final Xpp3Dom results = listener.getResults();
+        final Xpp3Dom results = xmlRunListener.getResults();
         assertAllTestCasesHaveRequiredElements(results);
         assertEquals(700, results.getChildCount());
         assertEquals(500, countTestsWithExternalIdfinal(results));
@@ -79,7 +85,8 @@ public class ThreadingIT extends AbstractTestLinkRunListenerTest {
     public void testParallel() throws FileNotFoundException {
         for (int i = 0; i < 100; i++) {
             final JUnitCore core = new JUnitCore();
-            core.addListener(listener);
+            core.addListener(xmlRunListener);
+            core.addListener(loggingRunListener);
             pool.execute(new Runnable() {
                 @Override
                 public void run() {
