@@ -27,7 +27,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-import org.codehaus.plexus.util.xml.Xpp3Dom;
+import org.apache.maven.shared.utils.xml.Xpp3Dom;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.JUnitCore;

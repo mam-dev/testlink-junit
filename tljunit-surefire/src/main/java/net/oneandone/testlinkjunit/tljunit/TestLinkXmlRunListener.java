@@ -19,9 +19,10 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.nio.charset.Charset;
-import org.codehaus.plexus.util.IOUtil;
 
-import org.codehaus.plexus.util.xml.Xpp3Dom;
+import org.apache.maven.shared.utils.io.IOUtil;
+import org.apache.maven.shared.utils.xml.Xpp3Dom;
+
 import org.junit.runner.Result;
 
 /**

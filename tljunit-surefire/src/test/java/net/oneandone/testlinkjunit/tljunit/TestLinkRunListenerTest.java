@@ -28,7 +28,7 @@ import java.util.Calendar;
 import java.util.Locale;
 import java.util.TimeZone;
 
-import org.codehaus.plexus.util.xml.Xpp3Dom;
+import org.apache.maven.shared.utils.xml.Xpp3Dom;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.Description;

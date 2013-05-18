@@ -20,7 +20,7 @@ import static org.junit.Assert.assertFalse;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-import org.codehaus.plexus.util.xml.Xpp3Dom;
+import org.apache.maven.shared.utils.xml.Xpp3Dom;
 
 /**
  * @author mirko
