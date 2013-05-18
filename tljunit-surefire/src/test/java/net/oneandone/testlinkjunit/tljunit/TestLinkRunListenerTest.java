@@ -21,6 +21,8 @@ import static org.junit.Assert.fail;
 import static org.junit.Assume.assumeNoException;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.io.PrintStream;
 import java.lang.annotation.Annotation;
 import java.net.URI;
@@ -33,6 +35,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.Description;
 import org.junit.runner.JUnitCore;
+import org.junit.runner.Result;
 import org.slf4j.LoggerFactory;
 
 
@@ -107,5 +110,16 @@ public class TestLinkRunListenerTest extends AbstractTestLinkRunListenerTest {
         // Servername is &auml;&ouml;&uuml;&szlig; - this file should be UTF-8.
         assumeNoException(new IllegalStateException(
                 "can not proceed because server 'äöüß' not available"));
+    }
+
+    @Test(expected = IOException.class)
+    public void testFinalBlockOftestRunFinished() throws Exception {
+        OutputStream stream = new OutputStream() {
+            @Override
+            public void write(int b) throws IOException {
+                throw new IOException("Oops");
+            }
+        };
+        new TestLinkXmlRunListener(stream, "mirko").testRunFinished(new Result());
     }
 }
