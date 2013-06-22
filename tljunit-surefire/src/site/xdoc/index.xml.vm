@@ -47,12 +47,12 @@ public void testExternalId() {
 }]]></source>
                 <p>
                     Tests annotated with
-                    <a href="http://kentbeck.github.com/junit/javadoc/latest/org/junit/Ignore.html">
+                    <a href="http://junit-team.github.io/junit/javadoc/latest/org/junit/Ignore.html">
                         <tt>Ignore</tt>
                     </a>
                     will be marked as
                     <tt>BLOCKED</tt>
-                    as well as tests with <a href="http://kentbeck.github.com/junit/javadoc/latest/org/junit/Assume.html">failing assumptions</a>.
+                    as well as tests with <a href="http://junit-team.github.io/junit/javadoc/latest/org/junit/Assume.html">failing assumptions</a>.
                 </p>
                 <source><![CDATA[
 @Test
