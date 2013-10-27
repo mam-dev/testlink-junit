@@ -4,7 +4,7 @@
     <parent>
         <groupId>net.oneandone.maven.poms</groupId>
         <artifactId>foss-parent</artifactId>
-        <version>1.4.2</version>
+        <version>1.4.3</version>
     </parent>
     <groupId>net.oneandone.testlinkjunit</groupId>
     <artifactId>tljunit-parent</artifactId>
@@ -49,6 +49,7 @@
         <jacoco.check.branchRatio>0.95</jacoco.check.branchRatio>
         <jacoco.check.complexityRatio>0.95</jacoco.check.complexityRatio>
         <jacoco.check.lineRatio>0.95</jacoco.check.lineRatio>
+        <deployAtEnd>true</deployAtEnd>
     </properties>
     <dependencyManagement>
         <dependencies>
