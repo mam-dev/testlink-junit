@@ -1,6 +1,6 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
 tljunit sample project for running tests from eclipse.,net.oneandone.testlinkjunit.tljunit,TestLinkId.ExternalTestLinkId,0,7,0,0,0,3,0,2,0,2
-tljunit sample project for running tests from eclipse.,net.oneandone.testlinkjunit.tljunit,InTestLinkXmlRunListener,5,269,0,4,0,57,0,16,0,14
+tljunit sample project for running tests from eclipse.,net.oneandone.testlinkjunit.tljunit,InTestLinkXmlRunListener,5,259,0,4,0,52,0,17,0,15
 tljunit sample project for running tests from eclipse.,net.oneandone.testlinkjunit.tljunit,TestState,9,58,0,0,0,10,2,4,2,4
 tljunit sample project for running tests from eclipse.,net.oneandone.testlinkjunit.tljunit,TestLinkUriResolver,11,53,1,3,1,10,1,5,0,4
 tljunit sample project for running tests from eclipse.,net.oneandone.testlinkjunit.tljunit,InTestLinkLogRunListener,0,178,1,5,0,29,1,10,0,8

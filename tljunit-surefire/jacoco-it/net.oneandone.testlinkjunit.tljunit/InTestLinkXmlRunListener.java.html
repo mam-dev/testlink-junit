@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>InTestLinkXmlRunListener.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="right"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">tljunit surefire RunListeners</a> &gt; <a href="index.html" class="el_package">net.oneandone.testlinkjunit.tljunit</a> &gt; <span class="el_source">InTestLinkXmlRunListener.java</span></div><h1>InTestLinkXmlRunListener.java</h1><pre class="source lang-java linenums">/**
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>InTestLinkXmlRunListener.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">tljunit surefire RunListeners</a> &gt; <a href="index.source.html" class="el_package">net.oneandone.testlinkjunit.tljunit</a> &gt; <span class="el_source">InTestLinkXmlRunListener.java</span></div><h1>InTestLinkXmlRunListener.java</h1><pre class="source lang-java linenums">/**
  * Copyright 1&amp;1 Internet AG, https://github.com/1and1/
  *
  * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
@@ -19,7 +19,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import org.codehaus.plexus.util.xml.Xpp3Dom;
+import org.apache.maven.shared.utils.xml.Xpp3Dom;
 import org.junit.Ignore;
 import org.junit.runner.Description;
 import org.junit.runner.notification.Failure;
@@ -38,7 +38,7 @@ class InTestLinkXmlRunListener extends AbstractInTestLinkRunListener {
     private final String testerName;
 
     /** Dom-creator for the results of the current testcase. */
-<span class="fc" id="L41">    private ThreadLocal&lt;Xpp3Dom&gt; currentTestCase = new ThreadLocal&lt;Xpp3Dom&gt;();</span>
+<span class="fc" id="L41">    private final ThreadLocal&lt;Xpp3Dom&gt; currentTestCase = new ThreadLocal&lt;Xpp3Dom&gt;();</span>
 
     /**
      * @param testerName Name of the tester, default to the System property user.name.
@@ -131,6 +131,18 @@ class InTestLinkXmlRunListener extends AbstractInTestLinkRunListener {
 <span class="fc" id="L131">    }</span>
 
     /**
+     * Creates a new element.
+     *
+     * @param elementName elementName of XML
+     * @param text value of XML
+     * @return dom
+     */
+    private Xpp3Dom createElementWithText(String elementName, String text) {
+<span class="fc" id="L141">        final Xpp3Dom element = new Xpp3Dom(elementName);</span>
+<span class="fc" id="L142">        element.setValue(text);</span>
+<span class="fc" id="L143">        return element;</span>
+    }
+    /**
      * Creates a new tester element filled with the tester.
      * 
      * @param userName
@@ -138,9 +150,7 @@ class InTestLinkXmlRunListener extends AbstractInTestLinkRunListener {
      * @return &amp;lt;tester&amp;gt; element.
      */
     Xpp3Dom createTester(final String userName) {
-<span class="fc" id="L141">        final Xpp3Dom tester = new Xpp3Dom(&quot;tester&quot;);</span>
-<span class="fc" id="L142">        tester.setValue(userName);</span>
-<span class="fc" id="L143">        return tester;</span>
+<span class="fc" id="L153">        return createElementWithText(&quot;tester&quot;, userName);</span>
     }
 
     /**
@@ -151,10 +161,8 @@ class InTestLinkXmlRunListener extends AbstractInTestLinkRunListener {
      * @return &amp;lt;timestamp&amp;gt; element.
      */
     Xpp3Dom createTimeStamp(final Date date) {
-<span class="fc" id="L154">        final SimpleDateFormat dateFormat = new SimpleDateFormat(&quot;yyyy-MM-dd HH:mm:ss&quot;, Locale.US);</span>
-<span class="fc" id="L155">        final Xpp3Dom timestamp = new Xpp3Dom(&quot;timestamp&quot;);</span>
-<span class="fc" id="L156">        timestamp.setValue(dateFormat.format(date));</span>
-<span class="fc" id="L157">        return timestamp;</span>
+<span class="fc" id="L164">        final SimpleDateFormat dateFormat = new SimpleDateFormat(&quot;yyyy-MM-dd HH:mm:ss&quot;, Locale.US);</span>
+<span class="fc" id="L165">        return createElementWithText(&quot;timestamp&quot;, dateFormat.format(date));</span>
     }
 
     /**
@@ -165,9 +173,7 @@ class InTestLinkXmlRunListener extends AbstractInTestLinkRunListener {
      * @return &amp;lt;notes&amp;gt; element.
      */
     Xpp3Dom createNotes(final String notesValue) {
-<span class="fc" id="L168">        final Xpp3Dom notes = new Xpp3Dom(&quot;notes&quot;);</span>
-<span class="fc" id="L169">        notes.setValue(notesValue);</span>
-<span class="fc" id="L170">        return notes;</span>
+<span class="fc" id="L176">        return createElementWithText(&quot;notes&quot;, notesValue);</span>
     }
 
     /**
@@ -178,23 +184,21 @@ class InTestLinkXmlRunListener extends AbstractInTestLinkRunListener {
      * @return &amp;lt;result&amp;gt; element.
      */
     Xpp3Dom createResult(final TestState testState) {
-<span class="fc" id="L181">        final Xpp3Dom result = new Xpp3Dom(&quot;result&quot;);</span>
-<span class="fc" id="L182">        result.setValue(testState.getState());</span>
-<span class="fc" id="L183">        return result;</span>
+<span class="fc" id="L187">        return createElementWithText(&quot;result&quot;, testState.getState());</span>
     }
 
     /**
      * @return the results
      */
     Xpp3Dom getResults() {
-<span class="fc" id="L190">        return results;</span>
+<span class="fc" id="L194">        return results;</span>
     }
 
     /**
      * @return the currentTestCase
      */
     private Xpp3Dom getCurrentTestCase() {
-<span class="fc" id="L197">        return currentTestCase.get();</span>
+<span class="fc" id="L201">        return currentTestCase.get();</span>
     }
 
     /**
@@ -202,7 +206,7 @@ class InTestLinkXmlRunListener extends AbstractInTestLinkRunListener {
      *            the currentTestCase to set
      */
     private void setCurrentTestCase(Xpp3Dom currentTestCase) {
-<span class="fc" id="L205">        this.currentTestCase.set(currentTestCase);</span>
-<span class="fc" id="L206">    }</span>
+<span class="fc" id="L209">        this.currentTestCase.set(currentTestCase);</span>
+<span class="fc" id="L210">    }</span>
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.6.2.201302030002</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.6.4.201312101107</span></div></body></html>
