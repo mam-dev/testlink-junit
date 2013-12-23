@@ -4,7 +4,7 @@
     <parent>
         <groupId>net.oneandone.maven.poms</groupId>
         <artifactId>foss-parent</artifactId>
-        <version>1.4.3</version>
+        <version>1.4.4</version>
     </parent>
     <groupId>net.oneandone.testlinkjunit</groupId>
     <artifactId>tljunit-parent</artifactId>
@@ -133,38 +133,16 @@
                     <artifactId>jacoco-maven-plugin</artifactId>
                     <executions>
                         <execution>
-                            <id>integration-test-prepare-agent</id>
-                            <phase>pre-integration-test</phase>
+                            <id>default-prepare-agent-integration</id>
                             <goals>
-                                <goal>prepare-agent</goal>
+                                <goal>prepare-agent-integration</goal>
                             </goals>
-                            <configuration>
-                                <destFile>${project.build.directory}/jacoco-it.exec</destFile>
-                                <propertyName>failsafeArgLine</propertyName>
-                            </configuration>
                         </execution>
                         <execution>
-                            <id>integration-test-report</id>
-                            <phase>post-integration-test</phase>
+                            <id>default-report-integration</id>
                             <goals>
                                 <goal>report</goal>
                             </goals>
-                            <configuration>
-                                <dataFile>${project.build.directory}/jacoco-it.exec</dataFile>
-                                <outputDirectory>${project.reporting.outputDirectory}/jacoco-it</outputDirectory>
-                            </configuration>
-                        </execution>
-                    </executions>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-failsafe-plugin</artifactId>
-                    <executions>
-                        <execution>
-                            <id>default-integration-test</id>
-                            <configuration>
-                                <argLine>${failsafeArgLine}</argLine>
-                            </configuration>
                         </execution>
                     </executions>
                 </plugin>
