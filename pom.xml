@@ -62,7 +62,8 @@
                 <groupId>net.oneandone.testlinkjunit</groupId>
                 <artifactId>tljunit-surefire</artifactId>
                 <version>${project.version}</version>
-                <classifier>tests</classifier>
+                <type>test-jar</type>
+                <scope>test</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>

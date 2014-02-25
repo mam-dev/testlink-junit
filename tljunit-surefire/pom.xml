@@ -24,7 +24,7 @@
                 <artifactId>maven-jar-plugin</artifactId>
                 <executions>
                     <execution>
-                        <id>attach-test-jar</id>
+                        <id>default-test-jar</id>
                         <goals>
                             <goal>test-jar</goal>
                         </goals>
