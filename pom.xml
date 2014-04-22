@@ -142,7 +142,7 @@
                         <execution>
                             <id>default-report-integration</id>
                             <goals>
-                                <goal>report</goal>
+                                <goal>report-integration</goal>
                             </goals>
                         </execution>
                     </executions>
