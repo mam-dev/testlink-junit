@@ -61,11 +61,13 @@ public class TestLinkRunListenerTest extends AbstractTestLinkRunListenerTest {
     @Test
     @TestLink(externalId="testCreateTimeStamp")
     public void testCreateTimeStamp() {
+        final TimeZone timeZone = TimeZone.getTimeZone("UTC");
+        TimeZone.setDefault(timeZone);
         final Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"), Locale.US);
         calendar.setTimeInMillis(0);
         final InTestLinkXmlRunListener inTestLinkStrategy = new InTestLinkXmlRunListener("noone");
         Xpp3Dom timeStamp = inTestLinkStrategy.createTimeStamp(calendar.getTime());
-        assertEquals(XML_HEADER + "<timestamp>1970-01-01 01:00:00</timestamp>", timeStamp.toString());
+        assertEquals(XML_HEADER + "<timestamp>1970-01-01 00:00:00</timestamp>", timeStamp.toString());
     }
 
     @Test
