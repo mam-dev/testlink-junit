@@ -77,7 +77,7 @@ import org.junit.runner.Result;
  * }
  * </pre>
  * <p>
- * Now running <kbd>mvn test</kbd> will run your tests and put the resulting TestLink XML file into
+ * Now running <code>mvn test</code> will run your tests and put the resulting TestLink XML file into
  * <tt>target/my-testlink.xml</tt> using <tt>memyselfandi</tt> as name of the user who executed the test run.
  * </p>
  *

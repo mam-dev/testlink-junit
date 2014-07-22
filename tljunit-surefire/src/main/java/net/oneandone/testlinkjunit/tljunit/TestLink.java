@@ -77,11 +77,13 @@ public @interface TestLink {
 
     /**
      * internal_id of a Test to be reported.
+     * @return numeric id of a test.
      */
     long internalId() default 0;
 
     /**
      * external_id of a Test to be reported.
+     * @return alphanumeric id of a test.
      */
     String externalId() default NOT_AVAILABLE;
 }
