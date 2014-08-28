@@ -4,7 +4,7 @@
     <parent>
         <groupId>net.oneandone.maven.poms</groupId>
         <artifactId>foss-parent</artifactId>
-        <version>1.4.8</version>
+        <version>1.4.9</version>
     </parent>
     <groupId>net.oneandone.testlinkjunit</groupId>
     <artifactId>tljunit-parent</artifactId>
@@ -41,6 +41,7 @@
     <properties>
         <maven-checkstyle-plugin.suppressionsLocation>${user.dir}/src/conf/checkstyle-suppressions.xml</maven-checkstyle-plugin.suppressionsLocation>
         <maven.test.redirectTestOutputToFile>true</maven.test.redirectTestOutputToFile>
+        <pmd.excludeFromFailureFile>${user.dir}/src/conf/pmd-exclude.properties</pmd.excludeFromFailureFile>
         <scmpublish.content>target/staging/tljunit-parent</scmpublish.content>
         <!-- define coverage ratios used during jacoco-maven-plugin:check -->
         <jacoco.check.classRatio>0.95</jacoco.check.classRatio>
