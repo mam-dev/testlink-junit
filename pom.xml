@@ -158,4 +158,34 @@
         <module>tljunit-surefire</module>
         <module>tljunit-eclipse</module>
     </modules>
+    <profiles>
+        <profile>
+            <id>set-new-version-from-buildnumber</id>
+            <build>
+                <defaultGoal>build-helper:regex-property versions:set</defaultGoal>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>build-helper-maven-plugin</artifactId>
+                        <version>1.9.1</version>
+                        <executions>
+                            <execution>
+                                <id>default-cli</id>
+                                <goals>
+                                    <goal>regex-property</goal>
+                                </goals>
+                                <configuration>
+                                    <failIfNoMatch>false</failIfNoMatch>
+                                    <name>newVersion</name>
+                                    <value>${project.version}</value>
+                                    <regex>-SNAPSHOT</regex>
+                                    <replacement>.${env.BUILDNUMBER}</replacement>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
