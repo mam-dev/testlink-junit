@@ -116,6 +116,20 @@
             <plugins>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <configuration>
+                        <show>package</show>
+                        <additionalDependencies>
+                            <additionalDependency>
+                                <groupId>net.oneandone.testlinkjunit</groupId>
+                                <artifactId>tljunit-surefire</artifactId>
+                                <version>${project.version}</version>
+                            </additionalDependency>
+                        </additionalDependencies>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-release-plugin</artifactId>
                     <inherited>true</inherited>
                     <configuration>
