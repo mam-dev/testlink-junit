@@ -60,9 +60,6 @@ public class ThreadingIT extends AbstractTestLinkRunListenerTest {
                 URI.create("http://testlink.example.org/"));
     }
 
-    /**
-     * @throws java.lang.Exception
-     */
     @After
     public void tearDown() throws Exception {
         pool.shutdown();

@@ -57,7 +57,7 @@ class TestLinkUriResolver {
     }
 
     /**
-     * http://testlink.sourceforge.net/demo/lib/testcases/archiveData.php?targetTestCase=SM-1&edit=testcase&allowedit=0.
+     * http://testlink.sourceforge.net/demo/lib/testcases/archiveData.php?targetTestCase=SM-1&amp;edit=testcase&amp;allowedit=0.
      * 
      * @param externalTestLinkId
      *            id of the testcase
@@ -73,7 +73,7 @@ class TestLinkUriResolver {
      * Returns a link to the last version of the testcase description.
      *
      * http://testlink.sourceforge.net/demo/lib/testcases/tcPrint.php?testcase_id=2750
-     * http://testlink.sourceforge.net/demo/lib/testcases/archiveData.php?targetTestCase=SM-1&edit=testcase&allowedit=0
+     * http://testlink.sourceforge.net/demo/lib/testcases/archiveData.php?targetTestCase=SM-1&amp;edit=testcase&amp;allowedit=0
      * 
      * @param testLinkId
      *            of the test case.
