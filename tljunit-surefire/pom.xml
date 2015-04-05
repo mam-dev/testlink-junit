@@ -9,7 +9,7 @@
     <artifactId>tljunit-surefire</artifactId>
     <packaging>jar</packaging>
 
-    <name>tljunit surefire RunListeners</name>
+    <name>1-and-1 :: tljunit surefire RunListeners</name>
     <description>Currently two RunListeners, one of which writes an Testlink compatible XML file, the other one logs to an injected slf4j Logger.</description>
     <scm>
         <connection>${project.parent.scm.connection}</connection>

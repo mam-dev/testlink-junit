@@ -7,7 +7,7 @@
         <version>3.0.3-SNAPSHOT</version>
     </parent>
     <artifactId>tljunit-eclipse</artifactId>
-    <name>tljunit sample project for running tests from eclipse.</name>
+    <name>1-and-1 :: tljunit sample project for running tests from eclipse.</name>
     <dependencies>
         <!-- need the same dependencies as tljunit-surefire as we compile this here again. -->
         <dependency>
