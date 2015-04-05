@@ -34,7 +34,8 @@
             <artifactId>logback-classic</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency><!-- include tests jar to run SUTTestLinkRunListener -->
+        <!-- include tests jar to run SUTTestLinkRunListener -->
+        <dependency>
             <groupId>net.oneandone.testlinkjunit</groupId>
             <artifactId>tljunit-surefire</artifactId>
             <type>test-jar</type>
