@@ -40,6 +40,7 @@
     </licenses>
     <properties>
         <maven-checkstyle-plugin.suppressionsLocation>${user.dir}/src/conf/checkstyle-suppressions.xml</maven-checkstyle-plugin.suppressionsLocation>
+        <maven-javadoc-plugin.version>2.10.3</maven-javadoc-plugin.version>
         <maven.test.redirectTestOutputToFile>true</maven.test.redirectTestOutputToFile>
         <pmd.excludeFromFailureFile>${user.dir}/src/conf/pmd-exclude.properties</pmd.excludeFromFailureFile>
         <scmpublish.content>target/staging/tljunit-parent</scmpublish.content>
@@ -114,20 +115,6 @@
     <build>
         <pluginManagement>
             <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-javadoc-plugin</artifactId>
-                    <configuration>
-                        <show>package</show>
-                        <additionalDependencies>
-                            <additionalDependency>
-                                <groupId>net.oneandone.testlinkjunit</groupId>
-                                <artifactId>tljunit-surefire</artifactId>
-                                <version>${project.version}</version>
-                            </additionalDependency>
-                        </additionalDependencies>
-                    </configuration>
-                </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-release-plugin</artifactId>
