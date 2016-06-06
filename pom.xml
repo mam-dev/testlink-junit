@@ -57,6 +57,11 @@
         <dependencies>
             <dependency>
                 <groupId>net.oneandone.testlinkjunit</groupId>
+                <artifactId>tljunit-eclipse</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.oneandone.testlinkjunit</groupId>
                 <artifactId>tljunit-surefire</artifactId>
                 <version>${project.version}</version>
             </dependency>
