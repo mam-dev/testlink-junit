@@ -6,8 +6,9 @@ jdk:
   - oraclejdk7
   - oraclejdk8
 install: 
-  - "mvn -N -q io.takari:maven:wrapper -Dmaven=3.3.9""
-script: "./mvn --errors --show-version --batch-mode -Dversions.skip=true -P foss-parent-verification clean verify site site:stage"
+  - "mvn -N -q io.takari:maven:wrapper -Dmaven=3.3.9"
+script: 
+  - "./mvn --errors --show-version --batch-mode -Dversions.skip=true -P foss-parent-verification clean verify site site:stage"
 cache:
     directories:
     - $HOME/.m2
