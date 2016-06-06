@@ -38,12 +38,16 @@
         <dependency>
             <groupId>net.oneandone.testlinkjunit</groupId>
             <artifactId>tljunit-surefire</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>net.oneandone.testlinkjunit</groupId>
+            <artifactId>tljunit-surefire</artifactId>
             <type>test-jar</type>
             <scope>test</scope>
         </dependency>
     </dependencies>
     <description>Documents how to create a Testlink-XML file when running tests from Eclipse, see EclipseIT.java.</description>
-    <build>
+    <!--build>
         <plugins>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -64,5 +68,5 @@
                 </executions>
             </plugin>
         </plugins>
-    </build>
+    </build-->
 </project>

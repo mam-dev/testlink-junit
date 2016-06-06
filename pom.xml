@@ -50,6 +50,7 @@
         <jacoco.check.branchRatio>0.95</jacoco.check.branchRatio>
         <jacoco.check.complexityRatio>0.95</jacoco.check.complexityRatio>
         <jacoco.check.lineRatio>0.95</jacoco.check.lineRatio>
+        <jacoco-maven-plugin.version>0.7.7.201606060606</jacoco-maven-plugin.version>
         <deployAtEnd>true</deployAtEnd>
     </properties>
     <dependencyManagement>
@@ -157,6 +158,7 @@
     <modules>
         <module>tljunit-surefire</module>
         <module>tljunit-eclipse</module>
+        <module>tljunit-jacoco-aggregate</module>
     </modules>
     <profiles>
         <profile>
