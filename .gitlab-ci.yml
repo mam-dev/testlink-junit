@@ -1,0 +1,43 @@
+variables:
+  MAVEN_OPTS: "-Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=WARN -Dorg.slf4j.simpleLogger.showDateTime=true -Djava.awt.headless=true"
+
+.validate: &validate
+  stage: build
+  script:
+    - 'mvn --show-version --errors --batch-mode --fail-at-end test-compile'
+  except:
+    - gh-pages
+
+.test: &test
+  stage: test
+  script:
+    - 'mvn --show-version --errors --batch-mode --fail-at-end verify site site:stage'
+  except:
+    - gh-pages
+
+before_script:
+  - id
+
+validate:jdk7:
+  <<: *validate
+  image: maven:3.3.9-jdk-7
+
+validate:jdk7:maven-3.3.3:
+  <<: *validate
+  image: maven:3.3.3-jdk-7
+
+validate:jdk8:
+  <<: *validate
+  image: maven:3.3.9-jdk-8
+
+test:jdk7:
+  <<: *test
+  image: maven:3.3.9-jdk-7
+
+test:jdk7:maven-3.3.3:
+  <<: *test
+  image: maven:3.3.3-jdk-7
+
+test:jdk8:
+  <<: *test
+  image: maven:3.3.9-jdk-8
