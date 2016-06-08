@@ -1,12 +1,17 @@
 variables:
   MAVEN_OPTS: "-Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=WARN -Dorg.slf4j.simpleLogger.showDateTime=true -Djava.awt.headless=true"
 
+cache:
+  path:
+    /root/.m2/repository
+
 .validate: &validate
   stage: build
   script:
     - 'mvn --show-version --errors --batch-mode --fail-at-end test-compile'
   except:
     - gh-pages
+    - gl-pages
 
 .test: &test
   stage: test
@@ -14,6 +19,7 @@ variables:
     - 'mvn --show-version --errors --batch-mode --fail-at-end verify site site:stage'
   except:
     - gh-pages
+    - gl-pages
 
 before_script:
   - id
