@@ -6,7 +6,7 @@ jdk:
 install: 
   - "mvn -N -q io.takari:maven:wrapper -Dmaven=3.3.9"
 script: 
-  - 'MAVEN_OPTS="-Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=WARN -Dorg.slf4j.simpleLogger.showDateTime=true -Djava.awt.headless=true" ./mvnw --errors --show-version --batch-mode -Dversions.skip=true -P foss-parent-verification clean verify site site:stage'
+  - 'env MAVEN_SKIP_RC=true MAVEN_OPTS="-Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=WARN -Dorg.slf4j.simpleLogger.showDateTime=true -Djava.awt.headless=true" ./mvnw --errors --show-version --batch-mode -Dversions.skip=true -P foss-parent-verification clean verify site site:stage'
 cache:
     directories:
     - $HOME/.m2
