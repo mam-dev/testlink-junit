@@ -11,7 +11,6 @@ cache:
     - 'mvn --show-version --errors --batch-mode --fail-at-end test-compile'
   except:
     - gh-pages
-    - gl-pages
 
 .test: &test
   stage: test
@@ -19,8 +18,7 @@ cache:
     - 'mvn --show-version --errors --batch-mode --fail-at-end verify site site:stage'
   except:
     - gh-pages
-    - gl-pages
-
+  
 before_script:
   - id
 
@@ -39,3 +37,19 @@ test:jdk7:
 test:jdk8:
   <<: *test
   image: maven:3.3.9-jdk-8
+  artifacts:
+    path:
+      - target/staging/tljunit-parent/
+
+pages:
+  stage: deploy
+  script:
+    - mv target/staging/tljunit-parent/ public
+  dependencies:
+    - test:jdk8
+  artifacts:
+    paths:
+    - public
+  only:
+    - master
+
