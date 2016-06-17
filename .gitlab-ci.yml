@@ -19,7 +19,7 @@ variables:
     - gh-pages
   
 before_script:
-  - id
+  - uname -a
 
 validate:jdk7:
   <<: *validate
