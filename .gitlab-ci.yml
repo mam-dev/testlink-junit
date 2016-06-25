@@ -9,11 +9,11 @@ cache:
   stage: build
   script:
     - 'mvn test-compile'
+    - find * | grep --perl-regexp --regexp='\/target\/(?!classes|test-classes|maven)' | xargs rm --recursive --force
   except:
     - gh-pages
   artifacts:
-    paths:
-      - "*/target/*"
+    untracked: true
 
 .test: &test
   stage: test
@@ -22,9 +22,6 @@ cache:
   except:
     - gh-pages
   
-before_script:
-  - uname -a
-
 validate:jdk7:
   <<: *validate
   image: maven:3.3.9-jdk-7
