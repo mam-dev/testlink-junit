@@ -21,8 +21,8 @@
     </organization>
 
     <ciManagement>
-        <system>Jenkins</system>
-        <url>http://huschteguzzel.de/hudson/job/oneandone-testlink-junit/</url>
+        <system>Travis</system>
+        <url>https://travis-ci.org/1and1/testlink-junit/</url>
     </ciManagement>
 
     <scm>

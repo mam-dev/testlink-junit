@@ -9,7 +9,7 @@ env:
     - MAVEN_OPTS: "-Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=WARN -Dorg.slf4j.simpleLogger.showDateTime=true -Djava.awt.headless=true"
 install: 
   - "mvn -N -q io.takari:maven:wrapper -Dmaven=3.3.9"
-  - "cat $HOME/.mavenrc"
+  - "cat /etc/mavenrc || true"
 script: 
   - './mvnw --errors --show-version --batch-mode -Dversions.skip=true -P foss-parent-verification clean verify site site:stage'
 branches:
