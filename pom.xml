@@ -8,7 +8,7 @@
     </parent>
     <groupId>net.oneandone.testlinkjunit</groupId>
     <artifactId>tljunit-parent</artifactId>
-    <version>3.0.3-SNAPSHOT</version>
+    <version>3.0.3</version>
     <packaging>pom</packaging>
 
     <name>1-and-1 :: tljunit</name>
@@ -29,7 +29,8 @@
         <connection>scm:git:git://github.com/1and1/testlink-junit.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/1and1/testlink-junit.git</developerConnection>
         <url>https://github.com/1and1/testlink-junit/</url>
-    </scm>
+      <tag>net.oneandone.testlinkjunit-3.0.3</tag>
+  </scm>
 
     <licenses>
         <license>
