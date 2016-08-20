@@ -40,6 +40,8 @@
         </license>
     </licenses>
     <properties>
+        <!-- Needed for Maven-3.4.0-SNAPSHOT -->
+        <findbugs-maven-plugin.version>3.0.4</findbugs-maven-plugin.version>
         <maven-checkstyle-plugin.suppressionsLocation>${user.dir}/src/conf/checkstyle-suppressions.xml</maven-checkstyle-plugin.suppressionsLocation>
         <maven.test.redirectTestOutputToFile>true</maven.test.redirectTestOutputToFile>
         <pmd.excludeFromFailureFile>${user.dir}/src/conf/pmd-exclude.properties</pmd.excludeFromFailureFile>
