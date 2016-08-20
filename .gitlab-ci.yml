@@ -10,8 +10,6 @@ variables:
     - 'mvn test-compile'
   except:
     - gh-pages
-  artifacts:
-    untracked: true
 
 .test: &test
   stage: test
@@ -24,9 +22,17 @@ validate:jdk7:
   <<: *validate
   image: mfriedenhagen/docker-maven:3.3.9-jdk-7
 
+validate:jdk7:3.4.0-SNAPSHOT:
+  <<: *validate
+  image: mfriedenhagen/docker-maven:3.4.0-SNAPSHOT-jdk-7
+
 validate:jdk8:
   <<: *validate
   image: mfriedenhagen/docker-maven:3.3.9-jdk-8
+
+validate:jdk8:3.4.0-SNAPSHOT:
+  <<: *validate
+  image: mfriedenhagen/docker-maven:3.4.0-SNAPSHOT-jdk-8
 
 test:jdk7:
   <<: *test
@@ -38,6 +44,14 @@ test:jdk8:
   artifacts:
     paths:
       - target/staging/tljunit-parent/
+
+test:jdk7:3.4.0-SNAPSHOT:
+  <<: *test
+  image: mfriedenhagen/docker-maven:3.4.0-SNAPSHOT-jdk-7
+
+test:jdk8:3.4.0-SNAPSHOT:
+  <<: *test
+  image: mfriedenhagen/docker-maven:3.4.0-SNAPSHOT-jdk-8
 
 pages:
   image: busybox:latest
